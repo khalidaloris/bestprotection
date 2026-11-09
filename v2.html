@@ -265,7 +265,7 @@ function changePassword(){
 async function logout(msg){
   try{if(C&&C.dirty)await saveNow()}catch(e){}
   try{await sb.rpc('log_event',{p_action:'logout',p_details:{}})}catch(e){}
-  clearTimeout(idleT);await sb.auth.signOut();S.user=null;S.profile=null;C=null;location.hash='';renderLogin(msg)
+  clearTimeout(idleT);S.user=null;S.profile=null;C=null;await sb.auth.signOut();location.hash='';renderLogin(msg)
 }
 
 /* ========== الهيكل والتوجيه ========== */
@@ -744,7 +744,7 @@ function actions(){
   if(r.status==='in_progress'){if(canApprove()&&act)out.push(b('cancel','إلغاء','bad'))}
   if(r.status==='delivered'&&isMgr())out.push(b('archive','أرشفة','sec'));
   const child=C.versions.find(v=>v.parent_contract_id===r.id&&['draft','pending_approval'].includes(v.status));
-  if(['approved','in_progress','delivered'].includes(r.status)&&r.is_current&&act&&!child)out.push(b('newver','＋ نسخة جديدة / ملحق تعديل','line'));
+  if(['approved','in_progress','delivered'].includes(r.status)&&r.is_current&&act&&!child)out.push(b('newver','✎ تصحيح خطأ / نسخة جديدة','line'));
   if(child)out.push(`<a class="btn line" href="#/c/${esc(child.id)}">فتح النسخة الجديدة (${STATUS[child.status]})</a>`);
   out.push(b('pdfShop','PDF — نسخة المحل','sec'),b('pdfCust','PDF — نسخة العميل','sec'));
   if(isOwner())out.push(`<a class="btn line" href="#/audit?rec=${esc(r.id)}">سجل هذا العقد</a>`);
@@ -823,7 +823,7 @@ const ACT_FN={
     const warn=C.photos.some(p=>p.phase==='after')?'':'<br><b>تنبيه:</b> لا توجد صور ما بعد التنفيذ.';
     if(!await confirmBox('تأكيد التسليم النهائي','بعد التأكيد تُقفل بيانات التسليم.'+warn,'تأكيد التسليم','ok'))return;await setStatus('delivered');toast('تم التسليم','ok')},
   newver:async()=>{
-    const why=await promptBox('نسخة جديدة / ملحق تعديل','سبب التعديل (مطلوب). تبقى النسخة الحالية محفوظة كما هي، وتُنشأ نسخة جديدة كمسودة تحتاج توقيعاً واعتماداً.','إنشاء النسخة',true);if(!why)return;
+    const why=await promptBox('تصحيح خطأ / نسخة جديدة','سبب التصحيح (مطلوب). تبقى النسخة الحالية محفوظة، وتُنشأ نسخة جديدة كمسودة تصحّح فيها الخطأ ثم توقّعها وتعتمدها، فتصير هي النسخة السارية وتظهر القديمة بعلامة «مستبدلة».','إنشاء النسخة',true);if(!why)return;
     const nd=clone(C.o.data);nd.version_note=why;nd.shop=await shopSnap();
     const {data,error}=await sb.from('contracts').insert({parent_contract_id:C.row.id,customer_name:C.row.customer_name,customer_phone:C.row.customer_phone,plate_no:C.row.plate_no,data:nd,created_by:S.user.id}).select('id').single();
     if(error)throw error;location.hash='#/c/'+data.id},
@@ -867,7 +867,8 @@ function docHTML(mode,opt){
   const v=x=>x?esc(x):blank;
   const kv=(l,x)=>`<div><b>${l}</b>${v(x)}</div>`;
   const final=['approved','in_progress','delivered','archived'].includes(r.status);
-  const stLabel=r.status==='cancelled'?'عقد ملغي':final?'':'مسودة — غير معتمد بعد';
+  const newer=C.versions.filter(x=>x.version>r.version&&x.status!=='cancelled').sort((a,b)=>b.version-a.version)[0];
+  const stLabel=r.status==='cancelled'?'عقد ملغي':(!r.is_current&&newer&&['approved','in_progress','delivered','archived'].includes(newer.status))?`نسخة قديمة مستبدلة بالنسخة ${newer.version} (${esc(newer.contract_no)})`:final?'':'مسودة — غير معتمد بعد';
   let h=`<div class="hdr"><img src="${LOGO}" alt=""><div style="flex:1"><div style="font-size:17px;font-weight:700">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')}</div><div class="sub">${esc(shop.name_en||'Best Protection')}</div>
   <div class="sub">السجل التجاري: ${shop.cr?esc(shop.cr):'............'} · الرقم الضريبي: ${shop.vat?esc(shop.vat):'............'}</div><div class="sub">العنوان: ${shop.address?esc(shop.address):'............'} · التواصل: ${shop.phone?esc(shop.phone):'............'}${shop.email?' · '+esc(shop.email):''}</div></div>
   <div style="text-align:left"><span class="tag">${cust?'نسخة العميل':'نسخة المحل'}</span><div style="font-size:15px;font-weight:700">${esc(r.contract_no)}</div><div class="sub">النسخة ${r.version} · ${esc(STATUS[r.status])}</div><div class="sub">${dt(r.created_at)}</div></div></div>
