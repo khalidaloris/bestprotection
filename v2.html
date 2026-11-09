@@ -187,6 +187,7 @@ const badge=s=>`<span class="badge b-${esc(s)}">${esc(STATUS[s]||s)}</span>`;
 const ERRMAP=[['Invalid login credentials','الإيميل أو كلمة المرور غير صحيحة'],['Email not confirmed','الحساب غير مفعّل بعد'],['rate limit','محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة'],
 ['IMMUTABLE_FIELD','لا يمكن تغيير هذا الحقل'],['BAD_TRANSITION','هذا الانتقال في حالة العقد غير مسموح'],['NOT_ALLOWED_APPROVE','ليس لديك صلاحية الاعتماد'],
 ['CANCEL_REASON_REQUIRED','سبب الإلغاء مطلوب'],['NOT_ALLOWED_CANCEL','إلغاء عقد معتمد يحتاج صلاحية اعتماد'],['NOT_ALLOWED_ARCHIVE','الأرشفة للمالك أو المشرف فقط'],
+['NOT_ALLOWED_DELETE','الحذف للمالك فقط'],['DELETE_REASON_REQUIRED','سبب الحذف مطلوب'],['CANNOT_DELETE_APPROVED','العقد المعتمد لا يُحذف (يمكن إلغاؤه أو أرشفته)'],['HAS_VERSIONS','للعقد نسخ مرتبطة به ولا يمكن حذفه'],
 ['CONTRACT_LOCKED','العقد مقفل ولا يمكن تعديله'],['DELIVERY_LOCKED','بيانات التسليم مقفلة في هذه الحالة'],['BAD_PATH','مسار الملف غير صحيح'],
 ['PARENT_NOT_APPROVED','يمكن إنشاء نسخة جديدة من عقد معتمد فقط'],['NOT_ALLOWED_PARENT','لا تملك صلاحية على العقد الأصلي'],['CANNOT_CHANGE_OWN_ROLE','لا يمكنك تغيير دورك أو تعطيل حسابك بنفسك'],
 ['row-level security','ليس لديك صلاحية لهذه العملية'],['permission denied','ليس لديك صلاحية لهذه العملية'],['Failed to fetch','تعذر الاتصال بالإنترنت'],['NetworkError','تعذر الاتصال بالإنترنت']];
@@ -387,7 +388,7 @@ async function pageUsers(main){
 }
 
 /* ========== سجل العمليات (المالك) ========== */
-const ACT={login:'دخول',logout:'خروج',export_pdf:'تصدير PDF',view_contract:'فتح عقد',contract_created:'إنشاء عقد',contract_version_created:'إنشاء نسخة جديدة',contract_updated:'تعديل بيانات عقد',contract_status_pending_approval:'إرسال للاعتماد',contract_status_approved:'اعتماد العقد',contract_status_draft:'إرجاع للمسودة',contract_status_in_progress:'بدء التنفيذ',contract_status_delivered:'تسليم نهائي',contract_status_cancelled:'إلغاء العقد',contract_status_archived:'أرشفة',profile_created:'إنشاء مستخدم',profile_updated:'تعديل مستخدم/صلاحيات',settings_updated:'تعديل إعدادات المحل',signature_added:'إضافة توقيع',signature_removed:'حذف توقيع',photo_added:'إضافة صورة',photo_removed:'حذف صورة'};
+const ACT={login:'دخول',logout:'خروج',export_pdf:'تصدير PDF',view_contract:'فتح عقد',contract_created:'إنشاء عقد',contract_version_created:'إنشاء نسخة جديدة',contract_updated:'تعديل بيانات عقد',contract_deleted:'حذف عقد',contract_status_pending_approval:'إرسال للاعتماد',contract_status_approved:'اعتماد العقد',contract_status_draft:'إرجاع للمسودة',contract_status_in_progress:'بدء التنفيذ',contract_status_delivered:'تسليم نهائي',contract_status_cancelled:'إلغاء العقد',contract_status_archived:'أرشفة',profile_created:'إنشاء مستخدم',profile_updated:'تعديل مستخدم/صلاحيات',settings_updated:'تعديل إعدادات المحل',signature_added:'إضافة توقيع',signature_removed:'حذف توقيع',photo_added:'إضافة صورة',photo_removed:'حذف صورة'};
 async function pageAudit(main,params){
   setNav('audit');document.title='سجل العمليات — Best Protection';
   if(!isOwner()){main.innerHTML='<div class="card err">هذه الصفحة للمالك فقط.</div>';return}
@@ -404,6 +405,7 @@ async function pageAudit(main,params){
     const {data,error}=await q;const box=$('#ares');if(error){box.innerHTML=`<div class="card err">${esc(errMsg(error))}</div>`;return}
     const html=data.map(x=>{const d=x.details||{};let sum='';
       if(x.action.startsWith('contract_status_'))sum=`${esc(STATUS[d.from]||d.from)} ← ${esc(STATUS[d.to]||d.to)}${d.reason?' — السبب: '+esc(d.reason):''}`;
+      if(x.action==='contract_deleted')sum=`حُذف — السبب: ${esc(d.reason||'')} · ${esc(d.customer_name||'')}`;
       if(d.contract_no)sum=`<b>${esc(d.contract_no)}</b> ${sum}`;
       if(x.action==='contract_updated'&&d.old_data){const ch=diffLines(d.old_data,d.new_data);sum+=`تغييرات: ${ch.length}`}
       if(x.action==='profile_updated'&&d.new)sum=`${esc(d.email||'')}: ${esc(ROLE[d.old.role]||d.old.role)}→${esc(ROLE[d.new.role]||d.new.role)} · اعتماد ${d.new.can_approve?'نعم':'لا'} · ${d.new.active?'مفعّل':'معطّل'}`;
@@ -426,7 +428,24 @@ async function pageSettings(main){
   main.innerHTML=`<h1 class="pt">إعدادات المحل</h1><div class="card"><div class="warn">اتركها فارغة إذا لم تتوفر. لا يضيف النظام أي رقم سجل أو ضريبة أو عنوان من عنده. تظهر هذه البيانات في رأس العقد، وتُحفظ نسخة منها داخل كل عقد عند إنشائه/تعديله كمسودة.</div>
   <div class="g">${F.map(f=>`<div><label>${f[1]}</label><input data-k="${f[0]}" value="${esc((s&&s[f[0]])||'')}"></div>`).join('')}</div><button class="btn" id="ss" style="margin-top:10px">حفظ</button></div>`;
   $('#ss').onclick=async()=>{const patch={updated_by:S.user.id,updated_at:new Date().toISOString()};$$('[data-k]',main).forEach(i=>patch[i.dataset.k]=i.value.trim());
-    const {data:d,error:e}=await sb.from('shop_settings').update(patch).eq('id',1).select();if(e||!d||!d.length)toast(e?errMsg(e):'لم يتم الحفظ','bad');else toast('تم الحفظ','ok')};
+    const {data:d,error:e}=await sb.from('shop_settings').update(patch).eq('id',1).select();if(e||!d||!d.length)toast(e?errMsg(e):'لم يتم الحفظ','bad');else{SHOP=null;toast('تم الحفظ','ok')}};
+  // قالب الشروط والأحكام
+  let tl=(Array.isArray(s&&s.terms)&&s.terms.length?s.terms:TERMS.map(t=>({t:t[0],b:t[1]}))).map(x=>({t:String(x.t||''),b:String(x.b||'')}));
+  main.insertAdjacentHTML('beforeend',`<div class="card"><h3>قالب الشروط والأحكام</h3>
+  <div class="warn">يُنسخ هذا القالب إلى كل عقد جديد عند إنشائه. تعديله لا يغيّر العقود الموجودة (المعتمدة تبقى كما اعتُمدت، والمسودات تقدر تحدّثها من خطوة الشروط). المدد تُكتب في النص هكذا: <span class="mono">{wash_days}</span> <span class="mono">{window_days}</span> <span class="mono">{maint_months}</span> <span class="mono">{pickup_days}</span> <span class="mono">{complaint_days}</span> <span class="mono">{response_days}</span> وتُعبَّأ داخل كل عقد. لا تتجاوز صياغتها مراجعة مستشار قانوني.</div>
+  <div id="tl"></div><button class="btn line" id="tadd">＋ إضافة بند</button><button class="btn sec" id="trs">استرجاع القالب الافتراضي</button><button class="btn" id="tsv">حفظ القالب</button></div>`);
+  const drawT=()=>{$('#tl').innerHTML=tl.map((c,i)=>`<div class="svc"><div class="hd"><span>${i+1}.</span><input data-ti="${i}" data-f="t" value="${esc(c.t)}" placeholder="عنوان البند"><button class="btn sm sec" data-tm="up" data-i="${i}">↑</button><button class="btn sm sec" data-tm="dn" data-i="${i}">↓</button><button class="btn sm bad" data-tm="del" data-i="${i}">حذف</button></div><textarea rows="3" data-ti="${i}" data-f="b" style="margin-top:6px">${esc(c.b)}</textarea></div>`).join('')};
+  drawT();
+  $('#tl').oninput=e=>{const t=e.target;if(t.dataset.ti!==undefined)tl[+t.dataset.ti][t.dataset.f]=t.value};
+  $('#tl').onclick=e=>{const b=e.target.closest('[data-tm]');if(!b)return;const i=+b.dataset.i,m=b.dataset.tm;
+    if(m==='del')tl.splice(i,1);else if(m==='up'&&i>0)[tl[i-1],tl[i]]=[tl[i],tl[i-1]];else if(m==='dn'&&i<tl.length-1)[tl[i+1],tl[i]]=[tl[i],tl[i+1]];drawT()};
+  $('#tadd').onclick=()=>{tl.push({t:'',b:''});drawT()};
+  $('#trs').onclick=async()=>{if(!await confirmBox('استرجاع الافتراضي','سيُستبدل النص المعروض بالقالب الافتراضي (لا يُحفظ إلا بعد ضغط «حفظ القالب»).','استرجاع'))return;tl=TERMS.map(t=>({t:t[0],b:t[1]}));drawT()};
+  $('#tsv').onclick=async()=>{
+    if(!tl.length||tl.length>30||tl.some(c=>!c.t.trim()||!c.b.trim()||c.t.length>120||c.b.length>1500)){toast('كل بند يحتاج عنواناً ونصاً (النص حتى 1500 حرف) وعدد البنود من 1 إلى 30','bad');return}
+    if(!await confirmBox('حفظ القالب','ستُنسخ هذه الصياغة إلى العقود الجديدة فقط.','حفظ'))return;
+    const {data:d,error:e}=await sb.from('shop_settings').update({terms:tl.map(c=>({t:c.t.trim(),b:c.b.trim()})),updated_by:S.user.id,updated_at:new Date().toISOString()}).eq('id',1).select();
+    if(e||!d||!d.length)toast(e?errMsg(e):'لم يتم الحفظ','bad');else{SHOP=null;toast('تم حفظ القالب','ok')}};
 }
 
 /* ========== مقارنة بيانات العقد (سجل التغييرات) ========== */
@@ -490,8 +509,11 @@ function totals(d){let g=0,disc=0;
 
 /* ========== تحميل وإنشاء ========== */
 const viewed=new Set();
+async function termsTemplate(){await shopSnap();const t=SHOP&&SHOP.terms;
+  if(Array.isArray(t)&&t.length&&t.every(x=>x&&typeof x.t==='string'&&typeof x.b==='string'))return t.map(x=>({t:x.t,b:x.b}));
+  return TERMS.map(t=>({t:t[0],b:t[1]}))}
 async function createContract(){
-  const data=initialData();data.shop=await shopSnap();
+  const data=initialData();data.shop=await shopSnap();data.terms=await termsTemplate();
   const {data:row,error}=await sb.from('contracts').insert({customer_name:'',customer_phone:'',plate_no:'',data,created_by:S.user.id}).select('id').single();
   if(error)throw error;
   location.replace('#/c/'+row.id);
@@ -659,6 +681,7 @@ function s3(){const d=C.o.data;const sel=d.services.map((s,i)=>({s,i})).filter(x
 function s4(){const d=C.o.data,staff=S.profile.full_name||'';
   return `<div class="card"><h3>مدد الشروط</h3><p class="nt">تظهر هذه القيم داخل بنود الشروط. الحقل الفارغ يظهر في العقد كخط فارغ ____.</p><div class="g">${TP.map(t=>Fi.t(t[1],'data.tp.'+t[0],{dg:'n'})).join('')}</div></div>
   <div class="card"><h3>الشروط والأحكام</h3><ol class="terms">${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}</ol>
+  ${DIS?'':'<button class="btn line sm" data-act="refterms">تحديث الشروط من القالب الحالي</button>'}
   <div class="warn">ملاحظة قانونية: صياغة هذه الشروط عامة ولم تُراجَع قانونياً. يُنصح بعرضها على مستشار قانوني مرخّص قبل الاعتماد التشغيلي لها، خصوصاً بنود الضمان والمسؤولية والتعويض والشكاوى.</div></div>
   <div class="card"><h3>ملاحظات داخلية (تظهر في نسخة المحل فقط)</h3>${Fi.a('','data.internal_notes',3)}</div>
   <div class="card"><h3>تواقيع العقد</h3><div class="g2">${sigPanel('contract_customer',editableData(),d.customer.name)}${sigPanel('contract_staff',editableData(),staff)}</div></div>`}
@@ -725,6 +748,7 @@ function actions(){
   if(child)out.push(`<a class="btn line" href="#/c/${esc(child.id)}">فتح النسخة الجديدة (${STATUS[child.status]})</a>`);
   out.push(b('pdfShop','PDF — نسخة المحل','sec'),b('pdfCust','PDF — نسخة العميل','sec'));
   if(isOwner())out.push(`<a class="btn line" href="#/audit?rec=${esc(r.id)}">سجل هذا العقد</a>`);
+  if(isOwner()&&!r.approved_at&&['draft','cancelled'].includes(r.status)&&!C.versions.some(v=>v.parent_contract_id===r.id))out.push(b('delcontract','حذف العقد نهائياً','bad'));
   return out.join('')}
 function footNav(){const last=C.step===STEPS.length-1,act=canActOn();
   return `<div class="foot"><div><button class="btn sec" data-act="prev" ${C.step?'':'disabled'}>← السابق</button></div><div>${last?`<button class="btn ok" data-act="submit">إرسال للاعتماد</button>`:`<button class="btn" data-act="next">التالي →</button>`}</div></div>`}
@@ -803,6 +827,17 @@ const ACT_FN={
     const nd=clone(C.o.data);nd.version_note=why;nd.shop=await shopSnap();
     const {data,error}=await sb.from('contracts').insert({parent_contract_id:C.row.id,customer_name:C.row.customer_name,customer_phone:C.row.customer_phone,plate_no:C.row.plate_no,data:nd,created_by:S.user.id}).select('id').single();
     if(error)throw error;location.hash='#/c/'+data.id},
+  refterms:async()=>{if(!await confirmBox('تحديث الشروط','ستُستبدل شروط هذا العقد بالقالب الحالي المعتمد من المالك.','تحديث'))return;
+    SHOP=null;C.o.data.terms=await termsTemplate();touch();$('#stepbody').innerHTML=stepBody();initPads($('#stepbody'));toast('تم تحديث الشروط','ok')},
+  delcontract:async()=>{
+    if(!isOwner())return;
+    const why=await promptBox('حذف العقد نهائياً','سبب الحذف (مطلوب). سيُحذف العقد وتواقيعه وصوره ولا يمكن استرجاعه، ويُحفظ في سجل العمليات نسخة من بياناته.','متابعة',true);if(!why)return;
+    if(!await confirmBox('تأكيد الحذف النهائي','هل أنت متأكد من حذف <b>'+esc(C.row.contract_no)+'</b> نهائياً؟','نعم، احذف','bad'))return;
+    const paths=C.photos.map(p=>p.storage_path),id=C.row.id;
+    const {error}=await sb.rpc('delete_contract',{p_id:id,p_reason:why});if(error)throw error;
+    C.dirty=false;try{localStorage.removeItem(bkKey())}catch(e){}
+    if(paths.length){const rm=await sb.storage.from('contract-files').remove(paths);if(rm.error)toast('حُذف العقد، لكن تعذر حذف بعض ملفات الصور','bad')}
+    toast('تم حذف العقد','ok');location.hash='#/contracts'},
   pdfShop:()=>printDoc('shop'),pdfCust:()=>printDoc('customer')
 };
 
