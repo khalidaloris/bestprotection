@@ -425,7 +425,7 @@ async function pageSettings(main){
   if(!isOwner()){main.innerHTML='<div class="card err">هذه الصفحة للمالك فقط.</div>';return}
   loading(main);const {data:s,error}=await sb.from('shop_settings').select('*').eq('id',1).maybeSingle();if(error)throw error;
   const F=[['shop_name_ar','اسم المحل (عربي)'],['shop_name_en','اسم المحل (إنجليزي)'],['commercial_register','رقم السجل التجاري'],['vat_number','الرقم الضريبي'],['address','العنوان'],['phone','رقم التواصل'],['email','البريد الإلكتروني']];
-  main.innerHTML=`<h1 class="pt">إعدادات المحل</h1><div class="card"><div class="warn">اتركها فارغة إذا لم تتوفر. لا يضيف النظام أي رقم سجل أو ضريبة أو عنوان من عنده. تظهر هذه البيانات في رأس العقد، وتُحفظ نسخة منها داخل كل عقد عند إنشائه/تعديله كمسودة.</div>
+  main.innerHTML=`<h1 class="pt">إعدادات المحل</h1><div class="card"><div class="warn">اتركها فارغة إذا لم تتوفر. لا يضيف النظام أي رقم سجل أو ضريبة أو عنوان من عنده. تظهر هذه البيانات في رأس العقد، وتُحفظ نسخة منها داخل كل عقد، وتتحدث تلقائياً في المسودات عند فتحها، ثم تثبت عند الاعتماد.</div>
   <div class="g">${F.map(f=>`<div><label>${f[1]}</label><input data-k="${f[0]}" value="${esc((s&&s[f[0]])||'')}"></div>`).join('')}</div><button class="btn" id="ss" style="margin-top:10px">حفظ</button></div>`;
   $('#ss').onclick=async()=>{const patch={updated_by:S.user.id,updated_at:new Date().toISOString()};$$('[data-k]',main).forEach(i=>patch[i.dataset.k]=i.value.trim());
     const {data:d,error:e}=await sb.from('shop_settings').update(patch).eq('id',1).select();if(e||!d||!d.length)toast(e?errMsg(e):'لم يتم الحفظ','bad');else{SHOP=null;toast('تم الحفظ','ok')}};
@@ -490,7 +490,7 @@ function initialData(){return{
   services:SERVICES.map(s=>newService(s)),
   fin:{vat:true,deposit:'',paid:'',method:''},
   tp:{wash_days:'',window_days:'',maint_months:'',pickup_days:'',complaint_days:'',response_days:''},
-  terms:TERMS.map(t=>({t:t[0],b:t[1]})),internal_notes:'',shop:{}}}
+  terms:TERMS.map(t=>({t:t[0],b:t[1]})),extra_terms:[],internal_notes:'',shop:{}}}
 const newService=s=>({k:s.k,name:s.n,desc:s.d,sel:false,qty:'',price:'',discount:'',x:{},w:{}});
 function ensureData(d){const b=initialData();d=d||{};for(const k of Object.keys(b))if(d[k]==null)d[k]=b[k];for(const k of ['customer','vehicle','fin','tp'])d[k]=Object.assign({},b[k],d[k]);
   d.services.forEach(s=>{s.x=s.x||{};s.w=s.w||{}});return d}
@@ -658,12 +658,9 @@ function stepper(){const n=STEPS.length;return `<div class="stepper"><div class=
 function stepBody(){DIS=editableData()?'':'disabled';return [s0,s1,s2,s3,s4,s5][C.step]()}
 function s0(){return `<div class="card"><h3>بيانات العميل</h3><div class="g">${Fi.t('اسم العميل *','data.customer.name')}${Fi.t('رقم الجوال *','data.customer.phone',{type:'tel',dg:'n'})}${Fi.t('الهوية / الإقامة (اختياري)','data.customer.id_no',{dg:'n'})}${Fi.t('رقم الفاتورة','data.customer.invoice_no',{dg:'x'})}${Fi.t('تاريخ استلام المركبة','data.customer.received_date',{type:'date'})}${Fi.t('تاريخ التسليم المتوقع','data.customer.expected_date',{type:'date'})}</div></div>
   <div class="card"><h3>بيانات المركبة</h3><div class="g">${Fi.t('نوع السيارة','data.vehicle.type')}${Fi.t('الشركة المصنعة','data.vehicle.make')}${Fi.t('الموديل','data.vehicle.model')}${Fi.t('سنة الصنع','data.vehicle.year',{dg:'n'})}${Fi.t('لون السيارة','data.vehicle.color')}${Fi.t('رقم اللوحة *','data.vehicle.plate',{dg:'x'})}${Fi.t('رقم الهيكل VIN (اختياري)','data.vehicle.vin',{dg:'x'})}${Fi.t('قراءة العداد (كم)','data.vehicle.odometer',{dg:'n'})}${Fi.s('مستوى الوقود','data.vehicle.fuel',FUEL)}</div></div>`}
-function s1(){const d=C.o.data;return `<div class="card"><h3>فحص حالة السيارة عند الاستلام</h3><div class="sc"><table class="t"><tr><th>البند</th><th style="width:150px">الحالة</th><th>التفاصيل</th></tr>${d.check.map((c,i)=>`<tr><td>${esc(c.n)}</td><td><select data-p="data.check.${i}.s" ${DIS}><option ${c.s==='سليم'?'selected':''}>سليم</option><option ${c.s==='به ملاحظة'?'selected':''}>به ملاحظة</option></select></td><td><input data-p="data.check.${i}.t" value="${esc(c.t)}" ${DIS}></td></tr>`).join('')}</table></div>
-  <p class="nt">اضغط على الرسم لوضع علامة في مكان الملاحظة، واختر نوعها. اضغط على العلامة لحذفها.</p>
-  <div class="kinds" id="kinds">${Object.keys(KINDS).map(k=>`<span data-kind="${k}" class="${k===curKind?'on':''}">(${k}) ${KINDS[k]}</span>`).join('')}</div>
-  <div class="g2"><div id="carwrap">${carSVG(d.marks,true)}</div><div><b>العلامات:</b><ol id="mlist">${marksList()}</ol></div></div></div>
+function s1(){const d=C.o.data;return `<div class="card"><h3>فحص حالة السيارة عند الاستلام</h3><div class="sc"><table class="t"><tr><th>البند</th><th style="width:150px">الحالة</th><th>التفاصيل</th><th></th></tr>${d.check.map((c,i)=>`<tr><td><input data-p="data.check.${i}.n" value="${esc(c.n)}" ${DIS}></td><td><select data-p="data.check.${i}.s" ${DIS}><option ${c.s==='سليم'?'selected':''}>سليم</option><option ${c.s==='به ملاحظة'?'selected':''}>به ملاحظة</option></select></td><td><input data-p="data.check.${i}.t" value="${esc(c.t)}" ${DIS}></td><td>${DIS?'':`<button class="btn sm bad" data-act="delchk" data-i="${i}">حذف</button>`}</td></tr>`).join('')}</table></div>
+  ${DIS?'':'<button class="btn line sm" data-act="addchk">＋ إضافة بند فحص</button>'}<p class="nt">اكتب أي ملاحظة على السيارة في «التفاصيل»، ووثّقها بالصور أدناه.</p></div>
   <div class="card"><h3>صور الاستلام (قبل البدء)</h3><p class="nt">صوّر السيارة من الجهات الأربع والداخل وأي ضرر موجود، قبل بدء العمل.</p>${photosPanel('before',editableData())}</div>`}
-const marksList=()=>C.o.data.marks.map(m=>`<li>(${esc(m.k)}) ${esc(KINDS[m.k]||'')}</li>`).join('')||'<li class="nt" style="list-style:none">لا توجد علامات</li>';
 function s2(){const d=C.o.data,T=totals(d);
   const cards=d.services.map((s,i)=>`<div class="svc ${s.sel?'on':''}" id="svc${i}"><div class="hd"><input type="checkbox" data-p="data.services.${i}.sel" ${s.sel?'checked':''} ${DIS}>${SERVICES.find(x=>x.k===s.k&&x.custom)?`<input type="text" data-p="data.services.${i}.name" value="${esc(s.name)}" placeholder="اسم الخدمة الإضافية" ${DIS}>${DIS?'':`<button class="btn sm bad" data-act="delsvc" data-i="${i}">حذف</button>`}`:`<span>${esc(s.name)}</span>`}</div>
   <div class="g" style="margin-top:6px"><div style="grid-column:1/-1"><label>الوصف المختصر</label><textarea rows="2" data-p="data.services.${i}.desc" ${DIS}>${esc(s.desc)}</textarea></div>${Fi.t('الكمية / المساحة','data.services.'+i+'.qty',{dg:'x'})}${Fi.t('السعر (ر.س)','data.services.'+i+'.price',{dg:'d'})}${Fi.t('الخصم (ر.س)','data.services.'+i+'.discount',{dg:'d'})}<div><label>الإجمالي</label><b id="lt${i}">${money(T.lines[i])}</b></div></div></div>`).join('');
@@ -683,6 +680,9 @@ function s4(){const d=C.o.data,staff=S.profile.full_name||'';
   <div class="card"><h3>الشروط والأحكام</h3><ol class="terms">${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}</ol>
   ${DIS?'':'<button class="btn line sm" data-act="refterms">تحديث الشروط من القالب الحالي</button>'}
   <div class="warn">ملاحظة قانونية: صياغة هذه الشروط عامة ولم تُراجَع قانونياً. يُنصح بعرضها على مستشار قانوني مرخّص قبل الاعتماد التشغيلي لها، خصوصاً بنود الضمان والمسؤولية والتعويض والشكاوى.</div></div>
+  <div class="card"><h3>بنود إضافية خاصة بهذا العقد</h3><p class="nt">اتفاقات خاصة مع هذا العميل (مثلاً: موعد محدد، أو شرط خاص). تظهر بعد الشروط العامة في العقد وفي نسخة العميل.</p>
+  ${d.extra_terms.map((c,i)=>`<div class="svc"><div class="hd"><span>${d.terms.length+i+1}.</span><input data-p="data.extra_terms.${i}.t" value="${esc(c.t)}" placeholder="عنوان البند" ${DIS}>${DIS?'':`<button class="btn sm bad" data-act="delextra" data-i="${i}">حذف</button>`}</div><textarea rows="2" data-p="data.extra_terms.${i}.b" style="margin-top:6px" ${DIS}>${esc(c.b)}</textarea></div>`).join('')}
+  ${DIS?'':'<button class="btn line sm" data-act="addextra">＋ إضافة بند لهذا العقد</button>'}</div>
   <div class="card"><h3>ملاحظات داخلية (تظهر في نسخة المحل فقط)</h3>${Fi.a('','data.internal_notes',3)}</div>
   <div class="card"><h3>تواقيع العقد</h3><div class="g2">${sigPanel('contract_customer',editableData(),d.customer.name)}${sigPanel('contract_staff',editableData(),staff)}</div></div>`}
 const termText=(b,tp)=>esc(b).replace(/\{(\w+)\}/g,(m,k)=>tp&&tp[k]?`<b>${esc(tp[k])}</b>`:'____');
@@ -713,6 +713,7 @@ async function pageContract(main,id){
       if(await confirmBox('تعديلات غير محفوظة','وُجدت تعديلات على هذا الجهاز لم تُحفظ في النظام. هل تريد استعادتها؟','استعادة')){
         if(editableData())C.o.data=ensureData(bk.data);else C.o.delivery=bk.delivery;touch()}
       else localStorage.removeItem(bkKey())}}catch(e){}
+  if(editableData()){const sn=await shopSnap();if(JSON.stringify(sn)!==JSON.stringify(C.o.data.shop||{})){C.o.data.shop=sn;touch()}}
   renderContract(main);
   main.onclick=onClick;main.oninput=onField;main.onchange=onChange;
 }
@@ -774,13 +775,6 @@ async function onClick(e){
   if(!C)return;
   const z=e.target.closest('[data-zoom]');if(z){const lb=document.createElement('div');lb.className='lightbox';lb.innerHTML=`<img src="${esc(z.dataset.zoom)}" alt="">`;lb.onclick=()=>lb.remove();document.body.append(lb);return}
   const st=e.target.closest('[data-step]');if(st){await goStep(+st.dataset.step);return}
-  const kd=e.target.closest('[data-kind]');if(kd){curKind=kd.dataset.kind;$$('#kinds span').forEach(x=>x.classList.toggle('on',x.dataset.kind===curKind));return}
-  const svg=e.target.closest('#carsvg');
-  if(svg&&editableData()){
-    const mi=e.target.closest('[data-mi]');
-    if(mi)C.o.data.marks.splice(+mi.dataset.mi,1);
-    else{const p=svg.createSVGPoint();p.x=e.clientX;p.y=e.clientY;const q=p.matrixTransform(svg.getScreenCTM().inverse());C.o.data.marks.push({x:Math.round(q.x),y:Math.round(q.y),k:curKind})}
-    $('#carwrap').innerHTML=carSVG(C.o.data.marks,true);$('#mlist').innerHTML=marksList();touch();return}
   const bt=e.target.closest('[data-act]');if(!bt)return;
   const a=bt.dataset.act,fn=ACT_FN[a];if(fn){bt.disabled=true;try{await fn(bt)}catch(x){if(!/CONFLICT/.test(String(x&&x.message)))toast(errMsg(x),'bad')}finally{bt.disabled=false}}}
 async function goStep(n){
@@ -798,6 +792,10 @@ async function setStatus(to,extra){
 
 const ACT_FN={
   prev:()=>goStep(C.step-1),next:()=>goStep(C.step+1),
+  addchk:()=>{C.o.data.check.push({n:'',s:'سليم',t:''});touch();$('#stepbody').innerHTML=stepBody()},
+  delchk:b=>{C.o.data.check.splice(+b.dataset.i,1);touch();$('#stepbody').innerHTML=stepBody()},
+  addextra:()=>{C.o.data.extra_terms.push({t:'',b:''});touch();$('#stepbody').innerHTML=stepBody();initPads($('#stepbody'))},
+  delextra:b=>{C.o.data.extra_terms.splice(+b.dataset.i,1);touch();$('#stepbody').innerHTML=stepBody();initPads($('#stepbody'))},
   addsvc:()=>{const d=SERVICES.find(s=>s.custom);C.o.data.services.push(newService(d));touch();$('#stepbody').innerHTML=stepBody()},
   delsvc:async b=>{const i=+b.dataset.i;if(!await confirmBox('حذف الخدمة','هل تريد حذف هذه الخدمة الإضافية؟','حذف','bad'))return;C.o.data.services.splice(i,1);touch();$('#stepbody').innerHTML=stepBody()},
   delphoto:async b=>{if(!await confirmBox('حذف الصورة','سيتم حذف الصورة من العقد (يُسجَّل ذلك في سجل العمليات).','حذف','bad'))return;
@@ -875,8 +873,7 @@ function docHTML(mode,opt){
   <div style="text-align:center;font-size:16px;font-weight:700;margin:8px 0">عقد استلام مركبة وتنفيذ خدمات العناية والحماية بالسيارات</div>${stLabel?`<div class="wm">${stLabel}</div>`:''}`;
   h+=`<h4>بيانات العميل</h4><div class="kv">${kv('اسم العميل',d.customer.name)}${kv('رقم الجوال',d.customer.phone)}${kv('الهوية / الإقامة',d.customer.id_no)}${kv('رقم الفاتورة',d.customer.invoice_no)}${kv('تاريخ الاستلام',d.customer.received_date)}${kv('التسليم المتوقع',d.customer.expected_date)}</div>
   <h4>بيانات المركبة</h4><div class="kv">${kv('نوع السيارة',d.vehicle.type)}${kv('الشركة',d.vehicle.make)}${kv('الموديل',d.vehicle.model)}${kv('سنة الصنع',d.vehicle.year)}${kv('اللون',d.vehicle.color)}${kv('رقم اللوحة',d.vehicle.plate)}${kv('رقم الهيكل',d.vehicle.vin)}${kv('العداد (كم)',d.vehicle.odometer)}${kv('الوقود',d.vehicle.fuel)}</div>`;
-  h+=`<h4>فحص حالة السيارة عند الاستلام</h4><table><tr><th>البند</th><th style="width:90px">الحالة</th><th>التفاصيل</th></tr>${d.check.map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.s)}</td><td>${esc(c.t)}</td></tr>`).join('')}</table>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start">${carSVG(d.marks,false)}<div><b>العلامات على الرسم:</b><ol>${d.marks.map(m=>`<li>(${esc(m.k)}) ${esc(KINDS[m.k]||'')}</li>`).join('')||'<li style="list-style:none">لا توجد علامات</li>'}</ol></div></div>`;
+  h+=`<h4>فحص حالة السيارة عند الاستلام</h4><table><tr><th>البند</th><th style="width:90px">الحالة</th><th>التفاصيل</th></tr>${d.check.map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.s)}</td><td>${esc(c.t)}</td></tr>`).join('')}</table>`;
   const sel=d.services.map((s,i)=>({s,i})).filter(x=>x.s.sel);
   h+=`<h4>الخدمات والأسعار</h4><table><tr><th>الخدمة</th><th>الوصف</th><th>الكمية</th><th>السعر</th><th>الخصم</th><th>الإجمالي</th></tr>${sel.map(({s,i})=>`<tr><td>${esc(s.name)}</td><td>${esc(s.desc)}</td><td>${esc(s.qty)}</td><td>${money(nm(s.price))}</td><td>${money(nm(s.discount))}</td><td>${money(T.lines[i])}</td></tr>`).join('')||'<tr><td colspan="6">—</td></tr>'}</table>
   <table style="width:55%;margin-inline-start:0"><tr><td class="l">إجمالي الخدمات</td><td>${money(T.g)}</td></tr><tr><td class="l">الخصم</td><td>${money(T.disc)}</td></tr><tr><td class="l">المبلغ قبل الضريبة</td><td>${money(T.net)}</td></tr><tr><td class="l">ضريبة القيمة المضافة 15%${d.fin.vat?'':' (غير مطبقة)'}</td><td>${money(T.vat)}</td></tr><tr class="tot"><td class="l">الإجمالي النهائي</td><td>${money(T.total)}</td></tr><tr><td class="l">العربون</td><td>${money(nm(d.fin.deposit))}</td></tr><tr><td class="l">المدفوع (شامل العربون)</td><td>${money(T.paid)}</td></tr><tr class="tot"><td class="l">المتبقي</td><td>${money(T.rem)}</td></tr><tr><td class="l">طريقة الدفع</td><td>${v(d.fin.method)}</td></tr></table>`;
@@ -888,7 +885,7 @@ function docHTML(mode,opt){
   if(det)h+=`<h4>تفاصيل المواد والضمان</h4><div class="small">لا يوجد أي ضمان إلا ما دُوِّن في هذا القسم صراحةً، ويُميَّز بين ضمان المحل (على جودة التنفيذ) وضمان الشركة المصنعة (وفق شروطها الفعلية).</div>${det}`;
   // سجل التغييرات
   if(C.parent){const ch=diffLines(C.parent.data,d);h+=`<h4>ملحق تعديل — النسخة ${r.version} (تعديل على ${esc(C.parent.contract_no)} نسخة ${C.parent.version})</h4><div>سبب التعديل: <b>${esc(d.version_note||'—')}</b></div>${ch.length?`<table><tr><th>البند</th><th>قبل</th><th>بعد</th></tr>${ch.slice(0,60).map(x=>`<tr><td>${esc(x.k)}</td><td>${esc(x.a)}</td><td>${esc(x.b)}</td></tr>`).join('')}</table>`:'<div class="small">لا توجد فروق في البيانات عن النسخة السابقة.</div>'}`}
-  h+=`<h4>الشروط والأحكام</h4><ol>${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}</ol>`;
+  h+=`<h4>الشروط والأحكام</h4><ol>${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}${(d.extra_terms||[]).filter(t=>t.t||t.b).map(t=>`<li><b>${esc(t.t)}:</b> ${esc(t.b)}</li>`).join('')}</ol>`;
   const sg=k=>{const s=sigOf(k);return s?`<img src="${safeImg(s.image)}" alt=""><div class="small">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>`:'<div class="small">— لم يُوقَّع —</div>'};
   h+=`<h4>التواقيع</h4><div class="sigs"><div><b>العميل</b>${sg('contract_customer')}</div><div><b>الموظف المسؤول — ${esc(shop.name_en||'Best Protection')}</b>${sg('contract_staff')}</div></div>`;
   // التسليم
