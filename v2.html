@@ -125,10 +125,13 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
 .paper .hdr img{height:56px;width:auto}
 .paper .hdr .sub{font-size:11px;color:#cfd4dc}
 .paper .tag{display:inline-block;border:1px solid #888;border-radius:4px;padding:0 8px;font-size:12px;font-weight:700}
-.paper h4{margin:12px 0 4px;font-size:14px;border-bottom:2px solid #2f6fe4;color:#2f6fe4;padding-bottom:2px}
+.paper h4{margin:9px 0 3px;font-size:13.5px;break-after:avoid;border-bottom:2px solid #2f6fe4;color:#2f6fe4;padding-bottom:2px}
 .paper table{border-collapse:collapse;width:100%;margin:4px 0}
 .paper th{background:#0b0b0b;color:#fff;font-size:12px;padding:3px 5px;text-align:right}
-.paper td{border:1px solid #bbb;padding:3px 6px;vertical-align:top;font-size:12.5px}
+.paper td{border:1px solid #bbb;padding:2px 5px;vertical-align:top;font-size:12px}
+.paper tr,.paper li,.paper figure{break-inside:avoid}
+.paper .two{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:start}
+.paper .two table{margin:0}
 .paper td.l{background:#e9ecf1;font-weight:700;width:22%}
 .paper .kv{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border:1px solid #bbb}
 .paper .kv div{padding:3px 6px;border:1px solid #ddd;font-size:12.5px}
@@ -157,7 +160,14 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
   #print-root{display:block}
   #print-root .paper{border:0;padding:0;overflow:visible}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .paper h4,.paper table,.paper .sigs{break-inside:avoid}
+  .paper{font-size:10.5px;line-height:1.4}
+  .paper td,.paper .kv div{font-size:10.5px;padding:1.5px 4px}
+  .paper th{font-size:10.5px;padding:2px 4px}
+  .paper h4{margin:6px 0 2px;font-size:12px}
+  .paper .hdr{padding:5px 12px}.paper .hdr img{height:44px}
+  .paper .sigs>div{min-height:70px}
+  .paper .sigs{break-inside:avoid}
+  .paper .phg img{height:90px}
 }
 </style></head><body><div id="app"><div class="login"><div class="card muted" style="text-align:center">جارٍ التحميل…</div></div></div><div id="print-root"></div><div id="toasts"></div><div id="modal"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.97.0/dist/umd/supabase.js"></script>
@@ -886,7 +896,9 @@ function docHTML(mode,opt){
   <div style="text-align:center;font-size:16px;font-weight:700;margin:8px 0">عقد استلام مركبة وتنفيذ خدمات العناية والحماية بالسيارات</div>${stLabel?`<div class="wm">${stLabel}</div>`:''}`;
   h+=`<h4>بيانات العميل</h4><div class="kv">${kv('اسم العميل',d.customer.name)}${kv('رقم الجوال',d.customer.phone)}${kv('الهوية / الإقامة',d.customer.id_no)}${kv('رقم الفاتورة',d.customer.invoice_no)}${kv('تاريخ الاستلام',d.customer.received_date)}${kv('التسليم المتوقع',d.customer.expected_date)}</div>
   <h4>بيانات المركبة</h4><div class="kv">${kv('نوع السيارة',d.vehicle.type)}${kv('الشركة',d.vehicle.make)}${kv('الموديل',d.vehicle.model)}${kv('سنة الصنع',d.vehicle.year)}${kv('اللون',d.vehicle.color)}${kv('رقم اللوحة',d.vehicle.plate)}${kv('رقم الهيكل',d.vehicle.vin)}${kv('العداد (كم)',d.vehicle.odometer)}${kv('الوقود',d.vehicle.fuel)}</div>`;
-  h+=`<h4>فحص حالة السيارة عند الاستلام</h4><table><tr><th>البند</th><th style="width:90px">الحالة</th><th>التفاصيل</th></tr>${d.check.map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.s)}</td><td>${esc(c.t)}</td></tr>`).join('')}</table>`;
+  const ck=(L)=>`<table><tr><th>البند</th><th style="width:62px">الحالة</th><th>التفاصيل</th></tr>${L.map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.s)}</td><td>${esc(c.t)}</td></tr>`).join('')}</table>`;
+  const half=Math.ceil(d.check.length/2);
+  h+=`<h4>فحص حالة السيارة عند الاستلام</h4><div class="two">${ck(d.check.slice(0,half))}${d.check.length>half?ck(d.check.slice(half)):''}</div>`;
   if(!cust)h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start">${carSVG(d.marks,false)}<div><b>العلامات على الرسم (للاستخدام الداخلي):</b><ol>${d.marks.map(m=>`<li>(${esc(m.k)}) ${esc(KINDS[m.k]||'')}</li>`).join('')||'<li style="list-style:none">لا توجد علامات</li>'}</ol></div></div>`;
   const sel=d.services.map((s,i)=>({s,i})).filter(x=>x.s.sel);
   h+=`<h4>الخدمات والأسعار</h4><table><tr><th>الخدمة</th><th>الوصف</th><th>الكمية</th><th>السعر</th><th>الخصم</th><th>الإجمالي</th></tr>${sel.map(({s,i})=>`<tr><td>${esc(s.name)}</td><td>${esc(s.desc)}</td><td>${esc(s.qty)}</td><td>${money(nm(s.price))}</td><td>${money(nm(s.discount))}</td><td>${money(T.lines[i])}</td></tr>`).join('')||'<tr><td colspan="6">—</td></tr>'}</table>
@@ -895,7 +907,7 @@ function docHTML(mode,opt){
   let det='';sel.forEach(({s})=>{const def=SERVICES.find(x=>x.k===s.k)||{f:[]};
     const rows=(def.f||[]).filter(f=>s.x[f[1]]).map(f=>`<tr><td class="l">${f[0]}</td><td>${esc(s.x[f[1]])}</td></tr>`).join('');
     let wr='';if(def.w){const w=s.w||{};const any=WFIELDS.some(f=>w[f[1]]);wr=any?WFIELDS.filter(f=>w[f[1]]).map(f=>`<tr><td class="l">${f[0]}</td><td>${esc(w[f[1]])}</td></tr>`).join(''):`<tr><td class="l">الضمان</td><td>لا يوجد ضمان مدوَّن لهذه الخدمة</td></tr>`}
-    if(rows||wr)det+=`<b>${esc(s.name||'خدمة إضافية')}</b><table>${rows}${wr}</table>`});
+    if(rows||wr)det+=`<div style="break-inside:avoid"><b>${esc(s.name||'خدمة إضافية')}</b><table>${rows}${wr}</table></div>`});
   if(det)h+=`<h4>تفاصيل المواد والضمان</h4><div class="small">لا يوجد أي ضمان إلا ما دُوِّن في هذا القسم صراحةً، ويُميَّز بين ضمان المحل (على جودة التنفيذ) وضمان الشركة المصنعة (وفق شروطها الفعلية).</div>${det}`;
   // سجل التغييرات
   if(C.parent){const ch=diffLines(C.parent.data,d);h+=`<h4>ملحق تعديل — النسخة ${r.version} (تعديل على ${esc(C.parent.contract_no)} نسخة ${C.parent.version})</h4><div>سبب التعديل: <b>${esc(d.version_note||'—')}</b></div>${ch.length?`<table><tr><th>البند</th><th>قبل</th><th>بعد</th></tr>${ch.slice(0,60).map(x=>`<tr><td>${esc(x.k)}</td><td>${esc(x.a)}</td><td>${esc(x.b)}</td></tr>`).join('')}</table>`:'<div class="small">لا توجد فروق في البيانات عن النسخة السابقة.</div>'}`}
