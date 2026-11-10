@@ -199,6 +199,14 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
 .paper .two table{margin:0}
 @media(max-width:640px){.paper .pair,.paper .sum,.paper .wg{grid-template-columns:1fr}.paper ol{column-count:1}.paper .stypes{grid-template-columns:1fr 1fr}}
 .paper .cbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;padding:6px 12px;background:#030303;color:#fff;border-radius:8px;border-bottom:3px solid #2f6fe4;font-size:12px;break-inside:avoid}.paper .cbar b{color:#8fb4f7}
+.paper .hdr .hm{flex:1;text-align:center}
+.paper .hdr .hn{font-size:20px;font-weight:800;color:#fff;line-height:1.3}
+.paper .hdr .he{font-size:12px;letter-spacing:4px;color:#8fb4f7;font-weight:600;margin-bottom:6px}
+.paper .hdr .hc{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.paper .hdr .hc span{border:1px solid #3a4a6b;border-radius:6px;padding:2px 12px;font-size:11px;color:#e6ecf7;background:rgba(47,111,228,.12)}
+.paper .hdr .hc b{color:#8fb4f7;font-weight:600;margin-inline-end:6px}
+.paper .hdr .hd{text-align:center;font-size:13px;font-weight:700;color:#fff;min-width:96px;border-inline-start:1px solid #3a4a6b;padding-inline-start:14px}
+.paper .hdr .hd b{display:block;font-size:10px;color:#8fb4f7;font-weight:600}
 .pfoot{display:none}
 .paper .stypes{gap:4px}
 .paper .st .ic,.paper .hdr .beam,.paper .hdr .carline{display:none}
@@ -215,7 +223,7 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
   .paper td,.paper .kv div{font-size:10.5px;padding:1.5px 4px}
   .paper th{font-size:10.5px;padding:2px 4px}
   .paper h4{margin:6px 0 2px;font-size:12px}
-  .paper .hdr{padding:5px 12px}.paper .hdr img{height:44px}
+  .paper .hdr{padding:8px 14px}.paper .hdr img{height:52px}.paper .hdr .hn{font-size:17px}
   .paper .sigs>div{min-height:70px}
   .paper .sigs{break-inside:avoid}
   .paper .phg img{height:90px}
@@ -951,9 +959,9 @@ function docHTML(mode,opt){
   const final=['approved','in_progress','delivered','archived'].includes(r.status);
   const newer=C.versions.filter(x=>x.version>r.version&&x.status!=='cancelled').sort((a,b)=>b.version-a.version)[0];
   const stLabel=r.status==='cancelled'?'عقد ملغي':(!r.is_current&&newer&&['approved','in_progress','delivered','archived'].includes(newer.status))?`نسخة قديمة مستبدلة بالنسخة ${newer.version} (${esc(newer.contract_no)})`:final?'':'مسودة — غير معتمد بعد';
-  let h=`<div class="hdr"><img src="${LOGO}" alt=""><div style="flex:1"><div style="font-size:17px;font-weight:700">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')}</div><div class="sub">${esc(shop.name_en||'Best Protection')}</div>
-  <div class="sub">السجل التجاري / CR: ${shop.cr?esc(shop.cr):'............'} · الرقم الضريبي / VAT: ${shop.vat?esc(shop.vat):'............'}</div></div>
-  <div style="text-align:left">${cust?'':'<span class="tag">نسخة المحل · Shop Copy</span>'}<div style="font-size:15px;font-weight:700">${esc(r.contract_no)}</div><div class="sub">النسخة ${r.version} · ${esc(STATUS[r.status])}</div><div class="sub">${dt(r.created_at)}</div></div></div>
+  let h=`<div class="hdr"><img src="${LOGO}" alt=""><div class="hm"><div class="hn">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')}</div><div class="he" dir="ltr">${esc(shop.name_en||'Best Protection')}</div>
+  <div class="hc"><span><b>السجل التجاري / CR</b> ${shop.cr?esc(shop.cr):'............'}</span><span><b>الرقم الضريبي / VAT</b> ${shop.vat?esc(shop.vat):'............'}</span></div></div>
+  <div class="hd"><b>التاريخ / Date</b>${dt(r.created_at)}</div></div>
   <div class="ttl">عقد استلام مركبة وتنفيذ خدمات العناية والحماية بالسيارات<span class="en" dir="ltr">Vehicle Reception &amp; Car Care / Protection Services Contract</span></div>${stLabel?`<div class="wm">${stLabel}</div>`:''}`;
   const rw=(l,e,x)=>`<div class="rw"><span class="lb">${l}<i dir="ltr">${e}</i></span><span class="vl">${v(x)}</span></div>`;
   h+=`<h4><span>بيانات العميل والمركبة</span><span class="en" dir="ltr">Customer &amp; Vehicle</span></h4><div class="pair"><div class="pc"><div class="ph2">العميل <i dir="ltr">Customer</i></div>${rw('الاسم','Name',d.customer.name)}${rw('الجوال','Mobile',d.customer.phone)}${rw('رقم الفاتورة','Invoice No.',d.customer.invoice_no)}${rw('تاريخ الاستلام','Received',d.customer.received_date)}${rw('التسليم المتوقع','Expected',d.customer.expected_date)}</div>
