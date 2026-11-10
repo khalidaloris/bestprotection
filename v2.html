@@ -153,7 +153,58 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
 #print-root{display:none}
 .pv{position:fixed;inset:0;z-index:45;background:var(--bg);overflow:auto;padding:8px 10px env(safe-area-inset-bottom,8px)}
 .pvbar{position:sticky;top:0;z-index:2;background:var(--bg);padding:6px 0;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+/* bilingual contract */
+.paper .en{display:block;font-style:normal;font-weight:400;font-size:.88em;color:#555;direction:ltr;text-align:left}
+.paper h4{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.paper h4 .en{color:#2f6fe4;font-weight:600;display:inline}
+.paper .ttl{text-align:center;font-size:16px;font-weight:700;margin:10px 0 6px}
+.paper .ttl .en{text-align:center;font-size:12px;font-weight:500}
+.paper .kv i{font-style:normal;font-size:10px;color:#777;font-weight:400}
+.paper td .en,.paper .l .en{font-size:10px}
+.paper tr:nth-child(even) td:not(.l){background:#f7f8fa}
+.paper .stypes{display:grid;grid-template-columns:repeat(3,1fr);gap:4px}
+.paper .st{display:flex;align-items:center;gap:6px;border:1px solid #ccc;border-radius:4px;padding:3px 6px;font-size:12px;break-inside:avoid}
+.paper .st.on{border-color:#2f6fe4;background:#eef4ff;font-weight:700}
+.paper .cb{flex:none;width:14px;height:14px;border:1.5px solid #333;border-radius:2px;display:inline-flex;align-items:center;justify-content:center;font-size:12px;line-height:1;color:#2f6fe4;background:#fff}
+.paper .disc{border:1.5px solid #2f6fe4;border-radius:6px;margin:10px 0;break-inside:avoid;overflow:hidden}
+.paper .disc .dh{background:#2f6fe4;color:#fff;display:flex;justify-content:space-between;padding:3px 10px;font-weight:700}
+.paper .disc .dh .en{display:inline;color:#fff}
+.paper .disc .dr{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:5px 10px;border-top:1px solid #cdd9f3}
+.paper .disc .dr:first-of-type{border-top:0}
+.paper .disc p{margin:0}
+/* ---- layout v3 ---- */
+.paper .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch}
+.paper .sum{break-inside:avoid;display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:stretch;margin-top:8px}
+.paper .pc{border:1px solid #dfe3e9;border-radius:12px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
+.paper .ph2{background:#0b0b0b;color:#fff;padding:4px 12px;font-weight:700;display:flex;align-items:center;gap:8px;border-bottom:2px solid #2f6fe4}
+.paper .ph2 i,.paper .rw .lb i,.paper .due i{font-style:normal;font-weight:400;font-size:.8em;color:#9fb4d8;direction:ltr}
+.paper .rw{display:flex;justify-content:space-between;align-items:baseline;gap:8px;padding:4px 12px;border-bottom:1px solid #eceff3}
+.paper .rw:nth-child(even){background:#f8f9fb}
+.paper .rw .lb{color:#5d636c;font-size:.92em}.paper .rw .lb i{color:#98a0ac;margin-inline-start:6px}
+.paper .rw .vl{font-weight:700;text-align:start}
+.paper .plate{margin-inline-start:0;background:#fff;color:#0b0b0b;border:2px solid #0b0b0b;border-inline-start:6px solid #2f6fe4;border-radius:5px;padding:0 10px;font-weight:800;letter-spacing:1px;direction:ltr}
+.paper .pill{display:inline-block;border-radius:20px;padding:0 9px;font-size:.9em;font-weight:700;background:#eceff3;color:#444}
+.paper .pill.g{background:#e3f5ee;color:#0f7d5a}.paper .pill.a{background:#fff1da;color:#a35f00}
+.paper .due{margin-top:auto;background:linear-gradient(135deg,#0b0b0b,#1c2638);color:#fff;display:flex;justify-content:space-between;align-items:center;padding:6px 12px;border-top:2px solid #2f6fe4}
+.paper .due b{font-size:1.35em;letter-spacing:.3px}
+.paper table.tt{height:100%}.paper table.tt td.l{width:auto}.paper .wg td.l{width:46%}.paper .keep{break-inside:avoid}
+.paper table.tt td{padding:5px 10px}
+.paper .wg{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:start}
+.paper .wg>div{break-inside:avoid}
+.paper .wg b{display:block;background:#eef1f5;border-radius:8px 8px 0 0;padding:2px 10px;border:1px solid #dfe3e9;border-bottom:0}
+.paper .wg table{border-radius:0 0 8px 8px;margin:0}
+.paper ol{column-count:2;column-gap:18px;column-rule:1px solid #e3e6eb;padding-inline-start:18px}
+.paper ol li{break-inside:avoid;text-align:justify}
+.paper ol li::marker{color:#2f6fe4;font-weight:800}
+.paper .two table{margin:0}
+@media(max-width:640px){.paper .pair,.paper .sum,.paper .wg{grid-template-columns:1fr}.paper ol{column-count:1}.paper .stypes{grid-template-columns:1fr 1fr}}
+.paper .cbar{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px;padding:6px 12px;background:#030303;color:#fff;border-radius:8px;border-bottom:3px solid #2f6fe4;font-size:12px;break-inside:avoid}.paper .cbar b{color:#8fb4f7}
+.pfoot{display:none}
+.paper .stypes{gap:4px}
+.paper .st .ic,.paper .hdr .beam,.paper .hdr .carline{display:none}
+.paper .ttl::after{display:none}
 @media print{
+  .paper .stypes{gap:3px}.paper .st{font-size:10.5px;padding:2px 5px}
   @page{size:A4;margin:11mm}
   body{background:#fff!important;color:#000}
   #app,#toasts,#modal,.lightbox,.pv{display:none!important}
@@ -168,6 +219,10 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
   .paper .sigs>div{min-height:70px}
   .paper .sigs{break-inside:avoid}
   .paper .phg img{height:90px}
+  .paper .ttl{margin:6px 0 4px;font-size:15px}
+  .paper .rw{padding:2px 8px}.paper .ph2{padding:2px 8px}
+  .paper table.tt td{padding:3px 6px}
+  .pfoot{display:block;margin-top:8px;text-align:center;font-size:8.5px;color:#777;border-top:1px solid #bbb;padding-top:3px}
 }
 </style></head><body><div id="app"><div class="login"><div class="card muted" style="text-align:center">جارٍ التحميل…</div></div></div><div id="print-root"></div><div id="toasts"></div><div id="modal"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.97.0/dist/umd/supabase.js"></script>
@@ -477,19 +532,21 @@ const CHECK=["حالة الطلاء الخارجي","الخدوش الموجود
 const FUEL=['فارغ','ربع','نصف','ثلاثة أرباع','ممتلئ'];
 /* f: [التسمية, المفتاح, النوع(t|a|s), خيارات] */
 const SERVICES=[
- {k:'detailing',n:'غسيل سيارات تفصيلي (Detailing)',d:'غسيل وتنظيف شامل للسيارة من الداخل والخارج',f:[['ملاحظات التنفيذ','notes','a']]},
- {k:'polish_ext',n:'تلميع خارجي',d:'إزالة الهالات والخدوش الخفيفة وإعادة لمعان الطلاء',f:[['ملاحظات التنفيذ','notes','a']]},
- {k:'polish_int',n:'تلميع داخلي',d:'تنظيف وتلميع وحماية الأسطح الداخلية للسيارة',f:[['ملاحظات التنفيذ','notes','a']]},
- {k:'paint_corr',n:'تلميع ومعالجة الطلاء',d:'معالجة عيوب الطلاء وتصحيحه بحسب حالته',w:1,f:[['عدد مراحل التلميع','stages'],['سماكة الطلاء قبل (ميكرون)','mil_before'],['سماكة الطلاء بعد (ميكرون)','mil_after'],['المناطق المعالجة','areas','a']]},
- {k:'ppf',n:'حماية PPF',d:'تركيب فيلم حماية الطلاء الشفاف (كامل أو جزئي)',w:1,f:[['التغطية','cover','s',['كامل','جزئي','الواجهة الأمامية فقط','مناطق محددة']],['المناطق المغطاة','areas','a'],['الشركة المصنعة للفيلم','brand'],['اسم / موديل الفيلم','model'],['نوع الفيلم','ftype','s',['شفاف لامع','شفاف مطفي','ملون']],['السماكة (ميكرون)','thick'],['رقم الرول / الدفعة','batch']]},
- {k:'tint',n:'عازل حراري للنوافذ',d:'تركيب عازل حراري للنوافذ بحسب النظام المعمول به',w:1,f:[['الشركة / المنتج','brand'],['النوافذ المشمولة','windows','a'],['نسبة النفاذية — الزجاج الأمامي %','vlt_front'],['نسبة النفاذية — الجانبية %','vlt_side'],['نسبة النفاذية — الخلفية %','vlt_rear']]},
- {k:'ceramic',n:'نانو سيراميك',d:'تطبيق طبقة نانو سيراميك لحماية الطلاء ولمعانه',w:1,f:[['اسم المنتج','product'],['الشركة المصنعة','brand'],['عدد الطبقات','layers'],['النطاق (خارجي / جنوط / زجاج / داخلي)','scope','a']]},
- {k:'engine',n:'تنظيف المحرك',d:'تنظيف غرفة المحرك وحمايتها',f:[['ملاحظات التنفيذ','notes','a']]},
- {k:'wheels',n:'تنظيف وتلميع الجنوط',d:'تنظيف الجنوط وتلميعها وحمايتها',f:[['ملاحظات التنفيذ','notes','a']]},
+ {k:'detailing',en:'Detailing Wash',n:'غسيل سيارات تفصيلي (Detailing)',d:'غسيل وتنظيف شامل للسيارة من الداخل والخارج',f:[['ملاحظات التنفيذ','notes','a']]},
+ {k:'polish_ext',en:'Exterior Polishing',n:'تلميع خارجي',d:'إزالة الهالات والخدوش الخفيفة وإعادة لمعان الطلاء',f:[['ملاحظات التنفيذ','notes','a']]},
+ {k:'polish_int',en:'Interior Polishing',n:'تلميع داخلي',d:'تنظيف وتلميع وحماية الأسطح الداخلية للسيارة',f:[['ملاحظات التنفيذ','notes','a']]},
+ {k:'paint_corr',en:'Paint Correction',n:'تلميع ومعالجة الطلاء',d:'معالجة عيوب الطلاء وتصحيحه بحسب حالته',w:1,f:[['عدد مراحل التلميع','stages'],['سماكة الطلاء قبل (ميكرون)','mil_before'],['سماكة الطلاء بعد (ميكرون)','mil_after'],['المناطق المعالجة','areas','a']]},
+ {k:'ppf',en:'Paint Protection Film (PPF)',n:'حماية PPF',d:'تركيب فيلم حماية الطلاء الشفاف (كامل أو جزئي)',w:1,f:[['التغطية','cover','s',['كامل','جزئي','الواجهة الأمامية فقط','مناطق محددة']],['المناطق المغطاة','areas','a'],['الشركة المصنعة للفيلم','brand'],['اسم / موديل الفيلم','model'],['نوع الفيلم','ftype','s',['شفاف لامع','شفاف مطفي','ملون']],['السماكة (ميكرون)','thick'],['رقم الرول / الدفعة','batch']]},
+ {k:'tint',en:'Window Tint / Heat Insulation',n:'عازل حراري للنوافذ',d:'تركيب عازل حراري للنوافذ بحسب النظام المعمول به',w:1,f:[['الشركة / المنتج','brand'],['النوافذ المشمولة','windows','a'],['نسبة النفاذية — الزجاج الأمامي %','vlt_front'],['نسبة النفاذية — الجانبية %','vlt_side'],['نسبة النفاذية — الخلفية %','vlt_rear']]},
+ {k:'ceramic',en:'Nano Ceramic Coating',n:'نانو سيراميك',d:'تطبيق طبقة نانو سيراميك لحماية الطلاء ولمعانه',w:1,f:[['اسم المنتج','product'],['الشركة المصنعة','brand'],['عدد الطبقات','layers'],['النطاق (خارجي / جنوط / زجاج / داخلي)','scope','a']]},
+ {k:'engine',en:'Engine Bay Cleaning',n:'تنظيف المحرك',d:'تنظيف غرفة المحرك وحمايتها',f:[['ملاحظات التنفيذ','notes','a']]},
+ {k:'wheels',en:'Wheels Cleaning & Polishing',n:'تنظيف وتلميع الجنوط',d:'تنظيف الجنوط وتلميعها وحمايتها',f:[['ملاحظات التنفيذ','notes','a']]},
  {k:'custom',n:'',d:'',w:1,custom:1,f:[['تفاصيل الخدمة','details','a']]}
 ];
 const WFIELDS=[['مدة ضمان المحل (على جودة التنفيذ)','shop_period'],['ما يشمله ضمان المحل','shop_scope','a'],['الجهة المقدمة لضمان الشركة المصنعة','mfr_name'],['مدة ضمان الشركة المصنعة','mfr_period'],['رقم شهادة الضمان','cert_no'],['تاريخ بداية الضمان','start','t','date'],['ما لا يشمله الضمان / ملاحظات','excl','a']];
 const TERMS=[["موافقة العميل على الخدمات","يقرّ العميل بأنه اطّلع على الخدمات والأسعار المحددة في هذا العقد ووافق عليها، ولا تُنفَّذ خدمة غير مدرجة فيه."],["توثيق حالة السيارة","تُفحص السيارة وتُوثَّق حالتها بالصور والبيانات قبل بدء العمل، ويوقّع الطرفان على ذلك."],["الخدوش والأضرار السابقة","تُسجَّل جميع الخدوش والأضرار الموجودة قبل الاستلام، وما سُجّل لا يُحتسب على المحل."],["الضرر أثناء وجود السيارة","إذا ثبت حدوث ضرر أثناء وجود السيارة لدى المحل بسبب خطأ أو إهمال أو سوء تنفيذ، يتحمل المحل إصلاحه على نفقته أو تعويض العميل بالقيمة الفعلية للضرر، بعد المعاينة والتوثيق بين الطرفين."],["الأعمال الإضافية","لا يُنفَّذ أي عمل إضافي دون موافقة العميل على تكلفته مسبقاً (كتابةً أو برسالة موثقة)."],["نتائج التلميع","تختلف النتائج بحسب حالة الطلاء وسماكته وعمق الخدوش، وقد لا يمكن إزالة بعض الخدوش العميقة كلياً، ويُبلغ المحل العميل بذلك قبل التنفيذ."],["حدود الضمان","يقتصر ضمان أفلام PPF والعازل الحراري والسيراميك على ما هو مدوَّن في قسم الضمان وعلى شروط ضمان المنتج الفعلية، ولا يشمل الحوادث والكشط والخدوش الناتجة عن الاستخدام أو الغسيل الخاطئ أو التعديل من جهة أخرى."],["العناية بعد الخدمة","يلتزم العميل بتعليمات العناية: عدم غسل السيارة خلال {wash_days} أيام بعد الخدمة، وعدم فتح النوافذ المعالجة خلال {window_days} أيام، واستخدام غسيل يدوي بمواد مناسبة، والصيانة الدورية كل {maint_months} أشهر."],["الاستلام والتسليم","تُسلَّم السيارة بعد فحصها مع العميل وتوقيعه على الاستلام، ويستلمها خلال {pickup_days} أيام من إشعاره بجاهزيتها. وأي رسوم حفظ بعد ذلك يجب أن تكون مكتوبة ومتفقاً عليها مسبقاً."],["الشكاوى والملاحظات","يقدّم العميل أي ملاحظة على الخدمة خلال {complaint_days} أيام من الاستلام عبر الرقم أو القناة التي يحددها المحل، ويلتزم المحل بالرد ومعالجتها خلال {response_days} أيام عمل، وعند تعذر الاتفاق يُلجأ إلى الجهات المختصة بحسب الأنظمة المعمول بها في المملكة."],["المسؤولية","يتحمل المحل مسؤولية جودة التنفيذ والمحافظة على السيارة أثناء وجودها لديه، ويتحمل العميل صحة بياناته وإخراج متعلقاته الثمينة والإفصاح عن أي عيوب أو إصلاحات سابقة يعلمها."],["عدم الإعفاء من المسؤولية","لا يتضمن هذا العقد أي بند يعفي المحل من مسؤوليته عن الإهمال أو التلف الناتج عن سوء التنفيذ."]];
+const DISCLAIMERS=[{ar:'الشركة غير مسؤولة عن فقدان أي غرض من السيارة بعد تسليمها للموظف المسؤول.',en:'The Company shall not be liable for the loss of any item from the vehicle after it has been handed over to the responsible employee.'},{ar:'الشركة غير مسؤولة عن أعمال الكهرباء والصيانة بالسيارة.',en:'The Company shall not be liable for the electrical work and maintenance of the vehicle.'}];
+const EN_CHECK={"حالة الطلاء الخارجي":"Exterior paint condition","الخدوش الموجودة مسبقاً":"Pre-existing scratches","آثار الحوادث أو الإصلاحات السابقة":"Previous accidents / repairs","حالة الصدامات":"Bumpers condition","حالة الزجاج":"Glass condition","حالة المصابيح":"Lights condition","حالة الجنوط والإطارات":"Wheels & tires condition","حالة المقصورة الداخلية":"Interior cabin condition","وجود أغراض شخصية داخل السيارة":"Personal belongings inside the vehicle","ملاحظات إضافية":"Additional notes"};
 const TP=[['wash_days','عدم غسل السيارة خلال (أيام)'],['window_days','عدم فتح النوافذ المعالجة خلال (أيام)'],['maint_months','الصيانة الدورية كل (أشهر)'],['pickup_days','استلام السيارة خلال (أيام) من الإشعار'],['complaint_days','تقديم الملاحظات خلال (أيام) من الاستلام'],['response_days','رد المحل ومعالجته خلال (أيام عمل)']];
 const KINDS={خ:'خدش',ص:'صدمة / انبعاج',ط:'تقشر طلاء',ك:'كسر / شرخ',ح:'حفرة'},KCOL={خ:'#e0a100',ص:'#d33',ط:'#8a3ffc',ك:'#d33',ح:'#0a7'};
 const CAT={front:'أمامية',rear:'خلفية',right:'جانب أيمن',left:'جانب أيسر',interior:'داخلية',damage:'ضرر / ملاحظة',warranty_doc:'مستند ضمان',other:'أخرى'};
@@ -502,7 +559,7 @@ function initialData(){return{
   services:SERVICES.map(s=>newService(s)),
   fin:{vat:true,deposit:'',paid:'',method:''},
   tp:{wash_days:'',window_days:'',maint_months:'',pickup_days:'',complaint_days:'',response_days:''},
-  terms:TERMS.map(t=>({t:t[0],b:t[1]})),extra_terms:[],internal_notes:'',shop:{}}}
+  terms:TERMS.map(t=>({t:t[0],b:t[1]})),extra_terms:[],disclaimers:DISCLAIMERS.map(x=>({...x})),internal_notes:'',shop:{}}}
 const newService=s=>({k:s.k,name:s.n,desc:s.d,sel:false,qty:'',price:'',discount:'',x:{},w:{}});
 function ensureData(d){const b=initialData();d=d||{};for(const k of Object.keys(b))if(d[k]==null)d[k]=b[k];for(const k of ['customer','vehicle','fin','tp'])d[k]=Object.assign({},b[k],d[k]);
   d.services.forEach(s=>{s.x=s.x||{};s.w=s.w||{}});return d}
@@ -546,7 +603,8 @@ async function loadContract(id){
     row.parent_contract_id?sb.from('contracts').select('id,contract_no,version,data').eq('id',row.parent_contract_id).maybeSingle():Promise.resolve({data:null}),
     row.parent_contract_id?sb.from('contract_photos').select('*').eq('contract_id',row.parent_contract_id).eq('phase','before').order('uploaded_at'):Promise.resolve({data:[]})]);
   let names={};if(isMgr()){const pr=await sb.from('profiles').select('id,full_name,email');(pr.data||[]).forEach(p=>names[p.id]=p.full_name||p.email)}else names[S.user.id]=S.profile.full_name||S.profile.email;
-  row.data=ensureData(row.data);row.delivery=row.delivery||{};
+  const hadDisc=!!(row.data&&row.data.disclaimers);row.data=ensureData(row.data);row.delivery=row.delivery||{};
+  if(!hadDisc&&row.status!=='draft')row.data.disclaimers=[];
   C={row,o:{data:row.data,delivery:row.delivery},sigs:sg.data||[],photos:ph.data||[],inh:(inh.data||[]).map(p=>({...p,inherited:true})),versions:vs,parent:par.data,names,urls:{},step:0,dirty:false,ver:0,saving:false};
   if(row.status==='in_progress'&&!Object.keys(row.delivery).length)C.o.delivery=DEF_DELIVERY();
   await signUrls();
@@ -668,8 +726,8 @@ async function saveSig(k){
 const STEPS=['العميل والمركبة','فحص الاستلام','الخدمات والأسعار','تفاصيل وضمان','الشروط والتواقيع','المراجعة والإرسال'];
 function stepper(){const n=STEPS.length;return `<div class="stepper"><div class="steps">${STEPS.map((s,i)=>`<button data-step="${i}" class="${i===C.step?'on':i<C.step?'done':''}">${i+1}. ${s}</button>`).join('')}</div><div class="prog"><i style="width:${Math.round((C.step+1)/n*100)}%"></i></div><div class="row-between" style="margin-top:2px"><span class="savestate" id="ss"></span><span class="nt">${esc(C.row.contract_no)}</span></div></div>`}
 function stepBody(){DIS=editableData()?'':'disabled';return [s0,s1,s2,s3,s4,s5][C.step]()}
-function s0(){return `<div class="card"><h3>بيانات العميل</h3><div class="g">${Fi.t('اسم العميل *','data.customer.name')}${Fi.t('رقم الجوال *','data.customer.phone',{type:'tel',dg:'n'})}${Fi.t('الهوية / الإقامة (اختياري)','data.customer.id_no',{dg:'n'})}${Fi.t('رقم الفاتورة','data.customer.invoice_no',{dg:'x'})}${Fi.t('تاريخ استلام المركبة','data.customer.received_date',{type:'date'})}${Fi.t('تاريخ التسليم المتوقع','data.customer.expected_date',{type:'date'})}</div></div>
-  <div class="card"><h3>بيانات المركبة</h3><div class="g">${Fi.t('نوع السيارة','data.vehicle.type')}${Fi.t('الشركة المصنعة','data.vehicle.make')}${Fi.t('الموديل','data.vehicle.model')}${Fi.t('سنة الصنع','data.vehicle.year',{dg:'n'})}${Fi.t('لون السيارة','data.vehicle.color')}${Fi.t('رقم اللوحة *','data.vehicle.plate',{dg:'x'})}${Fi.t('رقم الهيكل VIN (اختياري)','data.vehicle.vin',{dg:'x'})}${Fi.t('قراءة العداد (كم)','data.vehicle.odometer',{dg:'n'})}${Fi.s('مستوى الوقود','data.vehicle.fuel',FUEL)}</div></div>`}
+function s0(){return `<div class="card"><h3>بيانات العميل</h3><div class="g">${Fi.t('اسم العميل *','data.customer.name')}${Fi.t('رقم الجوال *','data.customer.phone',{type:'tel',dg:'n'})}${Fi.t('رقم الفاتورة','data.customer.invoice_no',{dg:'x'})}${Fi.t('تاريخ استلام المركبة','data.customer.received_date',{type:'date'})}${Fi.t('تاريخ التسليم المتوقع','data.customer.expected_date',{type:'date'})}</div></div>
+  <div class="card"><h3>بيانات المركبة</h3><div class="g">${Fi.t('نوع السيارة','data.vehicle.type')}${Fi.t('الشركة المصنعة','data.vehicle.make')}${Fi.t('الموديل','data.vehicle.model')}${Fi.t('سنة الصنع','data.vehicle.year',{dg:'n'})}${Fi.t('لون السيارة','data.vehicle.color')}${Fi.t('رقم اللوحة *','data.vehicle.plate',{dg:'x'})}${Fi.t('قراءة العداد (كم)','data.vehicle.odometer',{dg:'n'})}</div></div>`}
 function s1(){const d=C.o.data;return `<div class="card"><h3>فحص حالة السيارة عند الاستلام</h3><div class="sc"><table class="t"><tr><th>البند</th><th style="width:150px">الحالة</th><th>التفاصيل</th><th></th></tr>${d.check.map((c,i)=>`<tr><td><input data-p="data.check.${i}.n" value="${esc(c.n)}" ${DIS}></td><td><select data-p="data.check.${i}.s" ${DIS}><option ${c.s==='سليم'?'selected':''}>سليم</option><option ${c.s==='به ملاحظة'?'selected':''}>به ملاحظة</option></select></td><td><input data-p="data.check.${i}.t" value="${esc(c.t)}" ${DIS}></td><td>${DIS?'':`<button class="btn sm bad" data-act="delchk" data-i="${i}">حذف</button>`}</td></tr>`).join('')}</table></div>
   ${DIS?'':'<button class="btn line sm" data-act="addchk">＋ إضافة بند فحص</button>'}
   <p class="nt">اضغط على الرسم لوضع علامة في مكان الملاحظة، واختر نوعها. اضغط على العلامة لحذفها. الرسم للاستخدام الداخلي وتظهر العلامات في نسخة المحل فقط، ولا تظهر في نسخة العميل.</p>
@@ -696,6 +754,7 @@ function s4(){const d=C.o.data,staff=S.profile.full_name||'';
   <div class="card"><h3>الشروط والأحكام</h3><ol class="terms">${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}</ol>
   ${DIS?'':'<button class="btn line sm" data-act="refterms">تحديث الشروط من القالب الحالي</button>'}
   <div class="warn">ملاحظة قانونية: صياغة هذه الشروط عامة ولم تُراجَع قانونياً. يُنصح بعرضها على مستشار قانوني مرخّص قبل الاعتماد التشغيلي لها، خصوصاً بنود الضمان والمسؤولية والتعويض والشكاوى.</div></div>
+  <div class="card"><h3>إخلاء المسؤولية (عربي / English)</h3><p class="nt">يظهر في نسخة المحل ونسخة العميل بعد الشروط.</p>${(d.disclaimers||[]).map(x=>`<div class="svc">${esc(x.ar)}<div dir="ltr" class="nt" style="text-align:left">${esc(x.en)}</div></div>`).join('')||'<p class="nt">لا يوجد</p>'}</div>
   <div class="card"><h3>بنود إضافية خاصة بهذا العقد</h3><p class="nt">اتفاقات خاصة مع هذا العميل (مثلاً: موعد محدد، أو شرط خاص). تظهر بعد الشروط العامة في العقد وفي نسخة العميل.</p>
   ${d.extra_terms.map((c,i)=>`<div class="svc"><div class="hd"><span>${d.terms.length+i+1}.</span><input data-p="data.extra_terms.${i}.t" value="${esc(c.t)}" placeholder="عنوان البند" ${DIS}>${DIS?'':`<button class="btn sm bad" data-act="delextra" data-i="${i}">حذف</button>`}</div><textarea rows="2" data-p="data.extra_terms.${i}.b" style="margin-top:6px" ${DIS}>${esc(c.b)}</textarea></div>`).join('')}
   ${DIS?'':'<button class="btn line sm" data-act="addextra">＋ إضافة بند لهذا العقد</button>'}</div>
@@ -882,38 +941,45 @@ function versionsCard(){
   return `<div class="card"><h3>إصدارات العقد</h3><div class="sc"><table class="t"><tr><th>الإصدار</th><th>الرقم</th><th>الحالة</th><th>التاريخ</th><th></th></tr>${rows}</table></div></div>`}
 
 /* ========== مستند العقد (للعرض والطباعة) ========== */
+const ICO={detailing:'<path d="M12 3C8 8 6 11 6 14a6 6 0 0 0 12 0c0-3-2-6-6-11z"/>',polish_ext:'<path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/><path d="M19 16l.8 2.2L22 19l-2.2.8L19 22l-.8-2.2L16 19l2.2-.8z"/>',polish_int:'<path d="M7 20V9a3 3 0 0 1 3-3h4a3 3 0 0 1 3 3v11"/><path d="M5 14h14M7 20h10"/>',paint_corr:'<path d="M4 20l9-9"/><path d="M13 11l4-7 3 3-7 4z"/><path d="M4 20c2 0 3-1 3-3"/>',ppf:'<path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.500-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/>',tint:'<circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/>',ceramic:'<path d="M12 2l8 4.500v9L12 20l-8-4.500v-9z"/><path d="M12 8c-2 2.500-3 4-3 5.500a3 3 0 0 0 6 0C15 12 14 10.500 12 8z"/>',engine:'<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M18.400 5.600l-2.100 2.100M7.700 16.300l-2.100 2.100"/>',wheels:'<circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="2.500"/><path d="M12 3v6.500M12 14.500V21M3.500 9l6 2M14.500 13l6 2M20.500 9l-6 2M9.500 13l-6 2"/>'};
+const svgI=k=>ICO[k]?`<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICO[k]}</svg>`:'<svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M12 8v8M8 12h8"/></svg>';
 function docHTML(mode,opt){
   opt=opt||{};const r=C.row,d=C.o.data,dl=C.o.delivery||{},shop=d.shop||{},T=totals(d),cust=mode==='customer';
   const blank='<span style="display:inline-block;min-width:90px;border-bottom:1px dotted #777">&nbsp;</span>';
   const v=x=>x?esc(x):blank;
-  const kv=(l,x)=>`<div><b>${l}</b>${v(x)}</div>`;
+  const kv=(l,x)=>{const p=l.split('|');return `<div><b>${p[0]}${p[1]?` <i dir="ltr">${p[1]}</i>`:''}</b>${v(x)}</div>`};
   const final=['approved','in_progress','delivered','archived'].includes(r.status);
   const newer=C.versions.filter(x=>x.version>r.version&&x.status!=='cancelled').sort((a,b)=>b.version-a.version)[0];
   const stLabel=r.status==='cancelled'?'عقد ملغي':(!r.is_current&&newer&&['approved','in_progress','delivered','archived'].includes(newer.status))?`نسخة قديمة مستبدلة بالنسخة ${newer.version} (${esc(newer.contract_no)})`:final?'':'مسودة — غير معتمد بعد';
   let h=`<div class="hdr"><img src="${LOGO}" alt=""><div style="flex:1"><div style="font-size:17px;font-weight:700">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')}</div><div class="sub">${esc(shop.name_en||'Best Protection')}</div>
-  <div class="sub">السجل التجاري: ${shop.cr?esc(shop.cr):'............'} · الرقم الضريبي: ${shop.vat?esc(shop.vat):'............'}</div><div class="sub">العنوان: ${shop.address?esc(shop.address):'............'} · التواصل: ${shop.phone?esc(shop.phone):'............'}${shop.email?' · '+esc(shop.email):''}</div></div>
-  <div style="text-align:left"><span class="tag">${cust?'نسخة العميل':'نسخة المحل'}</span><div style="font-size:15px;font-weight:700">${esc(r.contract_no)}</div><div class="sub">النسخة ${r.version} · ${esc(STATUS[r.status])}</div><div class="sub">${dt(r.created_at)}</div></div></div>
-  <div style="text-align:center;font-size:16px;font-weight:700;margin:8px 0">عقد استلام مركبة وتنفيذ خدمات العناية والحماية بالسيارات</div>${stLabel?`<div class="wm">${stLabel}</div>`:''}`;
-  h+=`<h4>بيانات العميل</h4><div class="kv">${kv('اسم العميل',d.customer.name)}${kv('رقم الجوال',d.customer.phone)}${kv('الهوية / الإقامة',d.customer.id_no)}${kv('رقم الفاتورة',d.customer.invoice_no)}${kv('تاريخ الاستلام',d.customer.received_date)}${kv('التسليم المتوقع',d.customer.expected_date)}</div>
-  <h4>بيانات المركبة</h4><div class="kv">${kv('نوع السيارة',d.vehicle.type)}${kv('الشركة',d.vehicle.make)}${kv('الموديل',d.vehicle.model)}${kv('سنة الصنع',d.vehicle.year)}${kv('اللون',d.vehicle.color)}${kv('رقم اللوحة',d.vehicle.plate)}${kv('رقم الهيكل',d.vehicle.vin)}${kv('العداد (كم)',d.vehicle.odometer)}${kv('الوقود',d.vehicle.fuel)}</div>`;
-  const ck=(L)=>`<table><tr><th>البند</th><th style="width:62px">الحالة</th><th>التفاصيل</th></tr>${L.map(c=>`<tr><td>${esc(c.n)}</td><td>${esc(c.s)}</td><td>${esc(c.t)}</td></tr>`).join('')}</table>`;
+  <div class="sub">السجل التجاري / CR: ${shop.cr?esc(shop.cr):'............'} · الرقم الضريبي / VAT: ${shop.vat?esc(shop.vat):'............'}</div></div>
+  <div style="text-align:left">${cust?'':'<span class="tag">نسخة المحل · Shop Copy</span>'}<div style="font-size:15px;font-weight:700">${esc(r.contract_no)}</div><div class="sub">النسخة ${r.version} · ${esc(STATUS[r.status])}</div><div class="sub">${dt(r.created_at)}</div></div></div>
+  <div class="ttl">عقد استلام مركبة وتنفيذ خدمات العناية والحماية بالسيارات<span class="en" dir="ltr">Vehicle Reception &amp; Car Care / Protection Services Contract</span></div>${stLabel?`<div class="wm">${stLabel}</div>`:''}`;
+  const rw=(l,e,x)=>`<div class="rw"><span class="lb">${l}<i dir="ltr">${e}</i></span><span class="vl">${v(x)}</span></div>`;
+  h+=`<h4><span>بيانات العميل والمركبة</span><span class="en" dir="ltr">Customer &amp; Vehicle</span></h4><div class="pair"><div class="pc"><div class="ph2">العميل <i dir="ltr">Customer</i></div>${rw('الاسم','Name',d.customer.name)}${rw('الجوال','Mobile',d.customer.phone)}${rw('رقم الفاتورة','Invoice No.',d.customer.invoice_no)}${rw('تاريخ الاستلام','Received',d.customer.received_date)}${rw('التسليم المتوقع','Expected',d.customer.expected_date)}</div>
+  <div class="pc"><div class="ph2">المركبة <i dir="ltr">Vehicle</i></div><div class="rw"><span class="lb">رقم اللوحة<i dir="ltr">Plate No.</i></span><span class="plate" dir="auto">${d.vehicle.plate?esc(d.vehicle.plate):'—'}</span></div>${rw('النوع','Type',d.vehicle.type)}${rw('الشركة / الموديل','Make / Model',[d.vehicle.make,d.vehicle.model].filter(Boolean).join(' '))}${rw('سنة الصنع','Year',d.vehicle.year)}${rw('اللون','Color',d.vehicle.color)}${rw('العداد (كم)','Odometer',d.vehicle.odometer)}</div></div>`;
+  const ck=(L)=>`<table><tr><th>البند / Item</th><th style="width:62px">الحالة</th><th>التفاصيل</th></tr>${L.map(c=>`<tr><td>${esc(c.n)}${EN_CHECK[c.n]?`<i class="en" dir="ltr">${EN_CHECK[c.n]}</i>`:''}</td><td><span class="pill ${c.s==='سليم'?'g':(c.s?'a':'')}">${esc(c.s)}</span></td><td>${esc(c.t)}</td></tr>`).join('')}</table>`;
   const half=Math.ceil(d.check.length/2);
-  h+=`<h4>فحص حالة السيارة عند الاستلام</h4><div class="two">${ck(d.check.slice(0,half))}${d.check.length>half?ck(d.check.slice(half)):''}</div>`;
+  h+=`<h4><span>فحص حالة السيارة عند الاستلام</span><span class="en" dir="ltr">Vehicle Condition Check at Reception</span></h4><div class="two">${ck(d.check.slice(0,half))}${d.check.length>half?ck(d.check.slice(half)):''}</div>`;
   if(!cust)h+=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;align-items:start">${carSVG(d.marks,false)}<div><b>العلامات على الرسم (للاستخدام الداخلي):</b><ol>${d.marks.map(m=>`<li>(${esc(m.k)}) ${esc(KINDS[m.k]||'')}</li>`).join('')||'<li style="list-style:none">لا توجد علامات</li>'}</ol></div></div>`;
   const sel=d.services.map((s,i)=>({s,i})).filter(x=>x.s.sel);
-  h+=`<h4>الخدمات والأسعار</h4><table><tr><th>الخدمة</th><th>الوصف</th><th>الكمية</th><th>السعر</th><th>الخصم</th><th>الإجمالي</th></tr>${sel.map(({s,i})=>`<tr><td>${esc(s.name)}</td><td>${esc(s.desc)}</td><td>${esc(s.qty)}</td><td>${money(nm(s.price))}</td><td>${money(nm(s.discount))}</td><td>${money(T.lines[i])}</td></tr>`).join('')||'<tr><td colspan="6">—</td></tr>'}</table>
-  <table style="width:55%;margin-inline-start:0"><tr><td class="l">إجمالي الخدمات</td><td>${money(T.g)}</td></tr><tr><td class="l">الخصم</td><td>${money(T.disc)}</td></tr><tr><td class="l">المبلغ قبل الضريبة</td><td>${money(T.net)}</td></tr><tr><td class="l">ضريبة القيمة المضافة 15%${d.fin.vat?'':' (غير مطبقة)'}</td><td>${money(T.vat)}</td></tr><tr class="tot"><td class="l">الإجمالي النهائي</td><td>${money(T.total)}</td></tr><tr><td class="l">العربون</td><td>${money(nm(d.fin.deposit))}</td></tr><tr><td class="l">المدفوع (شامل العربون)</td><td>${money(T.paid)}</td></tr><tr class="tot"><td class="l">المتبقي</td><td>${money(T.rem)}</td></tr><tr><td class="l">طريقة الدفع</td><td>${v(d.fin.method)}</td></tr></table>`;
+  h+=`<h4><span>أنواع الخدمات</span><span class="en" dir="ltr">Service Types</span></h4><div class="stypes">${d.services.filter(x=>x.k!=='custom'||x.sel||x.name).map(x=>`<div class="st${x.sel?' on':''}"><span class="cb">${x.sel?'✓':''}</span><span>${esc(x.name||'خدمة إضافية')}${(SERVICES.find(y=>y.k===x.k)||{}).en?`<i class="en" dir="ltr">${(SERVICES.find(y=>y.k===x.k)||{}).en}</i>`:''}</span></div>`).join('')}</div>
+  <h4><span>الخدمات والأسعار</span><span class="en" dir="ltr">Services &amp; Pricing</span></h4><table><tr><th>الخدمة / Service</th><th>الوصف</th><th>الكمية / Qty</th><th>السعر / Price</th><th>الخصم / Disc.</th><th>الإجمالي / Total</th></tr>${sel.map(({s,i})=>`<tr><td>${esc(s.name)}</td><td>${esc(s.desc)}</td><td>${esc(s.qty)}</td><td>${money(nm(s.price))}</td><td>${money(nm(s.discount))}</td><td>${money(T.lines[i])}</td></tr>`).join('')||'<tr><td colspan="6">—</td></tr>'}</table>
+  <div class="sum"><div class="pc"><div class="ph2">الدفع <i dir="ltr">Payment</i></div>${rw('طريقة الدفع','Method',d.fin.method)}${rw('العربون','Deposit',money(nm(d.fin.deposit)))}${rw('المدفوع (شامل العربون)','Paid',money(T.paid))}<div class="due"><span>المتبقي <i dir="ltr">Balance Due</i></span><b>${money(T.rem)}</b></div></div>
+  <table class="tt"><tr><td class="l">إجمالي الخدمات</td><td>${money(T.g)}</td></tr><tr><td class="l">الخصم</td><td>${money(T.disc)}</td></tr><tr><td class="l">المبلغ قبل الضريبة</td><td>${money(T.net)}</td></tr><tr><td class="l">ضريبة القيمة المضافة 15%${d.fin.vat?'':' (غير مطبقة)'}</td><td>${money(T.vat)}</td></tr><tr class="tot"><td class="l">الإجمالي النهائي <i class="en" dir="ltr">Grand Total</i></td><td>${money(T.total)}</td></tr></table></div>`;
   // تفاصيل الخدمات والضمان
   let det='';sel.forEach(({s})=>{const def=SERVICES.find(x=>x.k===s.k)||{f:[]};
     const rows=(def.f||[]).filter(f=>s.x[f[1]]).map(f=>`<tr><td class="l">${f[0]}</td><td>${esc(s.x[f[1]])}</td></tr>`).join('');
     let wr='';if(def.w){const w=s.w||{};const any=WFIELDS.some(f=>w[f[1]]);wr=any?WFIELDS.filter(f=>w[f[1]]).map(f=>`<tr><td class="l">${f[0]}</td><td>${esc(w[f[1]])}</td></tr>`).join(''):`<tr><td class="l">الضمان</td><td>لا يوجد ضمان مدوَّن لهذه الخدمة</td></tr>`}
     if(rows||wr)det+=`<div style="break-inside:avoid"><b>${esc(s.name||'خدمة إضافية')}</b><table>${rows}${wr}</table></div>`});
-  if(det)h+=`<h4>تفاصيل المواد والضمان</h4><div class="small">لا يوجد أي ضمان إلا ما دُوِّن في هذا القسم صراحةً، ويُميَّز بين ضمان المحل (على جودة التنفيذ) وضمان الشركة المصنعة (وفق شروطها الفعلية).</div>${det}`;
+  if(det)h+=`<div class="keep"><h4><span>تفاصيل المواد والضمان</span><span class="en" dir="ltr">Materials &amp; Warranty Details</span></h4><div class="small">لا يوجد أي ضمان إلا ما دُوِّن في هذا القسم صراحةً، ويُميَّز بين ضمان المحل (على جودة التنفيذ) وضمان الشركة المصنعة (وفق شروطها الفعلية).</div><div class="wg">${det}</div></div>`;
   // سجل التغييرات
   if(C.parent){const ch=diffLines(C.parent.data,d);h+=`<h4>ملحق تعديل — النسخة ${r.version} (تعديل على ${esc(C.parent.contract_no)} نسخة ${C.parent.version})</h4><div>سبب التعديل: <b>${esc(d.version_note||'—')}</b></div>${ch.length?`<table><tr><th>البند</th><th>قبل</th><th>بعد</th></tr>${ch.slice(0,60).map(x=>`<tr><td>${esc(x.k)}</td><td>${esc(x.a)}</td><td>${esc(x.b)}</td></tr>`).join('')}</table>`:'<div class="small">لا توجد فروق في البيانات عن النسخة السابقة.</div>'}`}
-  h+=`<h4>الشروط والأحكام</h4><ol>${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}${(d.extra_terms||[]).filter(t=>t.t||t.b).map(t=>`<li><b>${esc(t.t)}:</b> ${esc(t.b)}</li>`).join('')}</ol>`;
+  h+=`<h4><span>الشروط والأحكام</span><span class="en" dir="ltr">Terms &amp; Conditions</span></h4><ol>${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}${(d.extra_terms||[]).filter(t=>t.t||t.b).map(t=>`<li><b>${esc(t.t)}:</b> ${esc(t.b)}</li>`).join('')}</ol>`;
+  const dsc=(d.disclaimers||[]).filter(x=>x.ar||x.en);
+  if(dsc.length)h+=`<div class="disc"><div class="dh"><span>إخلاء مسؤولية</span><span class="en" dir="ltr">Disclaimer</span></div>${dsc.map(x=>`<div class="dr"><p>${esc(x.ar)}</p><p class="en" dir="ltr">${esc(x.en)}</p></div>`).join('')}</div>`;
   const sg=k=>{const s=sigOf(k);return s?`<img src="${safeImg(s.image)}" alt=""><div class="small">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>`:'<div class="small">— لم يُوقَّع —</div>'};
-  h+=`<h4>التواقيع</h4><div class="sigs"><div><b>العميل</b>${sg('contract_customer')}</div><div><b>الموظف المسؤول — ${esc(shop.name_en||'Best Protection')}</b>${sg('contract_staff')}</div></div>`;
+  h+=`<h4><span>التواقيع</span><span class="en" dir="ltr">Signatures</span></h4><div class="sigs"><div><b>العميل / Customer</b>${sg('contract_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('contract_staff')}</div></div>`;
   // التسليم
   const hasDl=Object.values(dl).some(x=>x)||sigOf('delivery_customer');
   if(hasDl&&!opt.noDelivery){h+=`<h4>التسليم النهائي</h4><div class="kv">${kv('تاريخ التسليم',dl.date)}${kv('وقت التسليم',dl.time)}${kv('حالة السيارة',dl.state)}${kv('ملاحظة الدفع',dl.pay_note)}</div><table><tr><td class="l">الخدمات المنفذة</td><td>${esc(dl.done)}</td></tr><tr><td class="l">ملاحظات نهائية</td><td>${esc(dl.notes)}</td></tr></table>
@@ -922,9 +988,12 @@ function docHTML(mode,opt){
   const ph=(phase)=>[...(phase==='before'?C.inh:[]),...C.photos.filter(p=>p.phase===phase)];
   [['before','صور الاستلام (قبل التنفيذ)'],['after','صور ما بعد التنفيذ']].forEach(([p,t])=>{const L=ph(p);if(L.length)h+=`<h4>${t}</h4><div class="phg">${L.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}${x.inherited?' (من النسخة السابقة)':''}</figcaption></figure>`).join('')}</div>`});
   // معلومات الاعتماد
-  if(final||r.approved_at){h+=`<h4>${cust?'بيانات الاعتماد':'بيانات الاعتماد والتدقيق'}</h4><div class="small">تاريخ الاعتماد: ${dt(r.approved_at,true)}${!cust?` · اعتمده: ${esc(C.names[r.approved_by]||'—')}`:''} · رمز التحقق: <span class="mono">${esc(cust?(r.approved_hash||'').slice(0,12):(r.approved_hash||''))}</span></div>`}
+  if(!cust&&(final||r.approved_at)){h+=`<h4>${cust?'بيانات الاعتماد':'بيانات الاعتماد والتدقيق'}</h4><div class="small">تاريخ الاعتماد: ${dt(r.approved_at,true)}${!cust?` · اعتمده: ${esc(C.names[r.approved_by]||'—')}`:''} · رمز التحقق: <span class="mono">${esc(cust?(r.approved_hash||'').slice(0,12):(r.approved_hash||''))}</span></div>`}
   if(!cust){h+=`<div class="small">أنشأه: ${esc(C.names[r.created_by]||'—')} · ${dt(r.created_at,true)} · آخر تعديل: ${dt(r.updated_at,true)}</div>${d.internal_notes?`<h4>ملاحظات داخلية</h4><div>${esc(d.internal_notes).replace(/\n/g,'<br>')}</div>`:''}
   <div class="small" style="margin-top:6px">ملاحظة: صياغة الشروط عامة ولم تُراجَع قانونياً، ويُنصح بمراجعتها من مستشار قانوني قبل الاعتماد التشغيلي.</div>`}
+  const dots='............';
+  h+=`<div class="cbar"><span><b>العنوان / Address:</b> ${shop.address?esc(shop.address):dots}</span><span><b>التواصل / Tel:</b> ${shop.phone?esc(shop.phone):dots}${shop.email?' · '+esc(shop.email):''}</span></div>`;
+  h+=`<div class="pfoot">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')} · ${esc(shop.name_en||'Best Protection')} · ${esc(r.contract_no)} · ${cust?'':' · نسخة المحل / Shop Copy'}</div>`;
   return h}
 
 async function previewDoc(mode){
