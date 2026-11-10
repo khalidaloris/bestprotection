@@ -148,10 +148,12 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
 .paper svg.car{max-width:300px}
 .mono{font-family:ui-monospace,Menlo,monospace;direction:ltr;unicode-bidi:plaintext;word-break:break-all;font-size:10.5px}
 #print-root{display:none}
+.pv{position:fixed;inset:0;z-index:45;background:var(--bg);overflow:auto;padding:8px 10px env(safe-area-inset-bottom,8px)}
+.pvbar{position:sticky;top:0;z-index:2;background:var(--bg);padding:6px 0;display:flex;gap:6px;align-items:center;flex-wrap:wrap}
 @media print{
   @page{size:A4;margin:11mm}
   body{background:#fff!important;color:#000}
-  #app,#toasts,#modal,.lightbox{display:none!important}
+  #app,#toasts,#modal,.lightbox,.pv{display:none!important}
   #print-root{display:block}
   #print-root .paper{border:0;padding:0;overflow:visible}
   *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
@@ -700,7 +702,7 @@ function s5(){const d=C.o.data,T=totals(d);
   return `<div class="card"><h3>المراجعة قبل الإرسال</h3><ul class="chk" id="chk" style="padding:0;margin:0">${checksHTML()}</ul>
   <div class="fin" style="margin-top:10px"><div>الإجمالي النهائي<b>${money(T.total)}</b></div><div>المتبقي<b>${money(T.rem)}</b></div></div>
   <p class="nt">بعد الإرسال يُقفل العقد للتعديل. يعتمده من لديه صلاحية الاعتماد، وبعد الاعتماد لا يمكن تعديله إلا بإنشاء نسخة جديدة مع سجل تغييرات.</p>
-  <div><button class="btn sec" data-act="pdfShop">معاينة PDF (نسخة المحل)</button><button class="btn sec" data-act="pdfCust">معاينة PDF (نسخة العميل)</button></div></div>`}
+  <div><button class="btn sec" data-act="pdfShop">معاينة / PDF (نسخة المحل)</button><button class="btn sec" data-act="pdfCust">معاينة / PDF (نسخة العميل)</button></div></div>`}
 const checksHTML=()=>checks().map(c=>`<li class="${c.ok?'y':c.hard?'n':'w'}">${c.ok?'✔':c.hard?'✖':'⚠'} ${c.t}</li>`).join('');
 function refreshReview(){const e=$('#chk');if(e)e.innerHTML=checksHTML()}
 
@@ -751,7 +753,7 @@ function actions(){
   const child=C.versions.find(v=>v.parent_contract_id===r.id&&['draft','pending_approval'].includes(v.status));
   if(['approved','in_progress','delivered'].includes(r.status)&&r.is_current&&act&&!child)out.push(b('newver','✎ تصحيح خطأ / نسخة جديدة','line'));
   if(child)out.push(`<a class="btn line" href="#/c/${esc(child.id)}">فتح النسخة الجديدة (${STATUS[child.status]})</a>`);
-  out.push(b('pdfShop','PDF — نسخة المحل','sec'),b('pdfCust','PDF — نسخة العميل','sec'));
+  out.push(b('pdfShop','معاينة / PDF — نسخة المحل','sec'),b('pdfCust','معاينة / PDF — نسخة العميل','sec'));
   if(isOwner())out.push(`<a class="btn line" href="#/audit?rec=${esc(r.id)}">سجل هذا العقد</a>`);
   if(isOwner()&&!r.approved_at&&['draft','cancelled'].includes(r.status)&&!C.versions.some(v=>v.parent_contract_id===r.id))out.push(b('delcontract','حذف العقد نهائياً','bad'));
   return out.join('')}
@@ -847,7 +849,7 @@ const ACT_FN={
     C.dirty=false;try{localStorage.removeItem(bkKey())}catch(e){}
     if(paths.length){const rm=await sb.storage.from('contract-files').remove(paths);if(rm.error)toast('حُذف العقد، لكن تعذر حذف بعض ملفات الصور','bad')}
     toast('تم حذف العقد','ok');location.hash='#/contracts'},
-  pdfShop:()=>printDoc('shop'),pdfCust:()=>printDoc('customer')
+  pdfShop:()=>previewDoc('shop'),pdfCust:()=>previewDoc('customer')
 };
 
 /* ========== التسليم والنسخ ========== */
@@ -913,6 +915,13 @@ function docHTML(mode,opt){
   <div class="small" style="margin-top:6px">ملاحظة: صياغة الشروط عامة ولم تُراجَع قانونياً، ويُنصح بمراجعتها من مستشار قانوني قبل الاعتماد التشغيلي.</div>`}
   return h}
 
+async function previewDoc(mode){
+  if(C.dirty){try{await saveNow()}catch(e){}}
+  await signUrls();
+  const ov=document.createElement('div');ov.className='pv';
+  ov.innerHTML=`<div class="pvbar"><button class="btn" data-pv="print">طباعة / حفظ PDF</button><button class="btn sec" data-pv="close">إغلاق المعاينة</button><b>${mode==='shop'?'نسخة المحل':'نسخة العميل'}</b></div><div class="paper">${docHTML(mode)}</div>`;
+  ov.onclick=e=>{const b=e.target.closest('[data-pv]');if(!b)return;if(b.dataset.pv==='close')ov.remove();else printDoc(mode)};
+  document.body.append(ov);ov.scrollTop=0}
 async function printDoc(mode){
   if(C.dirty){try{await saveNow()}catch(e){}}
   await signUrls();
