@@ -319,7 +319,7 @@ function renderLogin(msg){
   <label>الإيميل</label><input type="email" name="email" id="lm" autocomplete="username" inputmode="email" required>
   <label style="margin-top:8px">كلمة المرور</label><input type="password" name="password" id="lp" autocomplete="current-password" required>
   <div class="err" id="le" style="margin-top:6px">${esc(msg||'')}</div>
-  <button class="btn" style="width:100%;margin:8px 0 0" id="lb">دخول</button>
+  <button class="btn" style="width:100%;margin:8px 0 0" id="lb">دخول</button><p class="nt" style="text-align:center;margin-top:10px">إصدار 11-11 · ورقة التسليم</p>
   <p style="text-align:center;margin:8px 0 0"><a href="#" id="fg">نسيت كلمة المرور؟</a></p></form></div>`;
   $('#lf').onsubmit=async e=>{e.preventDefault();const b=$('#lb');b.disabled=true;$('#le').textContent='';
     const {data,error}=await sb.auth.signInWithPassword({email:$('#lm').value.trim(),password:$('#lp').value});
@@ -354,7 +354,7 @@ function renderShell(){
   const nav=[['#/','الرئيسية','dash'],['#/contracts','العقود','contracts']];
   if(isOwner())nav.push(['#/users','المستخدمون','users'],['#/audit','سجل العمليات','audit'],['#/settings','إعدادات المحل','settings']);
   $('#app').innerHTML=`<div class="top"><div class="in"><img src="${LOGO}" alt="BP"><div class="nav">${nav.map(n=>`<a href="${n[0]}" data-nav="${n[2]}">${n[1]}</a>`).join('')}</div>
-  <div class="me"><span><b>${esc(S.profile.full_name||S.profile.email)}</b> · ${ROLE[S.profile.role]}</span><button id="bpw">كلمة المرور</button><button id="bout">خروج</button></div></div></div><main class="wrap" id="main"></main>`;
+  <div class="me"><span><b>${esc(S.profile.full_name||S.profile.email)}</b> · ${ROLE[S.profile.role]}</span><button id="bpw">كلمة المرور</button><span class="nt" style="opacity:.7">إصدار 11-11 · ورقة التسليم</span><button id="bout">خروج</button></div></div></div><main class="wrap" id="main"></main>`;
   $('#bout').onclick=()=>logout();$('#bpw').onclick=changePassword;
 }
 function setNav(k){$$('.top .nav a').forEach(a=>a.classList.toggle('on',a.dataset.nav===k))}
