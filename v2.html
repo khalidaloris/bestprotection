@@ -994,7 +994,7 @@ function docHTML(mode,opt){
     <div class="small">أقرّ أنا العميل باستلام مركبتي بعد فحصها، وأن الخدمات نُفّذت كما هو مبيّن، باستثناء ما دوّنته من ملاحظات.</div><div class="sigs"><div><b>العميل</b>${sg('delivery_customer')}</div><div><b>الموظف</b>${sg('delivery_staff')}</div></div>`}
   // الصور
   const ph=(phase)=>[...(phase==='before'?C.inh:[]),...C.photos.filter(p=>p.phase===phase)];
-  [['before','صور الاستلام (قبل التنفيذ)'],['after','صور ما بعد التنفيذ']].forEach(([p,t])=>{const L=ph(p);if(L.length)h+=`<h4>${t}</h4><div class="phg">${L.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}${x.inherited?' (من النسخة السابقة)':''}</figcaption></figure>`).join('')}</div>`});
+  [['before','صور الاستلام (قبل التنفيذ)'],['after','صور ما بعد التنفيذ']].forEach(([p,t])=>{const L=cust?[]:ph(p);if(L.length)h+=`<h4>${t}</h4><div class="phg">${L.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}${x.inherited?' (من النسخة السابقة)':''}</figcaption></figure>`).join('')}</div>`});
   // معلومات الاعتماد
   if(!cust&&(final||r.approved_at)){h+=`<h4>${cust?'بيانات الاعتماد':'بيانات الاعتماد والتدقيق'}</h4><div class="small">تاريخ الاعتماد: ${dt(r.approved_at,true)}${!cust?` · اعتمده: ${esc(C.names[r.approved_by]||'—')}`:''} · رمز التحقق: <span class="mono">${esc(cust?(r.approved_hash||'').slice(0,12):(r.approved_hash||''))}</span></div>`}
   if(!cust){h+=`<div class="small">أنشأه: ${esc(C.names[r.created_by]||'—')} · ${dt(r.created_at,true)} · آخر تعديل: ${dt(r.updated_at,true)}</div>${d.internal_notes?`<h4>ملاحظات داخلية</h4><div>${esc(d.internal_notes).replace(/\n/g,'<br>')}</div>`:''}
