@@ -207,6 +207,10 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
 .paper .hdr .hc b{color:#8fb4f7;font-weight:600;margin-inline-end:6px}
 .paper .hdr .hd{text-align:center;font-size:13px;font-weight:700;color:#fff;min-width:96px;border-inline-start:1px solid #3a4a6b;padding-inline-start:14px}
 .paper .hdr .hd b{display:block;font-size:10px;color:#8fb4f7;font-weight:600}
+.paper .dpage{margin-top:26px;padding-top:14px;border-top:2px dashed #b9c0cc}
+.paper .dpage .hdr .he{margin-bottom:0}
+.paper .dpage .ack .dr{padding:9px 12px}
+.paper .dpage .phg{margin-top:4px}
 .pfoot{display:none}
 .paper .stypes{gap:4px}
 .paper .st .ic,.paper .hdr .beam,.paper .hdr .carline{display:none}
@@ -230,6 +234,8 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
   .paper .ttl{margin:6px 0 4px;font-size:15px}
   .paper .rw{padding:2px 8px}.paper .ph2{padding:2px 8px}
   .paper table.tt td{padding:3px 6px}
+  .paper .dpage{break-before:page;page-break-before:always;margin-top:0;padding-top:0;border-top:0}
+  .paper .dpage .phg img{height:110px}
   .pfoot{display:block;margin-top:8px;text-align:center;font-size:8.5px;color:#777;border-top:1px solid #bbb;padding-top:3px}
 }
 </style></head><body><div id="app"><div class="login"><div class="card muted" style="text-align:center">جارٍ التحميل…</div></div></div><div id="print-root"></div><div id="toasts"></div><div id="modal"></div>
@@ -554,6 +560,7 @@ const SERVICES=[
 const WFIELDS=[['مدة ضمان المحل (على جودة التنفيذ)','shop_period'],['ما يشمله ضمان المحل','shop_scope','a'],['الجهة المقدمة لضمان الشركة المصنعة','mfr_name'],['مدة ضمان الشركة المصنعة','mfr_period'],['رقم شهادة الضمان','cert_no'],['تاريخ بداية الضمان','start','t','date'],['ما لا يشمله الضمان / ملاحظات','excl','a']];
 const TERMS=[["موافقة العميل على الخدمات","يقرّ العميل بأنه اطّلع على الخدمات والأسعار المحددة في هذا العقد ووافق عليها، ولا تُنفَّذ خدمة غير مدرجة فيه."],["توثيق حالة السيارة","تُفحص السيارة وتُوثَّق حالتها بالصور والبيانات قبل بدء العمل، ويوقّع الطرفان على ذلك."],["الخدوش والأضرار السابقة","تُسجَّل جميع الخدوش والأضرار الموجودة قبل الاستلام، وما سُجّل لا يُحتسب على المحل."],["الضرر أثناء وجود السيارة","إذا ثبت حدوث ضرر أثناء وجود السيارة لدى المحل بسبب خطأ أو إهمال أو سوء تنفيذ، يتحمل المحل إصلاحه على نفقته أو تعويض العميل بالقيمة الفعلية للضرر، بعد المعاينة والتوثيق بين الطرفين."],["الأعمال الإضافية","لا يُنفَّذ أي عمل إضافي دون موافقة العميل على تكلفته مسبقاً (كتابةً أو برسالة موثقة)."],["نتائج التلميع","تختلف النتائج بحسب حالة الطلاء وسماكته وعمق الخدوش، وقد لا يمكن إزالة بعض الخدوش العميقة كلياً، ويُبلغ المحل العميل بذلك قبل التنفيذ."],["حدود الضمان","يقتصر ضمان أفلام PPF والعازل الحراري والسيراميك على ما هو مدوَّن في قسم الضمان وعلى شروط ضمان المنتج الفعلية، ولا يشمل الحوادث والكشط والخدوش الناتجة عن الاستخدام أو الغسيل الخاطئ أو التعديل من جهة أخرى."],["العناية بعد الخدمة","يلتزم العميل بتعليمات العناية: عدم غسل السيارة خلال {wash_days} أيام بعد الخدمة، وعدم فتح النوافذ المعالجة خلال {window_days} أيام، واستخدام غسيل يدوي بمواد مناسبة، والصيانة الدورية كل {maint_months} أشهر."],["الاستلام والتسليم","تُسلَّم السيارة بعد فحصها مع العميل وتوقيعه على الاستلام، ويستلمها خلال {pickup_days} أيام من إشعاره بجاهزيتها. وأي رسوم حفظ بعد ذلك يجب أن تكون مكتوبة ومتفقاً عليها مسبقاً."],["الشكاوى والملاحظات","يقدّم العميل أي ملاحظة على الخدمة خلال {complaint_days} أيام من الاستلام عبر الرقم أو القناة التي يحددها المحل، ويلتزم المحل بالرد ومعالجتها خلال {response_days} أيام عمل، وعند تعذر الاتفاق يُلجأ إلى الجهات المختصة بحسب الأنظمة المعمول بها في المملكة."],["المسؤولية","يتحمل المحل مسؤولية جودة التنفيذ والمحافظة على السيارة أثناء وجودها لديه، ويتحمل العميل صحة بياناته وإخراج متعلقاته الثمينة والإفصاح عن أي عيوب أو إصلاحات سابقة يعلمها."],["عدم الإعفاء من المسؤولية","لا يتضمن هذا العقد أي بند يعفي المحل من مسؤوليته عن الإهمال أو التلف الناتج عن سوء التنفيذ."]];
 const DISCLAIMERS=[{ar:'الشركة غير مسؤولة عن فقدان أي غرض من السيارة بعد تسليمها للموظف المسؤول.',en:'The Company shall not be liable for the loss of any item from the vehicle after it has been handed over to the responsible employee.'},{ar:'الشركة غير مسؤولة عن أعمال الكهرباء والصيانة بالسيارة.',en:'The Company shall not be liable for the electrical work and maintenance of the vehicle.'}];
+const DELIVERY_ACK={ar:'أقرّ أنا العميل الموقّع أدناه بأنني استلمت مركبتي المذكورة أعلاه وهي سليمة، بعد أن عاينتها وفحصتها بنفسي وتأكدت من خلوها من أي ضرر جديد، وأن الخدمات المتفق عليها نُفِّذت، باستثناء ما دوّنته من ملاحظات في هذه الورقة إن وجدت.',en:'I, the undersigned customer, acknowledge that I have received my vehicle in sound condition, having inspected it myself and confirmed that it is free from any new damage, and that the agreed services have been performed, except for the notes recorded on this sheet, if any.'};
 const EN_CHECK={"حالة الطلاء الخارجي":"Exterior paint condition","الخدوش الموجودة مسبقاً":"Pre-existing scratches","آثار الحوادث أو الإصلاحات السابقة":"Previous accidents / repairs","حالة الصدامات":"Bumpers condition","حالة الزجاج":"Glass condition","حالة المصابيح":"Lights condition","حالة الجنوط والإطارات":"Wheels & tires condition","حالة المقصورة الداخلية":"Interior cabin condition","وجود أغراض شخصية داخل السيارة":"Personal belongings inside the vehicle","ملاحظات إضافية":"Additional notes"};
 const TP=[['wash_days','عدم غسل السيارة خلال (أيام)'],['window_days','عدم فتح النوافذ المعالجة خلال (أيام)'],['maint_months','الصيانة الدورية كل (أشهر)'],['pickup_days','استلام السيارة خلال (أيام) من الإشعار'],['complaint_days','تقديم الملاحظات خلال (أيام) من الاستلام'],['response_days','رد المحل ومعالجته خلال (أيام عمل)']];
 const KINDS={خ:'خدش',ص:'صدمة / انبعاج',ط:'تقشر طلاء',ك:'كسر / شرخ',ح:'حفرة'},KCOL={خ:'#e0a100',ص:'#d33',ط:'#8a3ffc',ك:'#d33',ح:'#0a7'};
@@ -939,8 +946,8 @@ function deliveryCard(){
   <label style="margin-top:8px">الخدمات التي تم تنفيذها</label><textarea rows="2" data-p="delivery.done" ${DIS}>${esc(dl.done||'')}</textarea>
   <label style="margin-top:8px">الملاحظات النهائية</label><textarea rows="2" data-p="delivery.notes" ${DIS}>${esc(dl.notes||'')}</textarea>
   <label style="margin-top:8px">ملاحظة الدفع عند التسليم (اختياري)</label><input data-p="delivery.pay_note" value="${esc(dl.pay_note||'')}" ${DIS}>
-  <p style="margin-top:10px">أقرّ أنا العميل باستلام مركبتي بعد فحصها، وأن الخدمات المذكورة نُفّذت كما هو مبيّن في العقد، باستثناء ما دوّنته من ملاحظات.</p>
-  <h4 style="margin:10px 0 4px">صور ما بعد التنفيذ</h4>${photosPanel('after',editableDelivery())}
+  <p style="margin-top:10px">${esc(DELIVERY_ACK.ar)}</p>
+  <h4 style="margin:10px 0 4px">توثيق السيارة عند التسليم (صور للمحل فقط، لا تظهر في نسخة العميل)</h4>${photosPanel('after',editableDelivery())}
   <div class="g2" style="margin-top:10px">${sigPanel('delivery_customer',editableDelivery(),C.o.data.customer.name)}${sigPanel('delivery_staff',editableDelivery(),S.profile.full_name||'')}</div>
   <div style="margin-top:10px"><button class="btn ok" data-act="deliver">تأكيد التسليم النهائي</button></div></div>`}
 function versionsCard(){
@@ -988,13 +995,9 @@ function docHTML(mode,opt){
   if(dsc.length)h+=`<div class="disc"><div class="dh"><span>إخلاء مسؤولية</span><span class="en" dir="ltr">Disclaimer</span></div>${dsc.map(x=>`<div class="dr"><p>${esc(x.ar)}</p><p class="en" dir="ltr">${esc(x.en)}</p></div>`).join('')}</div>`;
   const sg=k=>{const s=sigOf(k);return s?`<img src="${safeImg(s.image)}" alt=""><div class="small">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>`:'<div class="small">— لم يُوقَّع —</div>'};
   h+=`<h4><span>التواقيع</span><span class="en" dir="ltr">Signatures</span></h4><div class="sigs"><div><b>العميل / Customer</b>${sg('contract_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('contract_staff')}</div></div>`;
-  // التسليم
-  const hasDl=Object.values(dl).some(x=>x)||sigOf('delivery_customer');
-  if(hasDl&&!opt.noDelivery){h+=`<h4>التسليم النهائي</h4><div class="kv">${kv('تاريخ التسليم',dl.date)}${kv('وقت التسليم',dl.time)}${kv('حالة السيارة',dl.state)}${kv('ملاحظة الدفع',dl.pay_note)}</div><table><tr><td class="l">الخدمات المنفذة</td><td>${esc(dl.done)}</td></tr><tr><td class="l">ملاحظات نهائية</td><td>${esc(dl.notes)}</td></tr></table>
-    <div class="small">أقرّ أنا العميل باستلام مركبتي بعد فحصها، وأن الخدمات نُفّذت كما هو مبيّن، باستثناء ما دوّنته من ملاحظات.</div><div class="sigs"><div><b>العميل</b>${sg('delivery_customer')}</div><div><b>الموظف</b>${sg('delivery_staff')}</div></div>`}
   // الصور
   const ph=(phase)=>[...(phase==='before'?C.inh:[]),...C.photos.filter(p=>p.phase===phase)];
-  [['before','صور الاستلام (قبل التنفيذ)'],['after','صور ما بعد التنفيذ']].forEach(([p,t])=>{const L=cust?[]:ph(p);if(L.length)h+=`<h4>${t}</h4><div class="phg">${L.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}${x.inherited?' (من النسخة السابقة)':''}</figcaption></figure>`).join('')}</div>`});
+  [['before','صور الاستلام (قبل التنفيذ)']].forEach(([p,t])=>{const L=cust?[]:ph(p);if(L.length)h+=`<h4>${t}</h4><div class="phg">${L.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}${x.inherited?' (من النسخة السابقة)':''}</figcaption></figure>`).join('')}</div>`});
   // معلومات الاعتماد
   if(!cust&&(final||r.approved_at)){h+=`<h4>${cust?'بيانات الاعتماد':'بيانات الاعتماد والتدقيق'}</h4><div class="small">تاريخ الاعتماد: ${dt(r.approved_at,true)}${!cust?` · اعتمده: ${esc(C.names[r.approved_by]||'—')}`:''} · رمز التحقق: <span class="mono">${esc(cust?(r.approved_hash||'').slice(0,12):(r.approved_hash||''))}</span></div>`}
   if(!cust){h+=`<div class="small">أنشأه: ${esc(C.names[r.created_by]||'—')} · ${dt(r.created_at,true)} · آخر تعديل: ${dt(r.updated_at,true)}</div>${d.internal_notes?`<h4>ملاحظات داخلية</h4><div>${esc(d.internal_notes).replace(/\n/g,'<br>')}</div>`:''}
@@ -1002,6 +1005,20 @@ function docHTML(mode,opt){
   const dots='............';
   h+=`<div class="cbar"><span><b>العنوان / Address:</b> ${shop.address?esc(shop.address):dots}</span><span><b>التواصل / Tel:</b> ${shop.phone?esc(shop.phone):dots}${shop.email?' · '+esc(shop.email):''}</span></div>`;
   h+=`<div class="pfoot">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')} · ${esc(shop.name_en||'Best Protection')} · ${esc(r.contract_no)} · ${cust?'':' · نسخة المحل / Shop Copy'}</div>`;
+  // ورقة التسليم (صفحة منفصلة)
+  const hasDl=Object.values(dl).some(x=>x)||sigOf('delivery_customer')||sigOf('delivery_staff');
+  if(hasDl&&!opt.noDelivery){
+    const af=cust?[]:C.photos.filter(p=>p.phase==='after');
+    h+=`<div class="dpage"><div class="hdr"><img src="${LOGO}" alt=""><div class="hm"><div class="hn">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')}</div><div class="he" dir="ltr">${esc(shop.name_en||'Best Protection')}</div></div><div class="hd"><b>تاريخ التسليم / Date</b>${dl.date?esc(dl.date):dt(new Date().toISOString())}</div></div>
+    <div class="ttl">ورقة تسليم المركبة<span class="en" dir="ltr">Vehicle Delivery Receipt</span></div>
+    <div class="pair"><div class="pc"><div class="ph2">العميل <i dir="ltr">Customer</i></div>${rw('رقم العقد','Contract No.',r.contract_no)}${rw('الاسم','Name',d.customer.name)}${rw('الجوال','Mobile',d.customer.phone)}</div><div class="pc"><div class="ph2">المركبة <i dir="ltr">Vehicle</i></div>${rw('المركبة','Vehicle',[d.vehicle.make,d.vehicle.model,d.vehicle.year].filter(Boolean).join(' '))}${rw('رقم اللوحة','Plate No.',d.vehicle.plate)}${rw('وقت التسليم','Time',dl.time)}</div></div>
+    <h4><span>حالة التسليم</span><span class="en" dir="ltr">Delivery Details</span></h4>
+    <table><tr><td class="l">حالة السيارة عند التسليم <i class="en" dir="ltr">Condition</i></td><td>${esc(dl.state)||'&nbsp;'}</td></tr><tr><td class="l">الخدمات المنفذة <i class="en" dir="ltr">Services performed</i></td><td>${esc(dl.done)||'&nbsp;'}</td></tr><tr><td class="l">ملاحظات <i class="en" dir="ltr">Notes</i></td><td>${esc(dl.notes)||'&nbsp;'}</td></tr>${dl.pay_note?`<tr><td class="l">ملاحظة الدفع <i class="en" dir="ltr">Payment note</i></td><td>${esc(dl.pay_note)}</td></tr>`:''}</table>
+    <div class="disc ack"><div class="dh"><span>إقرار الاستلام</span><span class="en" dir="ltr">Acknowledgement of Receipt</span></div><div class="dr"><p>${esc(DELIVERY_ACK.ar)}</p><p class="en" dir="ltr">${esc(DELIVERY_ACK.en)}</p></div></div>
+    <h4><span>التوقيع عند الاستلام</span><span class="en" dir="ltr">Signatures</span></h4>
+    <div class="sigs"><div><b>العميل / Customer</b>${sg('delivery_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('delivery_staff')}</div></div>
+    ${af.length?`<h4><span>توثيق المركبة عند التسليم (للمحل فقط)</span><span class="en" dir="ltr">Vehicle documentation at delivery (shop only)</span></h4><div class="phg">${af.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}</figcaption></figure>`).join('')}</div>`:''}
+    <div class="pfoot">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')} · ${esc(shop.name_en||'Best Protection')} · ${esc(r.contract_no)} · ورقة التسليم / Delivery Receipt${cust?'':' · نسخة المحل / Shop Copy'}</div></div>`}
   return h}
 
 async function previewDoc(mode){
