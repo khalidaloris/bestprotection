@@ -211,6 +211,8 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
 .paper .dpage .hdr .he{margin-bottom:0}
 .paper .dpage .ack .dr{padding:9px 12px}
 .paper .dpage .phg{margin-top:4px}
+.paper .dpage td{height:30px}
+.paper .dpage.solo{margin-top:0;padding-top:0;border-top:0}
 .pfoot{display:none}
 .paper .stypes{gap:4px}
 .paper .st .ic,.paper .hdr .beam,.paper .hdr .carline{display:none}
@@ -234,6 +236,7 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
   .paper .ttl{margin:6px 0 4px;font-size:15px}
   .paper .rw{padding:2px 8px}.paper .ph2{padding:2px 8px}
   .paper table.tt td{padding:3px 6px}
+  .paper .dpage.solo{break-before:auto;page-break-before:auto}
   .paper .dpage{break-before:page;page-break-before:always;margin-top:0;padding-top:0;border-top:0}
   .paper .dpage .phg img{height:110px}
   .pfoot{display:block;margin-top:8px;text-align:center;font-size:8.5px;color:#777;border-top:1px solid #bbb;padding-top:3px}
@@ -319,7 +322,7 @@ function renderLogin(msg){
   <label>الإيميل</label><input type="email" name="email" id="lm" autocomplete="username" inputmode="email" required>
   <label style="margin-top:8px">كلمة المرور</label><input type="password" name="password" id="lp" autocomplete="current-password" required>
   <div class="err" id="le" style="margin-top:6px">${esc(msg||'')}</div>
-  <button class="btn" style="width:100%;margin:8px 0 0" id="lb">دخول</button><p class="nt" style="text-align:center;margin-top:10px">إصدار 11-11 · ورقة التسليم</p>
+  <button class="btn" style="width:100%;margin:8px 0 0" id="lb">دخول</button><p class="nt" style="text-align:center;margin-top:10px">إصدار 11-11 (ب) · ورقة التسليم</p>
   <p style="text-align:center;margin:8px 0 0"><a href="#" id="fg">نسيت كلمة المرور؟</a></p></form></div>`;
   $('#lf').onsubmit=async e=>{e.preventDefault();const b=$('#lb');b.disabled=true;$('#le').textContent='';
     const {data,error}=await sb.auth.signInWithPassword({email:$('#lm').value.trim(),password:$('#lp').value});
@@ -354,7 +357,7 @@ function renderShell(){
   const nav=[['#/','الرئيسية','dash'],['#/contracts','العقود','contracts']];
   if(isOwner())nav.push(['#/users','المستخدمون','users'],['#/audit','سجل العمليات','audit'],['#/settings','إعدادات المحل','settings']);
   $('#app').innerHTML=`<div class="top"><div class="in"><img src="${LOGO}" alt="BP"><div class="nav">${nav.map(n=>`<a href="${n[0]}" data-nav="${n[2]}">${n[1]}</a>`).join('')}</div>
-  <div class="me"><span><b>${esc(S.profile.full_name||S.profile.email)}</b> · ${ROLE[S.profile.role]}</span><button id="bpw">كلمة المرور</button><span class="nt" style="opacity:.7">إصدار 11-11 · ورقة التسليم</span><button id="bout">خروج</button></div></div></div><main class="wrap" id="main"></main>`;
+  <div class="me"><span><b>${esc(S.profile.full_name||S.profile.email)}</b> · ${ROLE[S.profile.role]}</span><button id="bpw">كلمة المرور</button><span class="nt" style="opacity:.7">إصدار 11-11 (ب) · ورقة التسليم</span><button id="bout">خروج</button></div></div></div><main class="wrap" id="main"></main>`;
   $('#bout').onclick=()=>logout();$('#bpw').onclick=changePassword;
 }
 function setNav(k){$$('.top .nav a').forEach(a=>a.classList.toggle('on',a.dataset.nav===k))}
@@ -814,6 +817,7 @@ function renderContract(main){
   if(editableData()){h+=stepper()+`<div id="stepbody">${stepBody()}</div>${footNav()}`}
   else{
     if(editableDelivery())h+=deliveryCard();
+    if(r.status==='approved')h+=`<div class="card"><h3>ورقة التسليم (بعد التنفيذ)</h3><p>بعد إنهاء العمل: اضغط <b>بدء التنفيذ</b> لتظهر خانة <b>التسليم والتوثيق</b> (صور توثيق حالة السيارة للمحل، وإقرار العميل، والتوقيع)، وبعدها تُطبع <b>ورقة التسليم</b> في صفحة منفصلة.</p><p class="nt">وتقدر تطبع ورقة التسليم فارغة الآن من زر «🧾 ورقة التسليم» أعلاه ليوقّع عليها العميل بيده.</p></div>`;
     h+=versionsCard();
     h+=`<div class="card"><h3>نص العقد</h3><div class="paper">${docHTML('shop',{noDelivery:editableDelivery()})}</div></div>`;
   }
@@ -838,6 +842,7 @@ function actions(){
   if(['approved','in_progress','delivered'].includes(r.status)&&r.is_current&&act&&!child)out.push(b('newver','✎ تصحيح خطأ / نسخة جديدة','line'));
   if(child)out.push(`<a class="btn line" href="#/c/${esc(child.id)}">فتح النسخة الجديدة (${STATUS[child.status]})</a>`);
   out.push(b('pdfShop','معاينة / PDF — نسخة المحل','sec'),b('pdfCust','معاينة / PDF — نسخة العميل','sec'));
+  if(['approved','in_progress','delivered','archived'].includes(r.status))out.push(b('pdfDelCust','🧾 ورقة التسليم — طباعة منفصلة (العميل)','ok'),b('pdfDelShop','🧾 ورقة التسليم — طباعة منفصلة (المحل + صور)','ok'));
   if(isOwner())out.push(`<a class="btn line" href="#/audit?rec=${esc(r.id)}">سجل هذا العقد</a>`);
   if(isOwner()&&!r.approved_at&&['draft','cancelled'].includes(r.status)&&!C.versions.some(v=>v.parent_contract_id===r.id))out.push(b('delcontract','حذف العقد نهائياً','bad'));
   return out.join('')}
@@ -933,14 +938,14 @@ const ACT_FN={
     C.dirty=false;try{localStorage.removeItem(bkKey())}catch(e){}
     if(paths.length){const rm=await sb.storage.from('contract-files').remove(paths);if(rm.error)toast('حُذف العقد، لكن تعذر حذف بعض ملفات الصور','bad')}
     toast('تم حذف العقد','ok');location.hash='#/contracts'},
-  pdfShop:()=>previewDoc('shop'),pdfCust:()=>previewDoc('customer')
+  pdfShop:()=>previewDoc('shop'),pdfCust:()=>previewDoc('customer'),pdfDelShop:()=>previewDoc('shop',{deliveryOnly:true}),pdfDelCust:()=>previewDoc('customer',{deliveryOnly:true})
 };
 
 /* ========== التسليم والنسخ ========== */
 function deliveryCard(){
   DIS=editableDelivery()?'':'disabled';const dl=C.o.delivery;
   const f=(l,k,o={})=>`<div><label>${l}</label><input data-p="delivery.${k}" value="${esc(dl[k]||'')}" ${o.type?`type="${o.type}"`:''} ${DIS}></div>`;
-  return `<div class="card"><div class="row-between"><h3 style="margin:0">التسليم النهائي</h3><span class="savestate" id="ss"></span></div>
+  return `<div class="card"><div class="row-between"><h3 style="margin:0">التسليم والتوثيق (بعد التنفيذ)</h3><span class="savestate" id="ss"></span></div>
   <div class="g" style="margin-top:8px">${f('تاريخ التسليم','date',{type:'date'})}${f('وقت التسليم','time',{type:'time'})}
   <div><label>حالة السيارة عند التسليم</label><select data-p="delivery.state" ${DIS}><option value=""></option>${['مطابقة للاتفاق','بها ملاحظات'].map(o=>`<option ${dl.state===o?'selected':''}>${o}</option>`).join('')}</select></div></div>
   <label style="margin-top:8px">الخدمات التي تم تنفيذها</label><textarea rows="2" data-p="delivery.done" ${DIS}>${esc(dl.done||'')}</textarea>
@@ -993,7 +998,7 @@ function docHTML(mode,opt){
   h+=`<h4><span>الشروط والأحكام</span><span class="en" dir="ltr">Terms &amp; Conditions</span></h4><ol>${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}${(d.extra_terms||[]).filter(t=>t.t||t.b).map(t=>`<li><b>${esc(t.t)}:</b> ${esc(t.b)}</li>`).join('')}</ol>`;
   const dsc=(d.disclaimers||[]).filter(x=>x.ar||x.en);
   if(dsc.length)h+=`<div class="disc"><div class="dh"><span>إخلاء مسؤولية</span><span class="en" dir="ltr">Disclaimer</span></div>${dsc.map(x=>`<div class="dr"><p>${esc(x.ar)}</p><p class="en" dir="ltr">${esc(x.en)}</p></div>`).join('')}</div>`;
-  const sg=k=>{const s=sigOf(k);return s?`<img src="${safeImg(s.image)}" alt=""><div class="small">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>`:'<div class="small">— لم يُوقَّع —</div>'};
+  const sg=k=>{const s=sigOf(k);return s?`<img src="${safeImg(s.image)}" alt=""><div class="small">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>`:(opt.deliveryOnly?'<div class="small" style="margin-top:34px">الاسم: ......................... التوقيع: .........................</div>':'<div class="small">— لم يُوقَّع —</div>')};
   h+=`<h4><span>التواقيع</span><span class="en" dir="ltr">Signatures</span></h4><div class="sigs"><div><b>العميل / Customer</b>${sg('contract_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('contract_staff')}</div></div>`;
   // الصور
   const ph=(phase)=>[...(phase==='before'?C.inh:[]),...C.photos.filter(p=>p.phase===phase)];
@@ -1007,9 +1012,10 @@ function docHTML(mode,opt){
   h+=`<div class="pfoot">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')} · ${esc(shop.name_en||'Best Protection')} · ${esc(r.contract_no)} · ${cust?'':' · نسخة المحل / Shop Copy'}</div>`;
   // ورقة التسليم (صفحة منفصلة)
   const hasDl=Object.values(dl).some(x=>x)||sigOf('delivery_customer')||sigOf('delivery_staff');
-  if(hasDl&&!opt.noDelivery){
+  let dp='';
+  if((hasDl||opt.deliveryOnly)&&!opt.noDelivery){
     const af=cust?[]:C.photos.filter(p=>p.phase==='after');
-    h+=`<div class="dpage"><div class="hdr"><img src="${LOGO}" alt=""><div class="hm"><div class="hn">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')}</div><div class="he" dir="ltr">${esc(shop.name_en||'Best Protection')}</div></div><div class="hd"><b>تاريخ التسليم / Date</b>${dl.date?esc(dl.date):dt(new Date().toISOString())}</div></div>
+    dp=`<div class="dpage"><div class="hdr"><img src="${LOGO}" alt=""><div class="hm"><div class="hn">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')}</div><div class="he" dir="ltr">${esc(shop.name_en||'Best Protection')}</div></div><div class="hd"><b>تاريخ التسليم / Date</b>${dl.date?esc(dl.date):dt(new Date().toISOString())}</div></div>
     <div class="ttl">ورقة تسليم المركبة<span class="en" dir="ltr">Vehicle Delivery Receipt</span></div>
     <div class="pair"><div class="pc"><div class="ph2">العميل <i dir="ltr">Customer</i></div>${rw('رقم العقد','Contract No.',r.contract_no)}${rw('الاسم','Name',d.customer.name)}${rw('الجوال','Mobile',d.customer.phone)}</div><div class="pc"><div class="ph2">المركبة <i dir="ltr">Vehicle</i></div>${rw('المركبة','Vehicle',[d.vehicle.make,d.vehicle.model,d.vehicle.year].filter(Boolean).join(' '))}${rw('رقم اللوحة','Plate No.',d.vehicle.plate)}${rw('وقت التسليم','Time',dl.time)}</div></div>
     <h4><span>حالة التسليم</span><span class="en" dir="ltr">Delivery Details</span></h4>
@@ -1019,22 +1025,22 @@ function docHTML(mode,opt){
     <div class="sigs"><div><b>العميل / Customer</b>${sg('delivery_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('delivery_staff')}</div></div>
     ${af.length?`<h4><span>توثيق المركبة عند التسليم (للمحل فقط)</span><span class="en" dir="ltr">Vehicle documentation at delivery (shop only)</span></h4><div class="phg">${af.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}</figcaption></figure>`).join('')}</div>`:''}
     <div class="pfoot">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')} · ${esc(shop.name_en||'Best Protection')} · ${esc(r.contract_no)} · ورقة التسليم / Delivery Receipt${cust?'':' · نسخة المحل / Shop Copy'}</div></div>`}
-  return h}
+  return opt.deliveryOnly?dp.replace('class="dpage"','class="dpage solo"'):h+dp}
 
-async function previewDoc(mode){
+async function previewDoc(mode,opt){
   if(C.dirty){try{await saveNow()}catch(e){}}
   await signUrls();
   const ov=document.createElement('div');ov.className='pv';
-  ov.innerHTML=`<div class="pvbar"><button class="btn" data-pv="print">طباعة / حفظ PDF</button><button class="btn sec" data-pv="close">إغلاق المعاينة</button><b>${mode==='shop'?'نسخة المحل':'نسخة العميل'}</b></div><div class="paper">${docHTML(mode)}</div>`;
-  ov.onclick=e=>{const b=e.target.closest('[data-pv]');if(!b)return;if(b.dataset.pv==='close')ov.remove();else printDoc(mode)};
+  ov.innerHTML=`<div class="pvbar"><button class="btn" data-pv="print">طباعة / حفظ PDF</button><button class="btn sec" data-pv="close">إغلاق المعاينة</button><b>${opt&&opt.deliveryOnly?'ورقة التسليم — ':''}${mode==='shop'?'نسخة المحل':'نسخة العميل'}</b></div><div class="paper">${docHTML(mode,opt)}</div>`;
+  ov.onclick=e=>{const b=e.target.closest('[data-pv]');if(!b)return;if(b.dataset.pv==='close')ov.remove();else printDoc(mode,opt)};
   document.body.append(ov);ov.scrollTop=0}
-async function printDoc(mode){
+async function printDoc(mode,opt){
   if(C.dirty){try{await saveNow()}catch(e){}}
   await signUrls();
-  const root=$('#print-root');root.innerHTML=`<div class="paper">${docHTML(mode)}</div>`;
+  const root=$('#print-root');root.innerHTML=`<div class="paper">${docHTML(mode,opt)}</div>`;
   await Promise.all($$('img',root).map(i=>i.complete?Promise.resolve():new Promise(r=>{i.onload=i.onerror=r})));
   sb.rpc('log_event',{p_action:'export_pdf',p_details:{no:C.row.contract_no,mode}}).then(()=>{},()=>{});
-  const old=document.title;document.title=`${C.row.contract_no}-${mode==='shop'?'نسخة-المحل':'نسخة-العميل'}`;
+  const old=document.title;document.title=`${C.row.contract_no}-${opt&&opt.deliveryOnly?'ورقة-التسليم-':''}${mode==='shop'?'نسخة-المحل':'نسخة-العميل'}`;
   window.onafterprint=()=>{root.innerHTML='';document.title=old;window.onafterprint=null};
   setTimeout(()=>window.print(),80)}
 
