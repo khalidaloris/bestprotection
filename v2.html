@@ -536,8 +536,90 @@ details.pre[open]>summary{border-bottom:1px solid var(--ln);padding-bottom:6px;m
 .dirty{position:sticky;bottom:12px;z-index:12;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(91,147,240,.5);border-radius:16px;padding:8px 8px 8px 14px;padding-inline:14px 8px;box-shadow:var(--glow);margin-top:12px;animation:rise .2s ease both}
 .dirty .btn{margin:0}
 #waGo{display:inline-flex}
+/* ===== العروض وحدود الخصم ===== */
+.offers{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(250px,100%),1fr));gap:12px}
+.offer{position:relative;overflow:hidden;background:linear-gradient(160deg,rgba(47,111,228,.24),rgba(47,111,228,.05) 62%),var(--card2);border:1px solid rgba(91,147,240,.5);border-radius:18px;padding:14px 16px;display:flex;flex-direction:column;gap:4px;box-shadow:var(--glow)}
+.offer::after{content:'';position:absolute;inset-block-start:-46px;inset-inline-end:-46px;width:130px;height:130px;border-radius:50%;background:radial-gradient(circle,rgba(91,147,240,.35),transparent 70%);pointer-events:none}
+.offer.wait{background:linear-gradient(160deg,rgba(240,164,58,.16),rgba(240,164,58,.03) 62%),var(--card2);border-color:rgba(240,164,58,.45);box-shadow:none}
+.offer.end{background:var(--card2);border-color:var(--ln);box-shadow:none;opacity:.55}
+.ohead{display:flex;justify-content:space-between;align-items:center}
+.oval{font-size:32px;font-weight:800;line-height:1.1;background:var(--blg);-webkit-background-clip:text;background-clip:text;color:transparent}
+.offer.wait .oval{background:linear-gradient(135deg,#b86e00,#f0a43a);-webkit-background-clip:text;background-clip:text}
+.offer.end .oval{background:none;color:var(--mut)}
+.oval small{font-size:14px;-webkit-text-fill-color:var(--mut)}
+.offer b{font-size:16.5px;color:var(--hd)}
+.offer>small{color:var(--mut);font-size:13px;line-height:1.5}
+.cut{position:relative;border-top:1.5px dashed var(--ln2);margin:8px -16px 6px}
+.cut::before,.cut::after{content:'';position:absolute;top:-10px;width:20px;height:20px;border-radius:50%;background:var(--card);border:1px solid var(--ln)}
+.cut::before{left:-11px}.cut::after{right:-11px}
+.ofoot{display:flex;justify-content:space-between;align-items:center;color:var(--mut);font-size:12.5px}
+.ostat{font-size:12px;font-weight:700;padding:2px 10px;border-radius:999px}
+.ostat.ok{color:var(--ok);background:rgba(34,195,142,.14);border:1px solid rgba(34,195,142,.4)}
+.ostat.wait{color:var(--warn);background:rgba(240,164,58,.14);border:1px solid rgba(240,164,58,.4)}
+.ostat.end{color:var(--mut);background:var(--lab);border:1px solid var(--ln2)}
+.sw{position:relative;display:inline-block;width:46px;height:26px;flex:none}
+.sw i{position:absolute;inset:0;border-radius:999px;background:var(--lab);border:1px solid var(--ln2)}
+.sw i::after{content:'';position:absolute;top:3px;inset-inline-start:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 2px 6px rgba(0,0,0,.4)}
+.sw.on i{background:var(--blg);border-color:transparent;box-shadow:var(--glow)}
+.sw.on i::after{inset-inline-start:auto;inset-inline-end:3px}
+.ucards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(min(320px,100%),1fr))}
+.ucard{background:var(--card2);border:1px solid var(--ln);border-radius:18px;padding:14px}
+.uh{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.uh .av{width:42px;height:42px;border-radius:50%;display:grid;place-items:center;font-weight:800;color:#fff;background:var(--blg);box-shadow:var(--glow);flex:none}
+.uh>div{flex:1}.uh b{display:block;color:var(--hd)}.uh small{color:var(--mut);font-size:12.5px}
+.lims{margin:2px 0 10px}
+.lim{display:flex;align-items:center;gap:8px;border-radius:12px;padding:8px 12px;font-size:14px;font-weight:600}
+.lim.ok{color:var(--ok);background:rgba(34,195,142,.1);border:1px solid rgba(34,195,142,.35)}
+.lim.over{color:#ffb4a8;background:linear-gradient(135deg,rgba(255,99,99,.18),rgba(255,99,99,.05));border:1px solid rgba(255,99,99,.55)}
+.lim.over b{color:#fff}
+.ocho{display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(min(220px,100%),1fr));margin-bottom:12px}
+.tcard.dis{opacity:.5}
+.tcard .tp.neg{background:linear-gradient(135deg,#0f8a60,#22c38e);-webkit-background-clip:text;background-clip:text}
+.xdisc{display:grid;gap:8px}
+.fin .ofr{background:linear-gradient(135deg,rgba(34,195,142,.16),rgba(34,195,142,.04));border-color:rgba(34,195,142,.45)}
+.fin .ofr b,.fin .neg b{color:var(--ok)}
+.flagc{border-color:rgba(255,99,99,.55);background:linear-gradient(160deg,rgba(255,99,99,.14),rgba(255,99,99,.02) 60%),var(--card)}
+.flagc p{margin:6px 0 10px;color:var(--tx)}
+.bars .br{display:grid;grid-template-columns:96px 1fr auto;gap:10px;align-items:center;margin:8px 0;font-size:14px}
+.bars .tr{height:12px;border-radius:999px;background:var(--lab);overflow:hidden}
+.bars .tr i{display:block;height:100%;border-radius:999px;background:var(--blg);box-shadow:0 0 10px rgba(47,111,228,.6)}
+.bars .tr i.g{background:linear-gradient(135deg,#0f8a60,#22c38e);box-shadow:0 0 10px rgba(34,195,142,.5)}
+.bars .br b{white-space:nowrap;color:var(--hd)}
+.pend{display:flex;align-items:center;gap:10px;background:var(--card2);border:1px solid rgba(255,99,99,.45);border-radius:14px;padding:10px 12px;margin:8px 0}
+.pend .i{color:var(--bad)}.pend div{flex:1}.pend small{display:block;color:var(--mut);font-size:12.5px}
+.offer{cursor:pointer;transition:transform .15s,box-shadow .2s;text-align:start;font:inherit;color:var(--tx)}
+.offer:hover{transform:translateY(-2px)}
+.offer:focus-visible{outline:2px solid var(--bl2);outline-offset:2px}
+.offer.add{background:var(--card2);border:1px dashed rgba(91,147,240,.6);box-shadow:none;align-items:flex-start;gap:6px}
+.offer.add b{display:inline-flex;align-items:center;gap:8px;color:var(--blt)}
+.offer.add::after{display:none}
+button.sw{border:0;background:none;padding:0;cursor:pointer;font:inherit}
+button.sw:disabled{opacity:.5;cursor:default}
+.orow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:12px 0 4px}
+.orow span{font-size:14px;color:var(--tx)}
+.tchips.wrap{flex-wrap:wrap;overflow:visible;padding-bottom:4px}
+.tcard.dis{cursor:default;box-shadow:none}
+.tcard.dis:hover{transform:none;border-color:var(--ln2)}
+.tcard .sv{font-size:12.5px;color:var(--ok)}
+.tcard .st-w{font-size:12.5px}
+#ofc .xdisc input{max-width:240px}
+.lim .i{flex:none;width:20px;height:20px}
+.fin>div[hidden]{display:none}
+.fin .ofr span,.fin .neg span{font-size:14px}
+.pend a{flex:1;color:inherit;text-decoration:none;min-width:0}
+.pend .i{flex:none;width:22px;height:22px}
+.pend .btn{margin:0}
+.bars a.br{color:inherit;text-decoration:none;border-radius:10px}
+.bars a.br:hover span:first-child{color:var(--blt)}
+.bars .br span:first-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#plim{margin-top:8px}
+.ucard .seg{margin-bottom:10px}
+:root[data-theme=light] .lim.over{color:#b3261e;background:linear-gradient(135deg,rgba(211,47,47,.1),rgba(211,47,47,.03))}
+:root[data-theme=light] .lim.over b{color:#7f1d1d}
+:root[data-theme=light] .offer{box-shadow:0 6px 18px rgba(47,111,228,.14)}
+:root[data-theme=light] .offer.wait,:root[data-theme=light] .offer.end,:root[data-theme=light] .offer.add{box-shadow:none}
 /* صفوف التمرير الأفقي لا تمدّ عرض الصفحة على الجوال */
-.pills,.chips,.tchips,.steps,.top .nav,.sc{contain:inline-size}
+.pills,.chips,.tchips,.steps,.top .nav,.sc,.bars{contain:inline-size}
 @media print{body::before{display:none}:root,:root[data-theme=light]{color-scheme:light}html{background:#fff!important}}
 </style></head><body><div id="app"><div class="login"><div class="card muted" style="text-align:center">جارٍ التحميل…</div></div></div><div id="print-root"></div><div id="toasts"></div><div id="modal"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.97.0/dist/umd/supabase.js"></script>
@@ -547,7 +629,7 @@ details.pre[open]>summary{border-bottom:1px solid var(--ln);padding-bottom:6px;m
 const SB_URL='https://zswsxqurasbwcblibqca.supabase.co';
 const SB_KEY='sb_publishable_PT1-SU8UdwwyoM3jMJ_i2g_4yAco18H';
 const IDLE_MIN=60;
-const VER='إصدار 22 نوفمبر · التصميم الجديد';
+const VER='إصدار 22 نوفمبر · العروض والخصومات';
 /* أيقونات خطية بسيطة */
 const IC={home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',doc:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',plus:'<path d="M12 5v14M5 12h14"/>',
   menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.2A6.5 6.5 0 0 1 21.5 20"/>',audit:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
@@ -596,6 +678,7 @@ const ERRMAP=[['Invalid login credentials','الإيميل أو كلمة الم�
 ['NOT_ALLOWED_DELETE','الحذف للمالك فقط'],['DELETE_REASON_REQUIRED','سبب الحذف مطلوب'],['CANNOT_DELETE_APPROVED','العقد المعتمد لا يُحذف (يمكن إلغاؤه أو أرشفته)'],['HAS_VERSIONS','للعقد نسخ مرتبطة به ولا يمكن حذفه'],
 ['CONTRACT_LOCKED','العقد مقفل ولا يمكن تعديله'],['DELIVERY_LOCKED','بيانات التسليم مقفلة في هذه الحالة'],['BAD_PATH','مسار الملف غير صحيح'],
 ['PARENT_NOT_APPROVED','يمكن إنشاء نسخة جديدة من عقد معتمد فقط'],['NOT_ALLOWED_PARENT','لا تملك صلاحية على العقد الأصلي'],['CANNOT_CHANGE_OWN_ROLE','لا يمكنك تغيير دورك أو تعطيل حسابك بنفسك'],
+['DISCOUNT_LIMIT','الخصم أعلى من الحد المسموح — هذا العقد يعتمده المالك فقط'],["'disc_pct' column",'حدود الخصم تحتاج تشغيل سكربت التحديث 05 في Supabase'],["'disc_amt' column",'حدود الخصم تحتاج تشغيل سكربت التحديث 05 في Supabase'],
 ['Could not find the function','هذه الميزة تحتاج تشغيل سكربت التحديث 04 في Supabase'],["'presets' column",'الأسعار الجاهزة تحتاج تشغيل سكربت التحديث 04 في Supabase'],['row-level security','ليس لديك صلاحية لهذه العملية'],['permission denied','ليس لديك صلاحية لهذه العملية'],['Failed to fetch','تعذر الاتصال بالإنترنت'],['NetworkError','تعذر الاتصال بالإنترنت']];
 const errMsg=e=>{const m=String((e&&(e.message||e.error_description||e.msg))||e||'');for(const [k,v] of ERRMAP)if(m.includes(k))return v;return 'تعذرت العملية: '+m.slice(0,160)};
 
@@ -745,12 +828,15 @@ function boardHTML(rows,names){
 async function pageDash(main){
   setNav('dash');document.title='الرئيسية — Best Protection';loading(main);
   const n0=new Date(),ms=new Date(n0.getFullYear(),n0.getMonth(),1).toISOString();
-  const [st,open,recent,mine,pr]=await Promise.all([
+  const DQ='svc:data->services,fin:data->fin,ofr:data->offer';
+  const [st,open,recent,mine,pr,pend]=await Promise.all([
     sb.rpc('dashboard_stats'),
     sb.from('contracts').select('id,contract_no,status,version,parent_contract_id,customer_name,customer_phone,plate_no,created_at,created_by,veh:data->vehicle,exp:data->customer->>expected_date').eq('is_current',true).in('status',OPEN_COLS.map(c=>c[0])).order('created_at',{ascending:false}).limit(300),
     sb.from('contracts').select('id,contract_no,status,version,customer_name,plate_no,created_at,created_by').order('created_at',{ascending:false}).limit(6),
-    isMgr()?sb.from('contracts').select('created_by,status').gte('created_at',ms).eq('is_current',true).limit(1000):Promise.resolve({data:[]}),
-    isMgr()?sb.from('profiles').select('id,full_name,email'):Promise.resolve({data:[]})
+    isMgr()?sb.from('contracts').select('created_by,status'+(isOwner()?',created_at,'+DQ:'')).gte('created_at',ms).eq('is_current',true).limit(1000):Promise.resolve({data:[]}),
+    isMgr()?sb.from('profiles').select('*'):Promise.resolve({data:[]}),
+    isOwner()?sb.from('contracts').select('id,contract_no,customer_name,plate_no,created_by,created_at,'+DQ).eq('status','pending_approval').order('created_at',{ascending:false}).limit(100):Promise.resolve({data:[]}),
+    isOwner()?(SHOP=null,shopSnap()):null
   ]);
   if(st.error)throw st.error;
   const s=st.data||{},names={};(pr.data||[]).forEach(p=>names[p.id]=p.full_name||p.email);
@@ -759,6 +845,20 @@ async function pageDash(main){
     const g={};(mine.data||[]).forEach(r=>{const x=g[r.created_by]||(g[r.created_by]={n:0,draft:0,done:0,cancel:0});x.n++;if(r.status==='draft')x.draft++;else if(r.status==='cancelled')x.cancel++;else x.done++});
     const rows=Object.keys(g).map(k=>`<tr><td>${esc(names[k]||'—')}</td><td>${g[k].n}</td><td>${g[k].draft}</td><td>${g[k].done}</td><td>${g[k].cancel}</td></tr>`).join('');
     staffHtml=`<details class="card fold"><summary><h3>نشاط الموظفين هذا الشهر</h3></summary><div class="sc"><table class="t"><tr><th>الموظف</th><th>العقود</th><th>مسودات</th><th>قائمة/منفذة</th><th>ملغية</th></tr>${rows||'<tr><td colspan=5 class="muted">لا توجد عقود هذا الشهر</td></tr>'}</table></div></details>`;
+  }
+  // المالك: العقود اللي خصمها فوق حد الموظف + الخصومات هذا الشهر
+  let ownHtml='',flag=[];
+  if(isOwner()){
+    const profs={};(pr.data||[]).forEach(p=>profs[p.id]=p);
+    const dOf=r=>({services:Array.isArray(r.svc)?r.svc:[],fin:r.fin&&typeof r.fin==='object'?r.fin:{},offer:r.ofr&&typeof r.ofr==='object'?r.ofr:null});
+    flag=(pend.data||[]).map(r=>{const L=limOf(profs[r.created_by]),I=discInfo(dOf(r),[cday(r.created_at),today()]);return {r,I,L,over:hasLim(L)&&isOver(I,L)}}).filter(x=>x.over);
+    if(flag.length)ownHtml+=`<div class="card flagc"><div class="sech"><h3>بانتظار اعتمادك</h3><span class="badge b-cancelled">خصم فوق الحد</span></div>${flag.map(({r,I,L})=>`<div class="pend">${ic('bolt')}<a href="#/c/${esc(r.id)}"><b>${esc(r.contract_no)} · ${esc(r.customer_name||'— بدون اسم —')}</b><small>${esc(names[r.created_by]||'—')} خصم ${fmtP(I.manual)} ر.س (${fmtPct(I.pct)}%) وحدّه ${limTxt(L)}${r.ofr&&r.ofr.name?' · مع '+esc(r.ofr.name):''}</small></a><button type="button" class="btn sm ok" data-qa="${esc(r.id)}">${ic('check')} اعتماد</button></div>`).join('')}</div>`;
+    let ofT=0;const per={};
+    (mine.data||[]).filter(r=>['approved','in_progress','delivered','archived'].includes(r.status)).forEach(r=>{const T=totals(dOf(r));ofT=r2(ofT+T.odisc);const m=r2(T.ldisc+T.xdisc);if(m>0)per[r.created_by]=r2((per[r.created_by]||0)+m)});
+    const rows=[...(ofT>0?[['','عروض جاهزة',ofT,'g']]:[]),...Object.keys(per).sort((a,b)=>per[b]-per[a]).map(k=>[k,names[k]||'—',per[k],''])],tot=r2(rows.reduce((a,x)=>a+x[2],0));
+    if(tot>0){const mx=Math.max(...rows.map(x=>x[2])),m1=today().slice(0,8)+'01';
+      ownHtml+=`<div class="card"><div class="sech"><h3>الخصومات هذا الشهر</h3><span class="nt">إجمالي ${fmtP(tot)} ر.س</span></div><div class="bars">${rows.map(([k,n,v,c])=>`<${k?`a href="#/contracts?by=${esc(k)}&from=${m1}"`:'div'} class="br"><span>${esc(n)}</span><span class="tr"><i class="${c}" style="width:${Math.max(3,Math.round(v/mx*100))}%"></i></span><b>${fmtP(v)} ر.س</b></${k?'a':'div'}>`).join('')}</div>
+      <p class="nt" style="margin:4px 0 0">${Object.keys(per).length?'اضغط على اسم الموظف لعرض عقوده هذا الشهر. ':''}العروض الجاهزة ما تنحسب على الموظف. (العقود المعتمدة فقط)</p></div>`}
   }
   const rowHtml=r=>`<a class="r" href="#/c/${esc(r.id)}"><div><b>${esc(r.contract_no)}</b><small>${dt(r.created_at,true)}</small></div><div>${esc(r.customer_name||'— بدون اسم —')}</div><div>${esc(r.plate_no||'')}</div><div>${badge(r.status)} ${r.version>1?`<span class="badge vb">نسخة ${r.version}</span>`:''}</div></a>`;
   const kp=[['today','اليوم','today'],['week','آخر 7 أيام','trend'],['month','هذا الشهر','cal'],['total','الإجمالي','stack']];
@@ -769,19 +869,23 @@ async function pageDash(main){
   const dayTxt=new Date().toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{timeZone:'Asia/Riyadh',weekday:'long',day:'numeric',month:'long'});
   const pl=[['draft','مسودات','draft'],['pending','بانتظار الاعتماد','pending_approval'],['approved','معتمدة','approved'],['in_progress','قيد التنفيذ','in_progress'],['delivered','تم التسليم','delivered'],['cancelled','ملغية','cancelled'],['archived','مؤرشفة','archived']];
   main.innerHTML=`<div class="hello"><div><small>${isOwner()?'لوحة المالك':'الرئيسية'} · ${esc(dayTxt)}</small><h1>${greet}${first?' يا '+esc(first):''}</h1><p>${openN?`في المحل الآن ${openN} ${openN===1?'سيارة':openN===2?'سيارتان':'سيارات'}${lateN?` · <b style="color:var(--bad)">${lateN} متأخرة</b>`:''}`:'لا توجد سيارات مفتوحة الآن.'}</p></div><a class="btn" href="#/c/new">${ic('plus')} عقد جديد</a></div>
-  <div class="kpis">${kp.map(c=>`<a class="kpi" href="#/contracts">${ic(c[2])}<b>${s[c[0]]??0}</b><span>${c[1]}</span></a>`).join('')}</div>
+  ${ownHtml}<div class="kpis">${kp.map(c=>`<a class="kpi" href="#/contracts">${ic(c[2])}<b>${s[c[0]]??0}</b><span>${c[1]}</span></a>`).join('')}</div>
   ${open.error?`<div class="card err">${esc(errMsg(open.error))}</div>`:boardHTML(open.data,names)}
   <div class="pills">${pl.map(c=>`<a class="pl b-${c[2]}" href="#/contracts?status=${c[2]}"><span>${c[1]}</span><b>${s[c[0]]??0}</b></a>`).join('')}</div>
   <div class="card"><h3>آخر العقود</h3><div class="rows">${(recent.data||[]).map(rowHtml).join('')||'<p class="muted">لا توجد عقود بعد. ابدأ بعقد جديد.</p>'}</div><a href="#/contracts">كل العقود ←</a></div>${staffHtml}
   ${isMgr()?'':'<p class="nt">تظهر لك العقود التي أنشأتها أنت فقط.</p>'}`;
-  main.onclick=e=>{const w=e.target.closest('[data-wa]');if(w){e.preventDefault();waFromId(w.dataset.wa).catch(x=>toast(errMsg(x),'bad'))}};
+  main.onclick=async e=>{const w=e.target.closest('[data-wa]');if(w){e.preventDefault();waFromId(w.dataset.wa).catch(x=>toast(errMsg(x),'bad'));return}
+    const qa=e.target.closest('[data-qa]');if(!qa)return;const x=flag.find(f=>f.r.id===qa.dataset.qa);if(!x)return;
+    if(!await confirmBox('اعتماد العقد',`اعتماد <b>${esc(x.r.contract_no)}</b> بخصم ${fmtP(x.I.manual)} ر.س (${fmtPct(x.I.pct)}%) وحد الموظف ${esc(limTxt(x.L))}؟<br>بعد الاعتماد يُقفل العقد ولا يُعدَّل إلا بنسخة جديدة.`,'اعتماد','ok'))return;
+    qa.disabled=true;const {data:d,error:er}=await sb.from('contracts').update({status:'approved'}).eq('id',x.r.id).select('id');
+    if(er||!d||!d.length){qa.disabled=false;toast(er?errMsg(er):'لم يتم الاعتماد','bad');return}toast('تم اعتماد العقد','ok');route()};
 }
 
 /* ========== قائمة العقود والبحث ========== */
 let LS={q:'',status:'',from:'',to:'',by:'',old:false};
 async function pageList(main,params){
   setNav('contracts');document.title='العقود — Best Protection';
-  if(params.status!==undefined){LS={q:'',status:params.status||'',from:'',to:'',by:'',old:false}}
+  if(params.status!==undefined||params.by!==undefined){LS={q:'',status:params.status||'',from:isYmd(params.from)?params.from:'',to:'',by:params.by||'',old:false}}
   let people=[];if(isMgr()){const pr=await sb.from('profiles').select('id,full_name,email').order('created_at');people=pr.data||[]}
   const adv=!!(LS.from||LS.to||LS.by||LS.old);
   main.innerHTML=`<div class="row-between"><h1 class="pt">العقود</h1><a class="btn" href="#/c/new">${ic('plus')} عقد جديد</a></div>
@@ -837,6 +941,30 @@ async function pageUsers(main){
     b.disabled=true;const {data:d,error:e}=await sb.from('profiles').update(patch).eq('id',tr.dataset.id).select();b.disabled=false;
     if(e||!d||!d.length)toast(e?errMsg(e):'لم يتم الحفظ','bad');else toast('تم الحفظ','ok')});
   $$('.ur',main).forEach(s=>s.onchange=()=>{const tr=s.closest('tr'),a=$('.ua',tr);if(s.value==='owner'){a.checked=true;a.disabled=true}else a.disabled=false});
+  // حدود الخصم لكل موظف (تُفرض في قاعدة البيانات عند الاعتماد — السكربت 05)
+  const hasL=data.length>0&&Object.prototype.hasOwnProperty.call(data[0],'disc_pct'),dis=hasL?'':'disabled',sv=v=>v==null||v===''?'':String(+v);
+  const QL=[['0','بدون'],['5','5%'],['10','10%'],['15','15%'],['','بلا حد']];
+  const segOn=(p,a,v)=>v===''?p===''&&a==='':p===v;
+  const note=(p,a,ap)=>{const L={p:p===''?null:nm(p),a:a===''?null:nm(a)};if(!hasLim(L))return 'بلا حد للخصم'+(ap?' ويعتمد أي عقد.':'.');
+    if(noManual(L))return 'ما يخصم إلا بالعروض الجاهزة — أي خصم يدوي يروح لك للاعتماد.';
+    return (L.p!=null&&L.a!=null?`يقدر يخصم حتى ${fmtPct(L.p)}% أو ${fmtP(L.a)} ر.س، أيهما أقل.`:L.p!=null?`يقدر يخصم حتى ${fmtPct(L.p)}% من الفاتورة.`:`يقدر يخصم حتى ${fmtP(L.a)} ر.س.`)+(ap?' ويعتمد العقود اللي خصمها ضمن حدّه بس.':'')};
+  const ucard=p=>{const pp=sv(p.disc_pct),pa=sv(p.disc_amt);return `<div class="ucard" data-id="${esc(p.id)}" data-ap="${p.can_approve?1:''}"><div class="uh"><span class="av">${esc(initials(p.full_name||p.email))}</span><div><b>${esc(p.full_name||p.email)}</b><small>${ROLE[p.role]||esc(p.role)} · يعتمد العقود: ${p.can_approve?'نعم':'لا'}</small></div><span class="badge b-delivered">مفعّل</span></div>
+    <label>حد الخصم في العقد</label><div class="seg wide lims">${QL.map(([v,t])=>`<button type="button" data-lv="${v}" class="${segOn(pp,pa,v)?'on':''}" ${dis}>${t}</button>`).join('')}</div>
+    <div class="g"><div><label>النسبة % (أو اكتب نسبة أخرى)</label><input data-lp inputmode="decimal" value="${pp}" placeholder="بلا حد" autocomplete="off" ${dis}></div><div><label>أو حد أقصى بالمبلغ (ر.س، اختياري)</label><input data-la inputmode="decimal" value="${pa}" placeholder="مثلاً 300" autocomplete="off" ${dis}></div></div>
+    <p class="nt" data-ln style="margin:8px 0">${esc(note(pp,pa,p.can_approve))}</p><button type="button" class="btn sm" data-ls ${dis}>${ic('check')} حفظ الحد</button></div>`};
+  const staff=data.filter(p=>p.role!=='owner'&&p.active);
+  main.insertAdjacentHTML('beforeend',`<div class="card" id="lcard"><h3>حدود الخصم</h3><p class="nt">لو خصم الموظف أكثر من حدّه، العقد ما ينمنع، لكن يروح لك أنت بس للاعتماد. العروض الجاهزة ما تنحسب من الحد. المشرف اللي يعتمد العقود يعتمد فقط ما هو ضمن حدّه وحد الموظف.</p>
+  ${hasL?'':'<div class="warn"><b>تحتاج خطوة واحدة:</b> شغّل الملف <span class="mono" style="font-size:12px">05_offers_discounts.sql</span> مرة واحدة في Supabase ← SQL Editor، ثم افتح هذه الصفحة من جديد.</div>'}
+  <div class="ucards">${staff.map(ucard).join('')||'<p class="nt">لا يوجد موظفون مفعّلون بعد.</p>'}</div></div>`);
+  const sync=c=>{const pp=$('[data-lp]',c).value.trim(),pa=$('[data-la]',c).value.trim();$$('[data-lv]',c).forEach(b=>b.classList.toggle('on',segOn(pp,pa,b.dataset.lv)));$('[data-ln]',c).textContent=note(pp,pa,!!c.dataset.ap)};
+  $('#lcard').oninput=e=>{const t=e.target,c=t.closest('.ucard');if(!c||!t.matches('[data-lp],[data-la]'))return;const nv=digits(t.value).replace(/٫/g,'.').replace(/[^0-9.]/g,'');if(nv!==t.value)t.value=nv;sync(c)};
+  $('#lcard').onclick=async e=>{const c=e.target.closest('.ucard');if(!c)return;
+    const q=e.target.closest('[data-lv]');if(q){const v=q.dataset.lv;$('[data-lp]',c).value=v;if(v===''||v==='0')$('[data-la]',c).value='';sync(c);return}
+    const b=e.target.closest('[data-ls]');if(!b)return;const pp=$('[data-lp]',c).value.trim(),pa=$('[data-la]',c).value.trim();
+    if(pp!==''&&!(nm(pp)>=0&&nm(pp)<=100)){toast('النسبة من 0 إلى 100','bad');return}
+    const patch={disc_pct:pp===''?null:nm(pp),disc_amt:pa===''?null:nm(pa)};
+    b.disabled=true;const {data:d,error:e2}=await sb.from('profiles').update(patch).eq('id',c.dataset.id).select();b.disabled=false;
+    if(e2||!d||!d.length)toast(e2?errMsg(e2):'لم يتم الحفظ','bad');else toast('تم حفظ حد الخصم','ok')};
 }
 
 /* ========== سجل العمليات (المالك) ========== */
@@ -875,14 +1003,40 @@ async function pageAudit(main,params){
 async function pageSettings(main){
   setNav('settings');document.title='إعدادات المحل — Best Protection';
   if(!isOwner()){main.innerHTML='<div class="card err">هذه الصفحة للمالك فقط.</div>';return}
-  loading(main);const {data:s,error}=await sb.from('shop_settings').select('*').eq('id',1).maybeSingle();if(error)throw error;
+  loading(main);
+  const [r0,ru]=await Promise.all([sb.from('shop_settings').select('*').eq('id',1).maybeSingle(),
+    sb.from('contracts').select('oid:data->offer->>id').not('data->offer->>id','is',null).neq('status','cancelled').eq('is_current',true).limit(5000)]);
+  const s=r0.data;if(r0.error)throw r0.error;
+  const used={};(ru.data||[]).forEach(x=>{if(x&&x.oid)used[x.oid]=(used[x.oid]||0)+1});
+  const hasP=!!s&&Object.prototype.hasOwnProperty.call(s,'presets');let P=normPresets(s&&s.presets),SAVED=normPresets(s&&s.presets),dirty=false;
   const F=[['shop_name_ar','اسم المحل (عربي)'],['shop_name_en','اسم المحل (إنجليزي)'],['commercial_register','رقم السجل التجاري'],['vat_number','الرقم الضريبي'],['address','العنوان'],['phone','رقم التواصل'],['email','البريد الإلكتروني']];
-  main.innerHTML=`<h1 class="pt">إعدادات المحل</h1><div class="card"><div class="warn">اتركها فارغة إذا لم تتوفر. لا يضيف النظام أي رقم سجل أو ضريبة أو عنوان من عنده. تظهر هذه البيانات في رأس العقد، وتُحفظ نسخة منها داخل كل عقد، وتتحدث تلقائياً في المسودات عند فتحها، ثم تثبت عند الاعتماد.</div>
+  main.innerHTML=`<h1 class="pt">إعدادات المحل</h1>
+  <div class="card" id="ocard"><div class="sech"><h3>العروض والخصومات</h3><button type="button" class="btn sm" data-on="1" ${hasP?'':'disabled'}>${ic('plus')} عرض جديد</button></div>
+  <p class="nt">العروض تظهر للموظف داخل العقد ويطبّقها بضغطة، والخصم ينحسب لحاله ويطلع اسم العرض في العقد المطبوع. حد خصم كل موظف تحدده من صفحة <a href="#/users">المستخدمين</a>.</p>
+  ${hasP?'':'<div class="warn">العروض تحتاج تشغيل الملف <span class="mono" style="font-size:12px">04_presets_lookup.sql</span> أولاً (نفس خطوة قائمة الأسعار).</div>'}<div class="offers" id="olist"></div></div>
+  <div class="card"><div class="warn">اتركها فارغة إذا لم تتوفر. لا يضيف النظام أي رقم سجل أو ضريبة أو عنوان من عنده. تظهر هذه البيانات في رأس العقد، وتُحفظ نسخة منها داخل كل عقد، وتتحدث تلقائياً في المسودات عند فتحها، ثم تثبت عند الاعتماد.</div>
   <div class="g">${F.map(f=>`<div><label>${f[1]}</label><input data-k="${f[0]}" value="${esc((s&&s[f[0]])||'')}"></div>`).join('')}</div><button class="btn" id="ss" style="margin-top:10px">حفظ</button></div>`;
   $('#ss').onclick=async()=>{const patch={updated_by:S.user.id,updated_at:new Date().toISOString()};$$('[data-k]',main).forEach(i=>patch[i.dataset.k]=i.value.trim());
     const {data:d,error:e}=await sb.from('shop_settings').update(patch).eq('id',1).select();if(e||!d||!d.length)toast(e?errMsg(e):'لم يتم الحفظ','bad');else{SHOP=null;toast('تم الحفظ','ok')}};
+  // العروض: تُحفظ فوراً فوق آخر نسخة محفوظة من الإعدادات (لا تحفظ تعديلات قائمة الأسعار غير المحفوظة معها)
+  const ORD={on:0,wait:1,off:2,end:3};
+  const drawOffers=()=>{const L=P.offers.map((o,i)=>({o,i,st:offerState(o)})).sort((a,b)=>ORD[a.st]-ORD[b.st]||a.i-b.i);
+    $('#olist').innerHTML=L.map(({o,i,st})=>{const [stT,stC]=OST[st],n=used[o.id]||0;
+      return `<div class="offer ${st==='on'?'':st==='wait'?'wait':'end'}" data-oe="${i}" role="button" tabindex="0"><div class="ohead"><span class="oval">${offerVal(o)}</span><span class="ostat ${stC}">${stT}</span></div>
+      <b>${esc(o.name)}</b><small>${esc(offerSub(o,P,st))}</small><div class="cut"></div>
+      <div class="ofoot"><span>${st==='wait'?'يشتغل تلقائياً في موعده':n?'استُخدم في '+nContracts(n):'لم يُستخدم بعد'}</span><button type="button" class="sw${o.active?' on':''}" data-ot="${i}" role="switch" aria-checked="${o.active}" aria-label="${o.active?'إيقاف العرض':'تشغيل العرض'}" ${hasP?'':'disabled'}><i></i></button></div></div>`}).join('')
+      ||`<button type="button" class="offer add" data-on="1" ${hasP?'':'disabled'}><b>${ic('gem')} ما فيه عروض بعد</b><small>اضغط لإضافة أول عرض — مثلاً: عرض اليوم الوطني 15% على كل الخدمات.</small></button>`};
+  const saveOffers=async(L,msg)=>{const out=cleanPresets(Object.assign({},SAVED,{offers:L}));if(typeof out==='string'){toast(out,'bad');return false}
+    const {data:d,error:e2}=await sb.from('shop_settings').update({presets:out,updated_by:S.user.id,updated_at:new Date().toISOString()}).eq('id',1).select();
+    if(e2||!d||!d.length){toast(e2?errMsg(e2):'لم يتم الحفظ','bad');return false}
+    SHOP=null;SAVED=normPresets(out);P.offers=clone(SAVED.offers);drawOffers();if(msg)toast(msg,'ok');return true};
+  drawOffers();
+  $('#ocard').onclick=async e=>{const t=e.target.closest('[data-ot]');
+    if(t){e.stopPropagation();const i=+t.dataset.ot,L=clone(P.offers);if(!L[i])return;L[i].active=!L[i].active;t.disabled=true;if(!await saveOffers(L,L[i].active?'تم تشغيل العرض':'تم إيقاف العرض'))t.disabled=false;return}
+    if(e.target.closest('[data-on]')){openOfferEditor(P,null,hasP,saveOffers);return}
+    const c=e.target.closest('[data-oe]');if(c)openOfferEditor(P,+c.dataset.oe,hasP,saveOffers)};
+  $('#ocard').onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&e.target.matches&&e.target.matches('[data-oe]')){e.preventDefault();openOfferEditor(P,+e.target.dataset.oe,hasP,saveOffers)}};
   // قائمة الأسعار والأنواع + مدد الشروط + رسائل واتساب (عمود presets — يحتاج السكربت 04)
-  const hasP=!!s&&Object.prototype.hasOwnProperty.call(s,'presets');let P=normPresets(s&&s.presets),dirty=false;
   main.insertAdjacentHTML('beforeend',`<div class="card" id="pcard"><div class="sech"><h3>قائمة الأسعار والأنواع</h3><button type="button" class="btn sm sec" data-pa="share">${ic('share')} مشاركة القائمة</button></div>
   ${hasP?'':`<div class="warn"><b>تحتاج خطوة واحدة:</b> شغّل الملف <span class="mono" style="font-size:12px">04_presets_lookup.sql</span> مرة واحدة في Supabase ← SQL Editor، ثم افتح هذه الصفحة من جديد. قبلها لا يمكن حفظ قائمة الأسعار.</div>`}
   <p class="nt">اضغط على أي خدمة وأضف أنواعها: لكل نوع سعره وتفاصيل مواده وضمانه (مثلاً PPF: تغطية كاملة، واجهة أمامية… / نانو: طبقة، طبقتين…). داخل العقد يختار الموظف النوع بضغطة فتنزل كل تفاصيله.</p>
@@ -898,7 +1052,7 @@ async function pageSettings(main){
   const savePresets=async()=>{const out=cleanPresets(P);if(typeof out==='string'){toast(out,'bad');return false}
     const {data:d,error:e2}=await sb.from('shop_settings').update({presets:out,updated_by:S.user.id,updated_at:new Date().toISOString()}).eq('id',1).select();
     if(e2||!d||!d.length){toast(e2?errMsg(e2):'لم يتم الحفظ','bad');return false}
-    SHOP=null;P=normPresets(out);drawCat();setDirty(false);toast('تم حفظ قائمة الأسعار','ok');return true};
+    SHOP=null;P=normPresets(out);SAVED=normPresets(out);drawCat();setDirty(false);toast('تم حفظ قائمة الأسعار','ok');return true};
   drawCat();drawRest();
   $('#pcard').oninput=e=>{const t=e.target,k=t.dataset&&t.dataset.pp;if(!k)return;let v=t.value;if(t.dataset.dg){const nv=digits(v);if(nv!==v){t.value=nv;v=nv}}setPath(P,k,v);if(!dirty)setDirty(true)};
   $('#pcard').onclick=async e=>{const c=e.target.closest('[data-pe]');if(c){openSvcEditor(P,c.dataset.pe,hasP,savePresets);return}
@@ -950,7 +1104,7 @@ function normPresets(p){
     p.svc[x.k]={price:String(o.price??''),qty:String(o.qty??''),desc:String(o.desc??''),x:strObj(o.x),w:strObj(o.w),types:(Array.isArray(o.types)?o.types:[]).map(normType)}});
   p.extra=(Array.isArray(p.extra)?p.extra:[]).filter(e=>e&&typeof e==='object').map(e=>{const x=strObj(e.x);if(e.details&&!x.details)x.details=String(e.details);
     return {id:String(e.id||tid()),name:String(e.name??''),price:String(e.price??''),qty:String(e.qty??''),desc:String(e.desc??''),x,w:strObj(e.w),types:(Array.isArray(e.types)?e.types:[]).map(normType)}});
-  p.tp=strObj(p.tp);p.wa=strObj(p.wa);return p}
+  p.tp=strObj(p.tp);p.wa=strObj(p.wa);p.offers=(Array.isArray(p.offers)?p.offers:[]).filter(o=>o&&typeof o==='object').map(normOffer);return p}
 let PRE_S,PRE_C;
 function PRE(){if(PRE_S!==SHOP||!PRE_C){PRE_S=SHOP;PRE_C=normPresets(SHOP&&SHOP.presets)}return PRE_C}
 const waTemplates=()=>{const w=PRE().wa,o={};Object.keys(WA_DEF).forEach(k=>o[k]=(typeof w[k]==='string'&&w[k].trim())?w[k]:WA_DEF[k]);return o};
@@ -976,8 +1130,66 @@ function cleanPresets(P){
     if(Object.keys(x).length)r.x=x;if(Object.keys(w).length)r.w=w;if(ty.length)r.types=ty;r.id=e.id||tid();out.extra.push(r)}
   if(out.extra.length>40)return 'الحد الأقصى 40 خدمة إضافية';
   Object.keys(WA_DEF).forEach(k=>{const v=str(P.wa[k]);if(v&&v!==WA_DEF[k])out.wa[k]=v.slice(0,1500)});
+  const of=cleanOffers(P.offers);if(typeof of==='string')return of;if(of.length)out.offers=of;
   if(JSON.stringify(out).length>200000)return 'البيانات كبيرة جداً';
   return out}
+/* ========== العروض ========== */
+const okYmd=x=>{if(!isYmd(x))return false;const t=new Date(x+'T00:00:00Z');return !isNaN(t)&&t.toISOString().slice(0,10)===x};
+function normOffer(o){o=(o&&typeof o==='object')?o:{};
+  return {id:String(o.id||tid()),name:String(o.name??''),kind:o.kind==='amt'?'amt':'pct',value:String(o.value??''),min:String(o.min??''),scope:o.scope==='svc'?'svc':'all',
+    svcs:Array.isArray(o.svcs)?o.svcs.map(String).filter(Boolean):[],bundle:o.bundle===true||o.bundle==='true',from:okYmd(o.from)?o.from:'',to:okYmd(o.to)?o.to:'',active:o.active!==false&&o.active!=='false'}}
+function cleanOffers(L){const out=[];
+  for(const o of L||[]){const name=String(o.name||'').trim();if(!name)return 'كل عرض يحتاج اسماً';
+    const v=nm(o.value);if(!(v>0))return `اكتب قيمة الخصم لعرض «${name}»`;if(o.kind!=='amt'&&v>100)return `نسبة عرض «${name}» لا تتجاوز 100%`;
+    const svcs=o.scope==='svc'?[...new Set((o.svcs||[]).map(String).filter(Boolean))]:[];if(o.scope==='svc'&&!svcs.length)return `اختر خدمة واحدة على الأقل لعرض «${name}»`;
+    const from=okYmd(o.from)?o.from:'',to=okYmd(o.to)?o.to:'';if(from&&to&&to<from)return `تاريخ نهاية عرض «${name}» قبل بدايته`;
+    const r={id:String(o.id||tid()),name:name.slice(0,80),kind:o.kind==='amt'?'amt':'pct',value:String(v),scope:svcs.length?'svc':'all',active:o.active!==false};
+    if(nm(o.min)>0)r.min=String(nm(o.min));if(svcs.length){r.svcs=svcs;if(o.bundle&&svcs.length>1)r.bundle=true}if(from)r.from=from;if(to)r.to=to;out.push(r)}
+  if(out.length>30)return 'الحد الأقصى 30 عرضاً';return out}
+/* حالة العرض اليوم: on فعّال · wait مجدول · end منتهي · off موقوف */
+function offerState(o,day){day=day||today();if(!o||o.active===false)return 'off';if(o.from&&day<o.from)return 'wait';if(o.to&&day>o.to)return 'end';return 'on'}
+const OST={on:['فعّال','ok'],wait:['مجدول','wait'],end:['منتهي','end'],off:['موقوف','end']};
+const dAr=x=>{try{return new Date(x+'T12:00:00Z').toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{day:'numeric',month:'long',timeZone:'UTC'})}catch(e){return x}};
+function svcLabel(k,P){k=String(k||'');if(k.startsWith('x:')){const e=(P||PRE()).extra.find(x=>x.id===k.slice(2));return e?String(e.name||'').trim():''}const s=SERVICES.find(x=>x.k===k&&!x.custom);return s?s.n:''}
+const offerVal=o=>o.kind==='amt'?`−${fmtP(o.value)} <small>ر.س</small>`:`−${fmtP(o.value)}%`;
+function offerScope(o,P){if(o.scope!=='svc')return 'على كل الخدمات';const L=(o.svcs||[]).map(k=>svcLabel(k,P)).filter(Boolean);
+  if(!L.length)return 'على خدمات محذوفة';return o.bundle?'عند اختيار: '+L.join(' + '):'على: '+L.join('، ')}
+function offerDates(o,st){if(st==='end'&&o.to)return 'انتهى '+dAr(o.to);if(st==='wait'&&o.from)return 'يبدأ '+dAr(o.from)+(o.to?' وينتهي '+dAr(o.to):'');
+  if(o.from&&o.to)return `من ${dAr(o.from)} إلى ${dAr(o.to)}`;if(o.to)return 'ينتهي '+dAr(o.to);if(o.from)return 'من '+dAr(o.from);return ''}
+const offerSub=(o,P,st)=>[offerScope(o,P),nm(o.min)>0?'حد أدنى للفاتورة '+fmtP(o.min)+' ر.س':'',offerDates(o,st)].filter(Boolean).join(' · ');
+const nContracts=n=>n===1?'عقد واحد':n===2?'عقدين':n<=10?n+' عقود':n+' عقداً';
+/* محرر عرض واحد (ورقة سفلية في الجوال) */
+function openOfferEditor(P,i,canSave,onSave){
+  const isNew=i==null,E=normOffer(isNew?{name:'',kind:'pct',scope:'all',active:true}:clone(P.offers[i]));
+  const SV=[...SERVICES.filter(x=>!x.custom).map(x=>({k:x.k,n:x.n})),...P.extra.filter(e=>String(e.name||'').trim()).map(e=>({k:'x:'+e.id,n:e.name}))];
+  const svcHTML=()=>E.scope!=='svc'?'':`<div class="tchips wrap" style="margin-top:8px">${SV.map(x=>`<button type="button" data-os="${esc(x.k)}" class="${E.svcs.includes(x.k)?'on':''}">${esc(x.n)}</button>`).join('')}</div>
+    <div class="orow"><span>باقة: لازم يختار كل الخدمات المحددة معاً</span><button type="button" class="sw${E.bundle?' on':''}" data-oa="bundle" role="switch" aria-checked="${E.bundle}" aria-label="باقة"><i></i></button></div>`;
+  const body=`<div class="sheet-h"><span class="ti">${ic('gem')}</span><h3>${isNew?'عرض جديد':'تعديل العرض'}</h3><button type="button" class="x" data-oa="close" aria-label="إغلاق">✕</button></div>
+    <div class="g"><div style="grid-column:1/-1"><label>اسم العرض *</label><input data-of="name" value="${esc(E.name)}" placeholder="مثلاً: عرض اليوم الوطني" autocomplete="off"></div></div>
+    <label style="margin-top:12px">نوع الخصم</label><div class="seg wide" id="okd">${[['pct','نسبة %'],['amt','مبلغ ثابت (ر.س)']].map(([k,t])=>`<button type="button" data-ok="${k}" class="${E.kind===k?'on':''}">${t}</button>`).join('')}</div>
+    <div class="g" style="margin-top:10px"><div><label id="ovl">${E.kind==='amt'?'المبلغ (ر.س) *':'النسبة % *'}</label><input data-of="value" data-dg="1" inputmode="decimal" value="${esc(E.value)}" autocomplete="off"></div><div><label>حد أدنى للفاتورة (اختياري)</label><input data-of="min" data-dg="1" inputmode="decimal" value="${esc(E.min)}" placeholder="بدون" autocomplete="off"></div></div>
+    <label style="margin-top:12px">ينطبق على</label><div class="seg wide" id="osc">${[['all','كل الخدمات'],['svc','خدمات محددة']].map(([k,t])=>`<button type="button" data-osc="${k}" class="${E.scope===k?'on':''}">${t}</button>`).join('')}</div>
+    <div id="osv">${svcHTML()}</div>
+    <div class="g" style="margin-top:10px"><div><label>من تاريخ</label><input type="date" data-of="from" value="${esc(E.from)}"></div><div><label>إلى تاريخ</label><input type="date" data-of="to" value="${esc(E.to)}"></div></div>
+    <p class="nt" style="margin:6px 0 0">اترك التاريخ فارغاً لو العرض مفتوح. يظهر العرض للموظفين داخل العقد خلال مدته فقط.</p>
+    <div class="orow"><b>العرض فعّال</b><button type="button" class="sw${E.active?' on':''}" data-oa="active" role="switch" aria-checked="${E.active}" aria-label="العرض فعّال"><i></i></button></div>
+    ${isNew?'':`<button type="button" class="btn sm bad" data-oa="del" style="margin-top:4px">${ic('trash')} حذف العرض</button><p class="nt" style="margin:4px 0 0">بدل الحذف تقدر توقفه من المفتاح. العقود اللي ما اعتُمدت وفيها عرض محذوف أو موقوف يصير خصمها يحتاج اعتمادك.</p>`}
+    <div class="sheet-f"><button type="button" class="btn sec" data-oa="close">إلغاء</button><button type="button" class="btn" data-oa="save" ${canSave?'':'disabled'}>${ic('check')} حفظ العرض</button></div>`;
+  modal(body,(m,close)=>{
+    const sw=(b,v)=>{b.classList.toggle('on',v);b.setAttribute('aria-checked',v)};
+    m.oninput=e=>{const t=e.target,k=t.dataset&&t.dataset.of;if(!k)return;let v=t.value;if(t.dataset.dg){const nv=digits(v);if(nv!==v){t.value=nv;v=nv}}E[k]=v};
+    m.onclick=async e=>{const t=e.target;
+      const kd=t.closest('[data-ok]');if(kd){E.kind=kd.dataset.ok;$$('#okd button',m).forEach(x=>x.classList.toggle('on',x===kd));$('#ovl',m).textContent=E.kind==='amt'?'المبلغ (ر.س) *':'النسبة % *';return}
+      const sc=t.closest('[data-osc]');if(sc){E.scope=sc.dataset.osc;$$('#osc button',m).forEach(x=>x.classList.toggle('on',x===sc));$('#osv',m).innerHTML=svcHTML();return}
+      const os=t.closest('[data-os]');if(os){const k=os.dataset.os,j=E.svcs.indexOf(k);if(j<0)E.svcs.push(k);else E.svcs.splice(j,1);os.classList.toggle('on',j<0);return}
+      const b=t.closest('[data-oa]');if(!b)return;const a=b.dataset.oa;
+      if(a==='close')close();
+      else if(a==='active'){E.active=!E.active;sw(b,E.active)}
+      else if(a==='bundle'){E.bundle=!E.bundle;sw(b,E.bundle)}
+      else if(a==='del'){if(b.dataset.c!=='1'){b.dataset.c='1';b.textContent='اضغط مرة ثانية لحذف العرض';setTimeout(()=>{if(b.isConnected){b.dataset.c='';b.innerHTML=ic('trash')+' حذف العرض'}},3000);return}
+        const L=clone(P.offers);L.splice(i,1);b.disabled=true;if(await onSave(L,'تم حذف العرض'))close();else b.disabled=false}
+      else if(a==='save'){const L=clone(P.offers);if(isNew)L.unshift(E);else L[i]=E;b.disabled=true;if(await onSave(L,isNew?'تمت إضافة العرض':'تم حفظ العرض'))close();else b.disabled=false}};
+  },{cls:'xl',sticky:true})}
 /* بطاقات قائمة الأسعار في الإعدادات */
 function catHTML(P){
   const card=(ref,k,name,pe)=>{const n=(pe.types||[]).length,rg=priceRange(pe);
@@ -1036,13 +1248,15 @@ function shareText(title,text){
     $('#shC',m).onclick=async()=>{try{await navigator.clipboard.writeText($('#shT',m).value);toast('تم نسخ القائمة','ok')}catch(e){$('#shT',m).select();toast('حدد النص وانسخه يدوياً','bad')}}})}
 
 /* ========== مقارنة بيانات العقد (سجل التغييرات) ========== */
-const PL={'customer.name':'اسم العميل','customer.phone':'الجوال','customer.id_no':'الهوية','customer.received_date':'تاريخ الاستلام','customer.expected_date':'تاريخ التسليم المتوقع','customer.invoice_no':'رقم الفاتورة','vehicle.type':'نوع السيارة','vehicle.make':'الشركة','vehicle.model':'الموديل','vehicle.year':'السنة','vehicle.color':'اللون','vehicle.plate':'اللوحة','vehicle.vin':'الهيكل','vehicle.odometer':'العداد','vehicle.fuel':'الوقود','fin.vat':'ضريبة 15%','fin.deposit':'العربون','fin.paid':'المدفوع','fin.method':'طريقة الدفع','internal_notes':'ملاحظات داخلية'};
+const PL={'customer.name':'اسم العميل','customer.phone':'الجوال','customer.id_no':'الهوية','customer.received_date':'تاريخ الاستلام','customer.expected_date':'تاريخ التسليم المتوقع','customer.invoice_no':'رقم الفاتورة','vehicle.type':'نوع السيارة','vehicle.make':'الشركة','vehicle.model':'الموديل','vehicle.year':'السنة','vehicle.color':'اللون','vehicle.plate':'اللوحة','vehicle.vin':'الهيكل','vehicle.odometer':'العداد','vehicle.fuel':'الوقود','fin.vat':'ضريبة 15%','fin.deposit':'العربون','fin.paid':'المدفوع','fin.method':'طريقة الدفع','fin.xdisc':'الخصم الإضافي','internal_notes':'ملاحظات داخلية'};
 function flat(o,p,out){if(o&&typeof o==='object'){for(const k of Object.keys(o))flat(o[k],p?p+'.'+k:k,out)}else out[p]=o;return out}
 function diffLines(a,b){
   const fa=flat(a||{},'',{}),fb=flat(b||{},'',{}),keys=new Set([...Object.keys(fa),...Object.keys(fb)]),out=[];
-  keys.forEach(k=>{if(k.startsWith('shop.')||k==='version_note'||/^services\.\d+\.(ty|tyn|bn|px)$/.test(k))return;const x=fa[k],y=fb[k];if(JSON.stringify(x)===JSON.stringify(y))return;
+  keys.forEach(k=>{if(k.startsWith('shop.')||k==='version_note'||k==='offer'||k.startsWith('offer.')||/^services\.\d+\.(ty|tyn|bn|px)$/.test(k))return;const x=fa[k],y=fb[k];if(JSON.stringify(x)===JSON.stringify(y))return;
+    if(k==='fin.xdisc'&&nm(x)===nm(y))return;
     let lab=PL[k];if(!lab){const m=k.match(/^services\.(\d+)\.(.*)$/);if(m){const sv=(b.services||a.services||[])[+m[1]];lab=(sv&&sv.name||'خدمة '+(+m[1]+1))+' › '+({sel:'مختارة',price:'السعر',qty:'الكمية',discount:'الخصم',desc:'الوصف',name:'الاسم'}[m[2]]||m[2].replace(/^x\./,'').replace(/^w\./,'ضمان: '))}}
     lab=lab||k;const show=v=>v===undefined||v===''||v===null?'—':v===true?'نعم':v===false?'لا':String(v);out.push({k:lab,a:show(x),b:show(y)})});
+  const ot=o=>o?String(o.name||'عرض')+' ('+(o.kind==='amt'?fmtP(o.value)+' ر.س':fmtP(o.value)+'%')+')':'',oa=ot(curOffer(a)),ob=ot(curOffer(b));if(oa!==ob)out.push({k:'العرض',a:oa||'—',b:ob||'—'});
   return out}
 
 /* ========== نموذج العقد ========== */
@@ -1083,7 +1297,7 @@ function initialData(){return{
   vehicle:{type:'',make:'',model:'',year:'',color:'',plate:'',vin:'',odometer:'',fuel:''},
   check:CHECK.map(n=>({n,s:'سليم',t:''})),marks:[],
   services:SERVICES.map(s=>newService(s)),
-  fin:{vat:true,deposit:'',paid:'',method:''},
+  fin:{vat:true,deposit:'',paid:'',method:'',xdisc:''},offer:null,
   tp:{wash_days:'',window_days:'',maint_months:'',pickup_days:'',complaint_days:'',response_days:''},
   terms:TERMS.map(t=>({t:t[0],b:t[1]})),extra_terms:[],disclaimers:DISCLAIMERS.map(x=>({...x})),internal_notes:'',shop:{}}}
 const newService=s=>({k:s.k,name:s.n,desc:s.d,sel:false,qty:'',price:'',discount:'',x:{},w:{}});
@@ -1097,11 +1311,43 @@ async function shopSnap(){
   if(!SHOP){const r=await sb.from('shop_settings').select('*').eq('id',1).maybeSingle();SHOP=r.data||{}}
   return{name_ar:SHOP.shop_name_ar||'',name_en:SHOP.shop_name_en||'',cr:SHOP.commercial_register||'',vat:SHOP.vat_number||'',address:SHOP.address||'',phone:SHOP.phone||'',email:SHOP.email||''}}
 
-/* الحسابات */
-function totals(d){let g=0,disc=0;
-  const lines=d.services.map(s=>{if(!s.sel)return 0;const q=nm(s.qty)||1,p=nm(s.price),x=Math.min(nm(s.discount),q*p),gr=r2(q*p);g+=gr;disc+=x;return r2(gr-x)});
-  g=r2(g);disc=r2(disc);const net=r2(g-disc),vat=d.fin.vat?r2(net*0.15):0,total=r2(net+vat),paid=Math.max(nm(d.fin.paid),nm(d.fin.deposit)),rem=Math.max(0,r2(total-paid));
-  return{g,disc,net,vat,total,paid,rem,lines}}
+/* الحسابات: خصم الخدمات + خصم العرض + الخصم الإضافي (نفس حساب قاعدة البيانات في السكربت 05) */
+const curOffer=d=>d&&d.offer&&typeof d.offer==='object'&&String(d.offer.id||'')?d.offer:null;
+function totals(d){let g=0,ld=0;
+  const lines=d.services.map(s=>{if(!s.sel)return 0;const q=nm(s.qty)||1,p=nm(s.price),x=Math.min(nm(s.discount),q*p),gr=r2(q*p);g+=gr;ld+=x;return r2(gr-x)});
+  g=r2(g);ld=r2(ld);const o=curOffer(d),odisc=o?offerAmt(o,d,lines):0,xdisc=r2(Math.min(nm(d.fin.xdisc),Math.max(0,r2(g-ld-odisc)))),disc=r2(ld+odisc+xdisc);
+  const net=r2(g-disc),vat=d.fin.vat?r2(net*0.15):0,total=r2(net+vat),paid=Math.max(nm(d.fin.paid),nm(d.fin.deposit)),rem=Math.max(0,r2(total-paid));
+  return{g,ldisc:ld,odisc,xdisc,disc,net,vat,total,paid,rem,lines}}
+/* مفتاح الخدمة في العروض: الأساسية بمفتاحها، والجاهزة الإضافية x:<id> */
+const svcKey=s=>isCustom(s)?(s.px?'x:'+s.px:''):String(s.k||'');
+const cday=x=>{try{return new Date(x).toLocaleDateString('en-CA',{timeZone:'Asia/Riyadh'})}catch(e){return today()}};
+function offerAmt(o,d,lines){
+  if(!o||typeof o!=='object')return 0;
+  const svcs=Array.isArray(o.svcs)?o.svcs.map(String):[],sc=o.scope==='svc',sel=d.services.map((s,i)=>({s,i})).filter(x=>x.s.sel);
+  if(sc&&(o.bundle===true||o.bundle==='true')&&!svcs.every(k=>sel.some(x=>svcKey(x.s)===k)))return 0;
+  let sub=0,base=0;sel.forEach(({s,i})=>{sub+=lines[i];if(!sc||svcs.includes(svcKey(s)))base+=lines[i]});
+  sub=r2(sub);base=r2(base);if(nm(o.min)>0&&sub<nm(o.min))return 0;if(base<=0)return 0;
+  const v=nm(o.value);return o.kind==='amt'?Math.min(r2(v),base):r2(base*Math.min(v,100)/100)}
+/* العرض «مقبول» فقط إذا كان موجوداً عند المالك ومفعّلاً، وتاريخ العقد أو اليوم داخل مدته؛ غير ذلك يُحسب خصماً يدوياً */
+const offerDef=o=>o&&o.id?PRE().offers.find(x=>x.id===String(o.id))||null:null;
+const offerValid=(def,days)=>!!def&&def.active!==false&&days.some(x=>(!def.from||x>=def.from)&&(!def.to||x<=def.to));
+function discInfo(d,days){const T=totals(d),o=curOffer(d);let ook=0;
+  if(o){const def=offerDef(o);if(offerValid(def,days))ook=Math.min(T.odisc,offerAmt(def,d,T.lines))}
+  const manual=r2(T.ldisc+T.xdisc+(T.odisc-ook)),base=r2(T.g-ook),pct=base>0?r2(manual*100/base):0;
+  return {T,ook,manual,base,pct}}
+/* حدود الخصم: فارغ = بلا حد. عند الاعتماد يُطبّق الأقل بين حد منشئ العقد وحد المعتمِد (المالك بلا حد) */
+const limOf=p=>{const f=v=>v==null||v===''||isNaN(+v)?null:+v;return {p:f(p&&p.disc_pct),a:f(p&&p.disc_amt)}};
+const minN=(x,y)=>x==null?y:y==null?x:Math.min(x,y);
+const effLim=(c,a)=>{const x=limOf(c),y=limOf(a);return {p:minN(x.p,y.p),a:minN(x.a,y.a)}};
+const hasLim=L=>L.p!=null||L.a!=null;
+const isOver=(I,L)=>(L.p!=null&&I.pct>L.p+0.01)||(L.a!=null&&I.manual>L.a+0.05);
+const fmtPct=x=>(+x||0).toLocaleString('en-US',{maximumFractionDigits:1});
+const noManual=L=>L.p===0||L.a===0;
+function limTxt(L){if(noManual(L))return 'بدون خصم يدوي';const a=[];if(L.p!=null)a.push(fmtPct(L.p)+'%');if(L.a!=null)a.push(fmtP(L.a)+' ر.س');return a.join(' أو ')}
+const limMax=(I,L)=>{let m=Infinity;if(L.p!=null)m=Math.min(m,r2(I.base*L.p/100));if(L.a!=null)m=Math.min(m,L.a);return m};
+const offerLabel=o=>o?String(o.name||'عرض')+(o.kind!=='amt'&&nm(o.value)?' '+fmtP(o.value)+'%':''):'';
+const offerSnap=o=>({id:o.id,name:o.name,kind:o.kind,value:o.value,min:o.min||'',scope:o.scope,svcs:(o.svcs||[]).slice(),bundle:!!o.bundle,from:o.from||'',to:o.to||''});
+const offerSig=o=>[o.kind==='amt'?'amt':'pct',nm(o.value),nm(o.min),o.scope==='svc'?(o.svcs||[]).join('|')+(o.bundle?'+':''):'all'].join('~');
 
 /* ========== تحميل وإنشاء ========== */
 const viewed=new Set();
@@ -1130,11 +1376,12 @@ async function loadContract(id){
     loadVersions(row),
     row.parent_contract_id?sb.from('contracts').select('id,contract_no,version,data').eq('id',row.parent_contract_id).maybeSingle():Promise.resolve({data:null}),
     row.parent_contract_id?sb.from('contract_photos').select('*').eq('contract_id',row.parent_contract_id).eq('phase','before').order('uploaded_at'):Promise.resolve({data:[]}),
-    isMgr()?sb.from('profiles').select('id,full_name,email'):Promise.resolve({data:[]})]);
+    sb.from('profiles').select('*'),(SHOP=null,shopSnap())]);
+  const profs={};(pr.data||[]).forEach(p=>profs[p.id]=p);const mine=profs[S.user.id];if(mine)['disc_pct','disc_amt'].forEach(k=>{if(k in mine)S.profile[k]=mine[k]});
   let names={};if(isMgr()){(pr.data||[]).forEach(p=>names[p.id]=p.full_name||p.email)}else names[S.user.id]=S.profile.full_name||S.profile.email;
   const hadDisc=!!(row.data&&row.data.disclaimers);row.data=ensureData(row.data);row.delivery=row.delivery||{};
   if(!hadDisc&&row.status!=='draft')row.data.disclaimers=[];
-  C={row,o:{data:row.data,delivery:row.delivery},sigs:sg.data||[],photos:ph.data||[],inh:(inh.data||[]).map(p=>({...p,inherited:true})),versions:vs,parent:par.data,names,urls:{},step:0,dirty:false,ver:0,saving:false,chkEdit:false,lk:null};lkKey='';
+  C={row,o:{data:row.data,delivery:row.delivery},sigs:sg.data||[],photos:ph.data||[],inh:(inh.data||[]).map(p=>({...p,inherited:true})),versions:vs,parent:par.data,names,profs,urls:{},step:0,dirty:false,ver:0,saving:false,chkEdit:false,lk:null};lkKey='';
   if(row.status==='in_progress'&&!Object.keys(row.delivery).length)C.o.delivery=DEF_DELIVERY(row.data);
   await signUrls();
   return C}
@@ -1352,11 +1599,52 @@ function s2(){const d=C.o.data,T=totals(d),P=PRE(),idx=d.services.map((s,i)=>({s
   const sel=idx.filter(x=>x.s.sel),hasPre=Object.values(P.svc).some(o=>String(o.price||'').trim()||o.types.length)||P.extra.length>0;
   return `<div class="card"><h3>الخدمات والأسعار</h3><p class="nt">اضغط على الخدمة لإضافتها${hasPre?'، واختر نوعها فتنزل بسعرها وتفاصيلها وضمانها':''}. الكمية الفارغة تُحسب 1.</p><div class="tiles">${tiles}</div></div>
   ${sel.length?sel.map(({s,i})=>svcCard(s,i)).join(''):'<div class="card muted" style="text-align:center">لم تُضف أي خدمة بعد. اختر من الأعلى.</div>'}
-  <div class="card"><h3>الحسابات المالية</h3><div class="fin"><div>إجمالي الخدمات<b id="t1">${money(T.g)}</b></div><div>الخصم<b id="t2">${money(T.disc)}</b></div><div>المبلغ قبل الضريبة<b id="t3">${money(T.net)}</b></div>
+  ${offersCard(d,T)}
+  <div class="card"><h3>الحسابات المالية</h3><div class="fin"><div>إجمالي الخدمات<b id="t1">${money(T.g)}</b></div>${finRowsHTML(d,T)}<div>المبلغ قبل الضريبة<b id="t3">${money(T.net)}</b></div>
   <div><span><input type="checkbox" data-p="data.fin.vat" ${d.fin.vat?'checked':''} ${DIS}> ضريبة القيمة المضافة 15%</span><b id="t4">${money(T.vat)}</b></div><div class="big">الإجمالي النهائي<b id="t5">${money(T.total)}</b></div>
   <div>العربون<input data-p="data.fin.deposit" data-dg="1" inputmode="decimal" value="${esc(d.fin.deposit)}" ${DIS}></div><div>المبلغ المدفوع (شامل العربون)<input data-p="data.fin.paid" data-dg="1" inputmode="decimal" value="${esc(d.fin.paid)}" ${DIS}></div><div>المبلغ المتبقي<b id="t6">${money(T.rem)}</b></div>
   <div>طريقة الدفع<select data-p="data.fin.method" ${DIS}><option value=""></option>${['نقداً','شبكة','تحويل'].map(o=>`<option ${d.fin.method===o?'selected':''}>${o}</option>`).join('')}</select></div></div></div>`}
-function updateTotals(){const T=totals(C.o.data);[['t1','g'],['t2','disc'],['t3','net'],['t4','vat'],['t5','total'],['t6','rem']].forEach(([id,k])=>{const e=$('#'+id);if(e)e.textContent=money(T[k])});T.lines.forEach((v,i)=>{const e=$('#lt'+i);if(e)e.textContent=money(v)})}
+/* صفوف الخصم في الحسابات: «الخصم» كما كان، وتظهر صفوف العرض والخصم الإضافي عند وجودها */
+function finRowsHTML(d,T){const xr=T.odisc>0||T.xdisc>0;
+  return `<div id="r2" ${xr&&!(T.ldisc>0)?'hidden':''}><span id="t2l">${xr?'خصم الخدمات':'الخصم'}</span><b id="t2">${money(T.ldisc)}</b></div>
+  <div class="ofr" id="r7" ${T.odisc>0?'':'hidden'}><span id="t7l">خصم العرض: ${esc(offerLabel(curOffer(d)))}</span><b id="t7">−${money(T.odisc)}</b></div>
+  <div class="neg" id="r8" ${T.xdisc>0?'':'hidden'}><span>خصم إضافي</span><b id="t8">−${money(T.xdisc)}</b></div>`}
+function updateTotals(){const d=C.o.data,T=totals(d),xr=T.odisc>0||T.xdisc>0;
+  [['t1','g'],['t2','ldisc'],['t3','net'],['t4','vat'],['t5','total'],['t6','rem']].forEach(([id,k])=>{const e=$('#'+id);if(e)e.textContent=money(T[k])});T.lines.forEach((v,i)=>{const e=$('#lt'+i);if(e)e.textContent=money(v)});
+  const r2e=$('#r2');if(r2e){r2e.hidden=xr&&!(T.ldisc>0);$('#t2l').textContent=xr?'خصم الخدمات':'الخصم'}
+  const r7=$('#r7');if(r7){r7.hidden=!(T.odisc>0);$('#t7l').textContent='خصم العرض: '+offerLabel(curOffer(d));$('#t7').textContent='−'+money(T.odisc)}
+  const r8=$('#r8');if(r8){r8.hidden=!(T.xdisc>0);$('#t8').textContent='−'+money(T.xdisc)}
+  const ol=$('#ofl');if(ol){const h=offerList(d,T);ol.innerHTML=h;ol.hidden=!h;ol.className=h?'ocho':''}const lm=$('#lim');if(lm)lm.innerHTML=limHTML()}
+
+/* العروض والخصم داخل العقد */
+const cDays=()=>[cday(C.row.created_at),today(),...(C.versions||[]).filter(v=>v.version<C.row.version).map(v=>cday(v.created_at))];
+const creatorProf=()=>C.profs[C.row.created_by]||(C.row.created_by===S.user.id?S.profile:null);
+const draftLim=()=>effLim(creatorProf(),S.profile);
+function draftOver(){if(!C||isOwner())return false;const L=draftLim();return hasLim(L)&&isOver(discInfo(C.o.data,cDays()),L)}
+/* عقد بانتظار الاعتماد وخصمه فوق الحد: للمالك = حد الموظف، ولغيره = الأقل بين حد الموظف وحده */
+function pendInfo(){const r=C.row;if(r.status!=='pending_approval')return null;const L=isOwner()?limOf(creatorProf()):effLim(creatorProf(),S.profile);
+  if(!hasLim(L))return null;const I=discInfo(C.o.data,cDays());return isOver(I,L)?{I,L}:null}
+function offerWhy(o,d,T){const sel=d.services.filter(s=>s.sel);if(!sel.length)return 'أضف خدمة أولاً';
+  const names=(o.svcs||[]).map(k=>svcLabel(k)).filter(Boolean);
+  if(o.scope==='svc'){if(o.bundle&&(o.svcs||[]).some(k=>!sel.some(s=>svcKey(s)===k)))return 'تحتاج: '+names.join(' + ');
+    if(!sel.some(s=>(o.svcs||[]).includes(svcKey(s))))return 'على: '+names.join('، ')+' فقط'}
+  if(nm(o.min)>0&&r2(T.lines.reduce((a,b)=>a+b,0))<nm(o.min))return 'حد أدنى للفاتورة '+fmtP(o.min)+' ر.س';
+  return 'أدخل أسعار الخدمات أولاً'}
+function offerList(d,T){const P=PRE(),cur=curOffer(d),on=P.offers.filter(o=>offerState(o)==='on');let h='';
+  if(cur&&!on.some(o=>o.id===cur.id)){const def=offerDef(cur),st=def?offerState(def):'gone';
+    h+=`<button type="button" class="tcard on${T.odisc>0?'':' dis'}" data-act="ofr" data-id="${esc(cur.id)}"><b>${esc(cur.name||'عرض')}</b><span class="tp neg">${offerVal(cur)}</span><small><span class="st-w">${{gone:'حُذف هذا العرض من الإعدادات',off:'هذا العرض موقوف الآن',end:'هذا العرض انتهى',wait:'هذا العرض لم يبدأ بعد'}[st]||''}</span></small></button>`}
+  on.forEach(o=>{const isCur=!!cur&&cur.id===o.id,amt=isCur?T.odisc:offerAmt(o,d,T.lines),changed=isCur&&offerSig(cur)!==offerSig(o);
+    const sub=amt>0?[offerScope(o),o.to?'ينتهي '+dAr(o.to):''].filter(Boolean).join(' · '):offerWhy(o,d,T);
+    h+=`<button type="button" class="tcard${isCur?' on':''}${amt>0?'':' dis'}" data-act="ofr" data-id="${esc(o.id)}"><b>${esc(o.name)}</b><span class="tp neg">${offerVal(isCur?cur:o)}</span><small>${esc(sub)}${!isCur&&amt>0?` · <b class="sv">يوفّر ${fmtP(amt)} ر.س</b>`:''}${changed?' · <span class="st-w">تغيّر العرض — اضغط لتحديثه</span>':''}</small></button>`});
+  if(!h)return '';
+  return h+`<button type="button" class="tcard ghost${cur?'':' on'}" data-act="ofrx"><b>بدون عرض</b></button>`}
+function limHTML(){if(!C||isOwner())return '';const L=draftLim();if(!hasLim(L))return '';const I=discInfo(C.o.data,cDays());
+  if(isOver(I,L))return `<div class="lim over">${ic('bolt')}<span>خصمك ${fmtPct(I.pct)}% (${fmtP(I.manual)} ر.س) أعلى من حدّك <b>${limTxt(L)}</b> — تقدر تكمل، لكن العقد بيروح <b>للمالك</b> للاعتماد.</span></div>`;
+  if(noManual(L))return `<div class="lim ok">${ic('check')}<span>الخصم عندك بالعروض الجاهزة فقط — أي خصم يدوي يروح للمالك.</span></div>`;
+  const mx=limMax(I,L);return `<div class="lim ok">${ic('check')}<span>ضمن حدّك: ${limTxt(L)}${I.base>0&&isFinite(mx)?` (حتى ${fmtP(mx)} ر.س)`:''}</span></div>`}
+function offersCard(d,T){const ol=offerList(d,T);
+  return `<div class="card" id="ofc"><h3>${ol?'العروض والخصم':'الخصم الإضافي'}</h3><div class="${ol?'ocho':''}" id="ofl" ${ol?'':'hidden'}>${ol}</div>
+  <div class="xdisc"><div><label>خصم إضافي من الموظف (ر.س)</label><input data-p="data.fin.xdisc" data-dg="1" inputmode="decimal" value="${esc(d.fin.xdisc||'')}" placeholder="0" ${DIS} autocomplete="off"></div><div id="lim">${limHTML()}</div></div></div>`}
 
 /* الخطوة 4: الشروط والتواقيع */
 function s3(){const d=C.o.data,staff=S.profile.full_name||'',P=PRE();
@@ -1379,13 +1667,15 @@ function checks(){const d=C.o.data,sel=d.services.filter(s=>s.sel);
    {ok:!!d.customer.name.trim(),hard:1,t:'اسم العميل',st:0,f:'data.customer.name'},{ok:!!d.customer.phone.trim(),hard:1,t:'رقم جوال العميل',st:0,f:'data.customer.phone'},{ok:!!d.vehicle.plate.trim(),hard:1,t:'رقم لوحة المركبة',st:0,f:'data.vehicle.plate'},
    {ok:sel.length>0,hard:1,t:'خدمة واحدة على الأقل',st:2},{ok:!!sigOf('contract_customer'),hard:1,t:'توقيع العميل',st:3,f:'#sig-contract_customer'},{ok:!!sigOf('contract_staff'),hard:1,t:'توقيع الموظف',st:3,f:'#sig-contract_staff'},
    {ok:[...C.inh,...C.photos.filter(p=>p.phase==='before')].length>0,t:'صور الاستلام (يفضّل)',st:1,f:'#ph-before'},{ok:sel.every(s=>nm(s.price)>0),t:'سعر لكل خدمة مختارة (تنبيه فقط)',st:2},
-   {ok:Object.values(d.tp).every(v=>String(v).trim()),t:'مدد الشروط معبأة (تنبيه فقط)',st:3,f:'#tpc'}]}
+   {ok:Object.values(d.tp).every(v=>String(v).trim()),t:'مدد الشروط معبأة (تنبيه فقط)',st:3,f:'#tpc'},
+   ...(!isOwner()&&hasLim(draftLim())?[draftOver()?{ok:false,t:'الخصم فوق حدّك — العقد يروح للمالك للاعتماد',st:2,f:'#ofc'}:{ok:true,t:'الخصم ضمن حدّك'}]:[])]}
 function s4(){const d=C.o.data,T=totals(d);
   return `<div class="card"><h3>المراجعة قبل الإرسال</h3><ul class="chk" id="chk" style="padding:0;margin:0">${checksHTML()}</ul>
   <div class="fin" style="margin-top:10px"><div>الإجمالي النهائي<b>${money(T.total)}</b></div><div>المتبقي<b>${money(T.rem)}</b></div></div>
   <p class="nt">بعد الإرسال يُقفل العقد للتعديل. يعتمده من لديه صلاحية الاعتماد، وبعد الاعتماد لا يمكن تعديله إلا بإنشاء نسخة جديدة مع سجل تغييرات.</p>
   <div><button type="button" class="btn sec" data-act="pdfShop">معاينة / PDF (نسخة المحل)</button><button type="button" class="btn sec" data-act="pdfCust">معاينة / PDF (نسخة العميل)</button></div>
-  ${canApprove()?'<p class="nt" style="margin:10px 0 0">زر «إرسال واعتماد» في الأسفل يرسل العقد ويعتمده باسمك مباشرة. ولو تبغى يعتمده شخص آخر: <button type="button" class="btn sm line" data-act="submit">إرسال للاعتماد فقط</button></p>':''}</div>`}
+  ${draftOver()?`<div class="lim over" style="margin-top:10px">${ic('bolt')}<span>خصم هذا العقد فوق حدّك، فبيروح <b>للمالك</b> يعتمده هو. اضغط «إرسال للمالك» في الأسفل.</span></div>`:''}
+  ${canApprove()&&!draftOver()?'<p class="nt" style="margin:10px 0 0">زر «إرسال واعتماد» في الأسفل يرسل العقد ويعتمده باسمك مباشرة. ولو تبغى يعتمده شخص آخر: <button type="button" class="btn sm line" data-act="submit">إرسال للاعتماد فقط</button></p>':''}</div>`}
 const checksHTML=()=>checks().map(c=>c.ok?`<li class="y">✔ ${c.t}</li>`:`<li class="${c.hard?'n':'w'}" data-go="${c.st}" data-f="${esc(c.f||'')}" role="button" tabindex="0">${c.hard?'✖':'⚠'} ${c.t} <span class="go">اذهب ←</span></li>`).join('');
 function refreshReview(){const e=$('#chk');if(e)e.innerHTML=checksHTML()}
 function focusField(f){if(!f)return;setTimeout(()=>{const el=f.startsWith('#')?$(f):$(`[data-p="${f}"]`);if(!el)return;const dt2=el.closest('details');if(dt2)dt2.open=true;if(el.tagName==='DETAILS')el.open=true;el.scrollIntoView({block:'center'});if(!f.startsWith('#')&&el.focus)el.focus()},80)}
@@ -1425,13 +1715,15 @@ function head(){
   const r=C.row,d=C.o.data,car=carName(d.vehicle);
   return `<div class="chead"><div class="row-between"><a class="back" href="#/contracts">${ic('back')} كل العقود</a><span>${badge(r.status)} ${r.version>1?`<span class="badge vb">نسخة ${r.version}</span>`:''}${r.is_current?'':' <span class="badge vb">نسخة قديمة</span>'}</span></div>
   <h1 class="pt">${esc(r.contract_no)} <small class="muted" style="font-size:14px">${esc(d.customer.name||'')} ${esc(d.vehicle.plate||'')}${car?' · '+esc(car):''}</small></h1>
-  ${r.status==='cancelled'?`<div class="warn">العقد ملغي. السبب: ${esc(r.cancel_reason||'')}</div>`:''}
+  ${r.status==='cancelled'?`<div class="warn">العقد ملغي. السبب: ${esc(r.cancel_reason||'')}</div>`:''}${pendHTML()}
   <div class="acts">${actions()}</div></div>`}
+function pendHTML(){const pi=pendInfo();if(!pi)return '';const {I,L}=pi;
+  return `<div class="lim over" id="plim">${ic('bolt')}<span>${isOwner()?`خصم فوق حد الموظف: <b>${fmtPct(I.pct)}%</b> (${fmtP(I.manual)} ر.س) وحدّه ${limTxt(L)}. راجع الخصم قبل الاعتماد.`:`خصم هذا العقد ${fmtPct(I.pct)}% (${fmtP(I.manual)} ر.س) فوق الحد المسموح ${limTxt(L)} — يعتمده <b>المالك</b> فقط.`}</span></div>`}
 const ddm=(t,items,cls)=>items.length?`<details class="dd"><summary class="btn ${cls||'sec'}">${t}</summary><div class="ddm">${items.join('')}</div></details>`:'';
 function actions(){
   const r=C.row,d=C.o.data,act=canActOn(),b=(a,t,c)=>`<button type="button" class="btn ${c||''}" data-act="${a}">${t}</button>`,mi=(a,t,c)=>`<button type="button" class="mi ${c||''}" data-act="${a}">${t}</button>`;
   const main=[],pdf=[],more=[];
-  if(r.status==='pending_approval'){if(canApprove())main.push(b('approve',ic('check')+' اعتماد العقد','ok'));if(act)main.push(b('toDraft','إرجاع للتعديل','sec'))}
+  if(r.status==='pending_approval'){if(canApprove()&&(isOwner()||!pendInfo()))main.push(b('approve',ic('check')+' اعتماد العقد','ok'));if(act)main.push(b('toDraft','إرجاع للتعديل','sec'))}
   if(r.status==='approved'&&act)main.push(b('start',ic('bolt')+' بدء التنفيذ','ok'));
   const child=C.versions.find(v=>v.parent_contract_id===r.id&&['draft','pending_approval'].includes(v.status));
   if(child)main.push(`<a class="btn line" href="#/c/${esc(child.id)}">فتح النسخة الجديدة (${STATUS[child.status]})</a>`);
@@ -1445,7 +1737,7 @@ function actions(){
   const wa=r.status!=='cancelled'&&String(d.customer.phone||'').trim()?b('wa',ic('chat')+' واتساب','line'):'';
   return main.join('')+ddm(ic('print')+' طباعة / PDF',pdf)+wa+ddm(ic('more')+' المزيد',more)}
 function footNav(){const last=C.step===STEPS.length-1;
-  return `<div class="foot"><button type="button" class="btn sec" data-act="prev" ${C.step?'':'disabled'}>→ السابق</button><span class="savestate" id="ss"></span>${last?(canApprove()?'<button type="button" class="btn ok" data-act="submitApprove">'+ic('check')+' إرسال واعتماد</button>':'<button type="button" class="btn ok" data-act="submit">إرسال للاعتماد</button>'):'<button type="button" class="btn" data-act="next">التالي ←</button>'}</div>`}
+  return `<div class="foot"><button type="button" class="btn sec" data-act="prev" ${C.step?'':'disabled'}>→ السابق</button><span class="savestate" id="ss"></span>${last?(draftOver()?'<button type="button" class="btn bad" data-act="submit">'+ic('out')+' إرسال للمالك</button>':canApprove()?'<button type="button" class="btn ok" data-act="submitApprove">'+ic('check')+' إرسال واعتماد</button>':'<button type="button" class="btn ok" data-act="submit">إرسال للاعتماد</button>'):'<button type="button" class="btn" data-act="next">التالي ←</button>'}</div>`}
 
 /* ========== الأحداث ========== */
 function onField(e){
@@ -1526,6 +1818,11 @@ const ACT_FN={
     C.lk=null;lkKey=(last9(d.customer.phone).length===9?last9(d.customer.phone):'')+'|'+(plateKey(d.vehicle.plate).length>=3?plateKey(d.vehicle.plate):'');touch();rerenderStep();toast('تمت التعبئة — راجع البيانات','ok')},
   lkx:()=>{C.lk=null;const b=$('#lk');if(b)b.innerHTML=''},
   wa:b=>waOpen(C.row,C.o.data,b.dataset.tpl),
+  ofr:b=>{if(!editableData())return;const d=C.o.data,def=PRE().offers.find(o=>o.id===b.dataset.id);
+    if(!def||offerState(def)!=='on'){toast('هذا العرض غير متاح الآن — تقدر تختار «بدون عرض»','bad');return}
+    const T=totals(d);if(!(offerAmt(def,d,T.lines)>0)){toast(offerWhy(def,d,T),'bad');return}
+    const was=curOffer(d);d.offer=offerSnap(def);touch();updateTotals();if(!was||was.id!==def.id||offerSig(was)!==offerSig(def))toast('تم تطبيق العرض: '+def.name,'ok')},
+  ofrx:()=>{if(!editableData()||!curOffer(C.o.data))return;C.o.data.offer=null;touch();updateTotals()},
   delsvc:async b=>{const i=+b.dataset.i;if(!await confirmBox('حذف الخدمة','هل تريد حذف هذه الخدمة الإضافية؟','حذف','bad'))return;C.o.data.services.splice(i,1);touch();$('#stepbody').innerHTML=stepBody()},
   delphoto:async b=>{if(!await confirmBox('حذف الصورة','سيتم حذف الصورة من العقد (يُسجَّل ذلك في سجل العمليات).','حذف','bad'))return;
     const {data,error}=await sb.from('contract_photos').delete().eq('id',b.dataset.id).select('id');if(error)throw error;if(!data||!data.length)throw new Error('row-level security');await reloadAttachments()},
@@ -1536,8 +1833,9 @@ const ACT_FN={
   submit:async()=>{
     if(C.dirty)await saveNow();const bad=checks().filter(c=>c.hard&&!c.ok);
     if(bad.length){toast('أكمل أولاً: '+bad.map(c=>c.t).join('، '),'bad');return}
-    if(!await confirmBox('إرسال للاعتماد','بعد الإرسال يُقفل العقد للتعديل حتى يُعتمد أو يُرجع للتعديل. هل تريد المتابعة؟','إرسال'))return;
-    await setStatus('pending_approval');toast('أُرسل العقد للاعتماد','ok')},
+    const own=draftOver();
+    if(!await confirmBox(own?'إرسال للمالك':'إرسال للاعتماد',(own?'خصم هذا العقد فوق حدّك، فبيوصل <b>للمالك</b> ويعتمده هو. ':'')+'بعد الإرسال يُقفل العقد للتعديل حتى يُعتمد أو يُرجع للتعديل. هل تريد المتابعة؟','إرسال'))return;
+    await setStatus('pending_approval');toast(own?'أُرسل العقد للمالك':'أُرسل العقد للاعتماد','ok')},
   submitApprove:async()=>{
     if(C.dirty)await saveNow();const bad=checks().filter(c=>c.hard&&!c.ok);
     if(bad.length){toast('أكمل أولاً: '+bad.map(c=>c.t).join('، '),'bad');return}
@@ -1547,7 +1845,7 @@ const ACT_FN={
     if(r.error||!r.data||!r.data.length){await reload();throw r.error||new Error('row-level security')}
     await reload();window.scrollTo(0,0);toast('تم إرسال العقد واعتماده','ok')},
   toDraft:async()=>{if(!await confirmBox('إرجاع للتعديل','سيعود العقد مسودة لتعديله.','إرجاع'))return;await setStatus('draft')},
-  approve:async()=>{if(!await confirmBox('اعتماد العقد','بعد الاعتماد يُقفل العقد ولا يمكن تعديله بصمت، وأي تغيير لاحق يتم بنسخة جديدة مع سجل تغييرات. هل تريد الاعتماد؟','اعتماد','ok'))return;await setStatus('approved');toast('تم اعتماد العقد','ok')},
+  approve:async()=>{const pi=pendInfo();if(!await confirmBox('اعتماد العقد',(pi?`<b>تنبيه:</b> الخصم ${fmtPct(pi.I.pct)}% (${fmtP(pi.I.manual)} ر.س) فوق حد الموظف ${limTxt(pi.L)}.<br>`:'')+'بعد الاعتماد يُقفل العقد ولا يمكن تعديله بصمت، وأي تغيير لاحق يتم بنسخة جديدة مع سجل تغييرات. هل تريد الاعتماد؟','اعتماد','ok'))return;await setStatus('approved');toast('تم اعتماد العقد','ok')},
   start:async()=>{if(!await confirmBox('بدء التنفيذ','سيُسجَّل بدء تنفيذ الخدمات، وتُفتح بيانات التسليم وصور ما بعد.','ابدأ'))return;await setStatus('in_progress')},
   cancel:async()=>{const why=await promptBox('إلغاء العقد','سبب الإلغاء (مطلوب)','إلغاء العقد',true);if(!why)return;await setStatus('cancelled',{cancel_reason:why});toast('أُلغي العقد','ok')},
   archive:async()=>{if(!await confirmBox('أرشفة العقد','سيُنقل العقد للأرشيف (ما زال قابلاً للبحث).','أرشفة'))return;await setStatus('archived')},
@@ -1646,7 +1944,7 @@ function docHTML(mode,opt){
   h+=`<h4><span>أنواع الخدمات</span><span class="en" dir="ltr">Service Types</span></h4><div class="stypes">${d.services.filter(x=>x.k!=='custom'||x.sel||x.name).map(x=>`<div class="st${x.sel?' on':''}"><span class="cb">${x.sel?'✓':''}</span><span>${esc(x.name||'خدمة إضافية')}${(SERVICES.find(y=>y.k===x.k)||{}).en?`<i class="en" dir="ltr">${(SERVICES.find(y=>y.k===x.k)||{}).en}</i>`:''}</span></div>`).join('')}</div>
   <h4><span>الخدمات والأسعار</span><span class="en" dir="ltr">Services &amp; Pricing</span></h4><table><tr><th>الخدمة / Service</th><th>الوصف</th><th>الكمية / Qty</th><th>السعر / Price</th><th>الخصم / Disc.</th><th>الإجمالي / Total</th></tr>${sel.map(({s,i})=>`<tr><td>${esc(s.name)}</td><td>${esc(s.desc)}</td><td>${esc(s.qty)}</td><td>${money(nm(s.price))}</td><td>${money(nm(s.discount))}</td><td>${money(T.lines[i])}</td></tr>`).join('')||'<tr><td colspan="6">—</td></tr>'}</table>
   <div class="sum"><div class="pc"><div class="ph2">الدفع <i dir="ltr">Payment</i></div>${rw('طريقة الدفع','Method',d.fin.method)}${rw('العربون','Deposit',money(nm(d.fin.deposit)))}${rw('المدفوع (شامل العربون)','Paid',money(T.paid))}<div class="due"><span>المتبقي <i dir="ltr">Balance Due</i></span><b>${money(T.rem)}</b></div></div>
-  <table class="tt"><tr><td class="l">إجمالي الخدمات</td><td>${money(T.g)}</td></tr><tr><td class="l">الخصم</td><td>${money(T.disc)}</td></tr><tr><td class="l">المبلغ قبل الضريبة</td><td>${money(T.net)}</td></tr><tr><td class="l">ضريبة القيمة المضافة 15%${d.fin.vat?'':' (غير مطبقة)'}</td><td>${money(T.vat)}</td></tr><tr class="tot"><td class="l">الإجمالي النهائي <i class="en" dir="ltr">Grand Total</i></td><td>${money(T.total)}</td></tr></table></div>`;
+  <table class="tt"><tr><td class="l">إجمالي الخدمات</td><td>${money(T.g)}</td></tr>${!(T.odisc>0||T.xdisc>0)?`<tr><td class="l">الخصم</td><td>${money(T.disc)}</td></tr>`:`${T.ldisc>0?`<tr><td class="l">خصم الخدمات</td><td>${money(T.ldisc)}</td></tr>`:''}${T.odisc>0?`<tr><td class="l">خصم العرض: ${esc(offerLabel(curOffer(d)))}</td><td>${money(T.odisc)}</td></tr>`:''}${T.xdisc>0?`<tr><td class="l">خصم إضافي</td><td>${money(T.xdisc)}</td></tr>`:''}`}<tr><td class="l">المبلغ قبل الضريبة</td><td>${money(T.net)}</td></tr><tr><td class="l">ضريبة القيمة المضافة 15%${d.fin.vat?'':' (غير مطبقة)'}</td><td>${money(T.vat)}</td></tr><tr class="tot"><td class="l">الإجمالي النهائي <i class="en" dir="ltr">Grand Total</i></td><td>${money(T.total)}</td></tr></table></div>`;
   // تفاصيل الخدمات والضمان
   let det='';sel.forEach(({s})=>{const def=SERVICES.find(x=>x.k===s.k)||{f:[]};
     const rows=(def.f||[]).filter(f=>s.x[f[1]]).map(f=>`<tr><td class="l">${f[0]}</td><td>${esc(s.x[f[1]])}</td></tr>`).join('');
