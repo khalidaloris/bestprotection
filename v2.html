@@ -792,7 +792,7 @@ input.ro:focus{box-shadow:none!important;border-color:var(--ln2)!important}
 const SB_URL='https://zswsxqurasbwcblibqca.supabase.co';
 const SB_KEY='sb_publishable_PT1-SU8UdwwyoM3jMJ_i2g_4yAco18H';
 const IDLE_MIN=60;
-const VER='إصدار 25 نوفمبر · الأرقام تعدّ';
+const VER='إصدار 25 نوفمبر · إصلاح حفظ بيانات المحل';
 /* الأرقام تعدّ (موشن ١): لما تفتح الرئيسية أو «حساباتي» الأرقام تعدّ من الصفر والأشرطة تتعبّى.
    ما تشتغل مع «تقليل الحركة» في الجهاز ولا في الاختبارات الآلية، وتبدأ بعد شاشة الترحيب لو كانت ظاهرة */
 const NOANIM=()=>!!navigator.webdriver||matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -1264,14 +1264,14 @@ async function pageSettings(main){
   <p class="nt">العروض تظهر للموظف داخل العقد ويطبّقها بضغطة، والخصم ينحسب لحاله ويطلع اسم العرض في العقد المطبوع. حد خصم كل موظف تحدده من صفحة <a href="#/users">المستخدمين</a>.</p>
   ${hasP?'':'<div class="warn">العروض تحتاج تشغيل الملف <span class="mono" style="font-size:12px">04_presets_lookup.sql</span> أولاً (نفس خطوة قائمة الأسعار).</div>'}<div class="offers" id="olist"></div></div>
   <div class="card"><div class="warn">اتركها فارغة إذا لم تتوفر. لا يضيف النظام أي رقم سجل أو ضريبة أو عنوان من عنده. تظهر هذه البيانات في رأس العقد، وتُحفظ نسخة منها داخل كل عقد، وتتحدث تلقائياً في المسودات عند فتحها، ثم تثبت عند الاعتماد.</div>
-  <div class="g">${F.map(f=>`<div><label>${f[1]}</label><input data-k="${f[0]}" value="${esc((s&&s[f[0]])||'')}"></div>`).join('')}</div><button class="btn" id="ss" style="margin-top:10px">حفظ</button></div>`;
+  <div class="g" id="shopf">${F.map(f=>`<div><label>${f[1]}</label><input data-k="${f[0]}" value="${esc((s&&s[f[0]])||'')}"></div>`).join('')}</div><button class="btn" id="ss" style="margin-top:10px">حفظ</button></div>`;
   $('#vatsw').onclick=async()=>{const b=$('#vatsw'),cur=b.classList.contains('on'),to=!cur;
     if(!await confirmBox(to?'تشغيل الضريبة للكل؟':'إيقاف الضريبة للكل؟',to?'تنضاف ضريبة 15% لكل عقد جديد، ولكل المسودات والعقود اللي بانتظار الاعتماد. العقود المعتمدة ما تتغيّر.':'تنشال الضريبة من كل عقد جديد، ومن كل المسودات والعقود اللي بانتظار الاعتماد. العقود المعتمدة ما تتغيّر.',to?'شغّل الضريبة':'أوقف الضريبة'))return;
     b.disabled=true;try{const {data:d,error:e}=await sb.rpc('set_shop_vat',{p_on:to});if(e)throw e;
       b.classList.toggle('on',d.vat_on);b.setAttribute('aria-checked',String(d.vat_on));$('#vatt').textContent=d.vat_on?'شغّالة: كل العقود الجديدة فيها الضريبة.':'موقّفة: كل العقود الجديدة بدون ضريبة.';SHOP=null;
       toast((d.vat_on?'شغّلنا الضريبة':'وقّفنا الضريبة')+(d.changed?` — تحدّث ${nC(d.changed)}`:''),'ok')}
     catch(e){toast(errMsg(e),'bad')}finally{b.disabled=false}};
-  $('#ss').onclick=async()=>{const patch={updated_by:S.user.id,updated_at:new Date().toISOString()};$$('[data-k]',main).forEach(i=>patch[i.dataset.k]=i.value.trim());
+  $('#ss').onclick=async()=>{const patch={updated_by:S.user.id,updated_at:new Date().toISOString()};$$('#shopf input[data-k]').forEach(i=>patch[i.dataset.k]=i.value.trim());
     const {data:d,error:e}=await sb.from('shop_settings').update(patch).eq('id',1).select();if(e||!d||!d.length)toast(e?errMsg(e):'لم يتم الحفظ','bad');else{SHOP=null;toast('تم الحفظ','ok')}};
   // العروض: تُحفظ فوراً فوق آخر نسخة محفوظة من الإعدادات (لا تحفظ تعديلات قائمة الأسعار غير المحفوظة معها)
   const ORD={on:0,wait:1,off:2,end:3};
