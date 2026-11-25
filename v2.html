@@ -27,6 +27,7 @@
 .paper .sigs{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
 .paper .sigs>div{border:1px solid #bbb;border-radius:6px;padding:6px;min-height:90px}
 .paper .sigs img{height:60px;max-width:100%}
+.paper .sigs .sgb{margin-top:10px;font-size:9.5px;color:#333}.paper .sgb .sl{display:flex;align-items:flex-end;gap:5px;line-height:1.5}.paper .sgb .sl i{flex:1;border-bottom:1px dotted #888;margin-bottom:3px;min-width:12px}.paper .sgb .sl i.d{flex:0 0 24%}.paper .sgb .sl.s{margin-top:28px}.paper .sgc{font-size:9px;font-weight:400;color:#555}
 .paper .phg{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
 .paper .phg figure{margin:0;border:1px solid #bbb;break-inside:avoid}
 .paper .phg img{width:100%;height:120px;object-fit:cover;display:block}
@@ -415,6 +416,13 @@ svg.car .mk{font-size:11px;fill:#fff;font-weight:700;text-anchor:middle}
 .ph button{position:absolute;top:6px;left:6px;background:rgba(198,40,40,.92);color:#fff;border:0;border-radius:8px;font-size:12px;padding:2px 9px;cursor:pointer}
 /* التواقيع (اللوحة بيضاء دائماً) */
 .sigbox{border:1px dashed var(--ln2);border-radius:16px;padding:10px;background:rgba(255,255,255,.02)}
+/* نوع التوقيع: بالتطبيق أو يدوي على الورق */
+.sgmw{margin-bottom:12px}.sgm button{display:inline-flex;align-items:center;justify-content:center;gap:6px}.sgm button .i{width:17px;height:17px}
+.sgm button:disabled{opacity:.45;cursor:not-allowed}.sgn{margin:6px 2px 0}
+.sgp{border:1px dashed var(--ln2);border-radius:16px;padding:12px 14px;background:rgba(255,255,255,.02)}.sgp>p{margin:0 0 10px;line-height:1.7}
+.sgp .row{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.sgp .row .btn{display:inline-flex;align-items:center;gap:6px}
+.sgk{display:flex;align-items:center;gap:10px;padding:12px;border:1px solid var(--ln2);border-radius:12px;background:var(--lab);cursor:pointer;font-weight:600}
+.sgk input{width:22px;height:22px;flex:none;accent-color:var(--bl,#3b82f6);margin:0}.pna{margin-top:12px;align-items:flex-start;font-weight:400;color:var(--tx)}.pna input{margin-top:3px}.pna b{display:block;color:var(--hd);font-size:15px}.pna small{display:block;color:var(--mut);font-size:12.5px;line-height:1.6;margin-top:2px}.sgp .nt{margin:8px 2px 0}
 .sigbox canvas{width:100%;height:170px;background:#fff;border:1px solid var(--ln2);border-radius:12px;touch-action:none;display:block;margin:6px 0}
 .sigbox img.sg{max-width:100%;height:90px;background:#fff;border:1px solid var(--ln2);border-radius:12px;display:block;margin:6px 0}
 /* المراجعة */
@@ -634,7 +642,7 @@ button.sw:disabled{opacity:.5;cursor:default}
 .acch>small{display:block;color:var(--mut);font-size:13px;font-weight:600}
 .acch .hero{font-size:clamp(36px,11vw,54px);font-weight:800;line-height:1.15;color:var(--hd);margin:2px 0 4px;letter-spacing:-.5px}
 .acch .hero span{font-size:.38em;color:var(--mut);font-weight:700;letter-spacing:0}
-.acck{grid-template-columns:repeat(3,minmax(0,1fr))}
+.acck{grid-template-columns:repeat(4,minmax(0,1fr))}@media(max-width:700px){.acck{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .acck .kpi:hover{transform:none}
 .acck .kpi b{font-size:22px}
 .acck .kpi small{font-size:11.5px;color:var(--mut)}
@@ -657,6 +665,17 @@ a.mrow:hover .mn{color:var(--blt)}
 .mt i.g{background:var(--d2)}
 .mrow>b{white-space:nowrap;color:var(--hd);font-variant-numeric:tabular-nums}.mrow>b small{color:var(--mut);font-weight:600}
 h4.ah{margin:14px 0 8px;font-size:14.5px;color:var(--hd)}
+/* الخصومات: مخفية لين تضغط */
+.dsc{padding:0;overflow:hidden}.dsch{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:10px;width:100%;padding:16px 18px;cursor:pointer;color:var(--tx)}
+.dsch:focus-visible{outline:2px solid var(--bl2);outline-offset:-2px;border-radius:inherit}.dsch>.i{width:22px;height:22px;color:var(--bl2);flex:none}
+.dsct{font-weight:800;font-size:17px;color:var(--hd)}.dscm{margin-inline-start:auto;color:var(--mut);letter-spacing:2px;font-weight:700}.dscm small{letter-spacing:0;font-size:12px}
+.dsce,.dscx{display:inline-flex;align-items:center;gap:5px;color:var(--bl2);font-size:13px;font-weight:700}.dsce .i,.dscx .i{width:18px;height:18px}.dsce em,.dscx em{font-style:normal}
+.dscx{display:none;margin-inline-start:auto}.dsc.open .dscm,.dsc.open .dsce{display:none}.dsc.open .dscx{display:inline-flex}
+#adb{padding:0 18px 16px;border-top:1px solid var(--ln)}#adb[hidden]{display:none}
+.dlist{display:grid;gap:14px;margin:4px 0}.drow{display:grid;gap:6px;color:inherit;text-decoration:none}.drt{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.drt b{font-size:15px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.drt .dv{flex:none}.drt .dv small{color:var(--mut);font-size:11.5px}.drow>small{color:var(--mut);font-size:12.5px;line-height:1.5}
+a.drow:hover .drt b:first-child{color:var(--blt)}
+.dscv{margin:14px 0 2px;font-size:clamp(30px,9vw,42px);font-weight:800;color:var(--hd);line-height:1.15}.dscv span{font-size:.42em;color:var(--mut);font-weight:700}.dscs{margin:0}
 .acct td,.acct th{white-space:nowrap}.acct td:not(:first-child){font-variant-numeric:tabular-nums}
 .acct a{color:var(--blt);text-decoration:none}
 /* ===== آيفون/آيباد: خانات التاريخ والوقت (نص واضح + تقويم الجهاز الشفاف فوقه) ===== */
@@ -750,14 +769,14 @@ input.ro:focus{box-shadow:none!important;border-color:var(--ln2)!important}
 const SB_URL='https://zswsxqurasbwcblibqca.supabase.co';
 const SB_KEY='sb_publishable_PT1-SU8UdwwyoM3jMJ_i2g_4yAco18H';
 const IDLE_MIN=60;
-const VER='إصدار 23 نوفمبر · أسعار المالك';
+const VER='إصدار 25 نوفمبر · التوقيع والخصومات';
 /* أيقونات خطية بسيطة */
 const IC={palette:'<path d="M12 2a10 10 0 1 0 0 20c1.1 0 2-.9 2-2 0-.5-.2-1-.5-1.3-.3-.4-.5-.8-.5-1.3 0-1.1.9-2 2-2h2.4A5.6 5.6 0 0 0 22 9.8C22 5.5 17.5 2 12 2z"/><circle cx="7.5" cy="10.5" r="1.3"/><circle cx="10.5" cy="6.8" r="1.3"/><circle cx="15.5" cy="7.2" r="1.3"/>',bell:'<path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>',iosShare:'<path d="M4 12v7a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-7"/><path d="M16 6l-4-4-4 4"/><path d="M12 2v13"/>',home:'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/>',doc:'<path d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"/><path d="M14 3v6h6M8 13h8M8 17h5"/>',plus:'<path d="M12 5v14M5 12h14"/>',
   menu:'<path d="M4 7h16M4 12h16M4 17h16"/>',users:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20a6.5 6.5 0 0 1 13 0"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.5 14.2A6.5 6.5 0 0 1 21.5 20"/>',audit:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   gear:'<circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/>',
   car:'<path d="M5 16.5h14l-1.6-6a2 2 0 0 0-1.9-1.5H8.5a2 2 0 0 0-1.9 1.5z"/><circle cx="7.5" cy="17" r="1.6"/><circle cx="16.5" cy="17" r="1.6"/><path d="M3 13h2M19 13h2"/>',chat:'<path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.6-5.2A8.5 8.5 0 1 1 21 12z"/><path d="M9 10.5c.5 2 2 3.5 4.5 4.5"/>',
   print:'<path d="M7 9V3h10v6"/><rect x="3" y="9" width="18" height="8" rx="2"/><path d="M7 14h10v7H7z"/>',more:'<circle cx="5" cy="12" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="19" cy="12" r="1.3"/>',search:'<circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>',
-  cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',check:'<path d="M5 12l5 5 9-10"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',warn:'<path d="M12 3.5L2.5 20h19z"/><path d="M12 10v4.5M12 17.2v.3"/>',eye:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',moon:'<path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>',
+  cal:'<rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4"/>',check:'<path d="M5 12l5 5 9-10"/>',x:'<path d="M6 6l12 12M18 6L6 18"/>',warn:'<path d="M12 3.5L2.5 20h19z"/><path d="M12 10v4.5M12 17.2v.3"/>',eye:'<path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/>',eyeoff:'<path d="M10.6 5.6c.5-.1.9-.1 1.4-.1 6 0 9.5 6.5 9.5 6.5a17 17 0 0 1-2.7 3.6M6.2 6.9C3.9 8.7 2.5 12 2.5 12S6 18.5 12 18.5c1.9 0 3.5-.6 4.8-1.4"/><path d="M9.9 9.9a3 3 0 0 0 4.2 4.2M3 3l18 18"/>',moon:'<path d="M20.5 14.5A8.5 8.5 0 1 1 9.5 3.5a7 7 0 0 0 11 11z"/>',sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/>',
   key:'<circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M17 6l3 3"/>',out:'<path d="M14 4h5v16h-5M10 8l-4 4 4 4M6 12h10"/>',back:'<path d="M9 5l7 7-7 7"/>',gem:'<path d="M6 3h12l3 6-9 12L3 9z"/><path d="M3 9h18M9 3l3 6 3-6"/>',
   share:'<circle cx="18" cy="5" r="2.5"/><circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="19" r="2.5"/><path d="M8.2 10.8l7.6-4.4M8.2 13.2l7.6 4.4"/>',copy:'<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/>',
   trash:'<path d="M4 7h16M10 11v6M14 11v6M6 7l1 13h10l1-13M9 7V4h6v3"/>',up:'<path d="M6 15l6-6 6 6"/>',down:'<path d="M6 9l6 6 6-6"/>',edit:'<path d="M4 20h4L20 8l-4-4L4 16z"/>',bolt:'<path d="M13 2L4 14h7l-1 8 9-12h-7z"/>',
@@ -835,7 +854,7 @@ const STATUS={draft:'مسودة',pending_approval:'بانتظار الاعتما
 const ROLE={owner:'مالك',supervisor:'مشرف',employee:'موظف'};
 const badge=s=>`<span class="badge b-${esc(s)}">${esc(STATUS[s]||s)}</span>`;
 
-const ERRMAP=[['Could not find the function public.push_','الإشعارات تحتاج تشغيل السكربت 08_notifications.sql في Supabase'],['PUSH_TEST_WAIT','انتظر ثواني قبل تجربة ثانية'],['PUSH_NO_DEVICE','فعّل الإشعارات على هذا الجهاز أول'],['PUSH_BAD_ENDPOINT','هذا المتصفح يستخدم خدمة إشعارات غير معروفة — استخدم Safari أو Chrome'],['PUSH_BAD_KEYS','تعذر قراءة مفاتيح الإشعارات من الجهاز — جرّب مرة ثانية'],['Invalid login credentials','الإيميل أو كلمة المرور غير صحيحة'],['Email not confirmed','الحساب غير مفعّل بعد'],['rate limit','محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة'],
+const ERRMAP=[['Could not find the function public.push_prefs','إشعارات نشاط الموظفين تحتاج تشغيل السكربت 10_activity_push.sql في Supabase'],['Could not find the function public.push_','الإشعارات تحتاج تشغيل السكربت 08_notifications.sql في Supabase'],['PUSH_TEST_WAIT','انتظر ثواني قبل تجربة ثانية'],['PUSH_NO_DEVICE','فعّل الإشعارات على هذا الجهاز أول'],['PUSH_BAD_ENDPOINT','هذا المتصفح يستخدم خدمة إشعارات غير معروفة — استخدم Safari أو Chrome'],['PUSH_BAD_KEYS','تعذر قراءة مفاتيح الإشعارات من الجهاز — جرّب مرة ثانية'],['Invalid login credentials','الإيميل أو كلمة المرور غير صحيحة'],['Email not confirmed','الحساب غير مفعّل بعد'],['rate limit','محاولات كثيرة، انتظر قليلاً ثم أعد المحاولة'],
 ['IMMUTABLE_FIELD','لا يمكن تغيير هذا الحقل'],['BAD_TRANSITION','هذا الانتقال في حالة العقد غير مسموح'],['NOT_ALLOWED_APPROVE','ليس لديك صلاحية الاعتماد'],
 ['CANCEL_REASON_REQUIRED','سبب الإلغاء مطلوب'],['NOT_ALLOWED_CANCEL','إلغاء عقد معتمد يحتاج صلاحية اعتماد'],['NOT_ALLOWED_ARCHIVE','الأرشفة للمالك أو المشرف فقط'],
 ['NOT_ALLOWED_DELETE','الحذف للمالك فقط'],['DELETE_REASON_REQUIRED','سبب الحذف مطلوب'],['CANNOT_DELETE_APPROVED','حذف العقد المعتمد يحتاج تشغيل سكربت التحديث 06 في Supabase'],['HAS_VERSIONS','حذف عقد له نسخ يحتاج تشغيل سكربت التحديث 06 في Supabase'],
@@ -1490,6 +1509,12 @@ const TP=[['wash_days','عدم غسل السيارة خلال (أيام)'],['win
 const KINDS={خ:'خدش',ص:'صدمة / انبعاج',ط:'تقشر طلاء',ك:'كسر / شرخ',ح:'حفرة'},KCOL={خ:'#e0a100',ص:'#d33',ط:'#8a3ffc',ك:'#d33',ح:'#0a7'};
 const CAT={front:'أمامية',rear:'خلفية',right:'جانب أيمن',left:'جانب أيسر',interior:'داخلية',damage:'ضرر / ملاحظة',warranty_doc:'مستند ضمان',other:'أخرى'};
 const SIGK={contract_customer:'توقيع العميل على العقد',contract_staff:'توقيع الموظف المسؤول على العقد',delivery_customer:'توقيع العميل على الاستلام',delivery_staff:'توقيع الموظف على التسليم'};
+/* نوع التوقيع لكل عقد: بالتطبيق (الافتراضي) أو يدوي بالقلم على الورق — c للعقد، d لورقة التسليم */
+const DOCSIG={c:['contract_customer','contract_staff'],d:['delivery_customer','delivery_staff']};
+const sigDoc=k=>String(k).startsWith('contract')?'c':'d';
+const sigObj=doc=>doc==='c'?C.o.data:(C.o.delivery||{});
+const paperMode=doc=>sigObj(doc).sig==='paper';
+const paperOk=doc=>{const p=sigObj(doc).sigp;return!!(p&&p.at)};
 
 function initialData(){return{
   customer:{name:'',phone:'',id_no:'',invoice_no:'',received_date:today(),expected_date:''},
@@ -1673,10 +1698,20 @@ async function reloadAttachments(){
   C.sigs=sg.data||C.sigs;C.photos=ph.data||C.photos;await signUrls();
   ['before','after'].forEach(p=>{const e=$('#ph-'+p);if(e){const can=p==='before'?editableData():editableDelivery();e.outerHTML=photosPanel(p,can)}});
   Object.keys(SIGK).forEach(k=>{const e=$('#sig-'+k);if(e)renderSig(k)});
+  ['c','d'].forEach(doc=>{const w=$('#sigc-'+doc+' .sgmw');if(w)w.outerHTML=sigBar(doc,doc==='c'?editableData():editableDelivery())});
   if(C.step===STEPS.length-1&&editableData())refreshReview()}
 
 const sigOf=k=>{const a=C.sigs.filter(s=>s.kind===k);return a[a.length-1]};
 const safeImg=s=>/^data:image\/(png|jpeg);base64,[A-Za-z0-9+/=]+$/.test(s||'')?s:'';
+function sigBar(doc,can){const p=paperMode(doc),has=DOCSIG[doc].some(k=>sigOf(k));
+  return `<div class="sgmw"><div class="seg wide sgm" role="group" aria-label="نوع التوقيع">${[['app','edit','بالتطبيق'],['paper','print','يدوي على الورق']].map(([v,i,t])=>{const on=(v==='paper')===p;return `<button type="button" data-act="sigmode" data-doc="${doc}" data-v="${v}" class="${on?'on':''}" aria-pressed="${on}" ${can&&(on||v==='app'||!has)?'':'disabled'}>${ic(i)} ${t}</button>`}).join('')}</div>${!p&&has&&can?'<p class="nt sgn">للتوقيع على الورق احذف التوقيع اللي بالتطبيق أول.</p>':''}</div>`}
+function paperPanel(doc,can){const p=sigObj(doc).sigp,ok=!!(p&&p.at),b=(a,t)=>`<button type="button" class="btn sec sm" data-act="${a}">${ic('print')} ${t}</button>`;
+  return `<div class="sgp" id="sigpaper-${doc}"><p>${doc==='c'?'اطبع العقد':'اطبع ورقة التسليم'}، ويوقّع العميل والموظف بالقلم في خانات التوقيع.</p>
+  <div class="row">${doc==='c'?b('pdfCust','نسخة العميل')+b('pdfShop','نسخة المحل'):b('pdfDelCust','ورقة التسليم للعميل')+b('pdfDelShop','ورقة التسليم للمحل')}</div>
+  <label class="sgk"><input type="checkbox" data-act="sigconf" data-doc="${doc}" ${ok?'checked':''} ${can?'':'disabled'}><span>العميل والموظف وقّعوا على الورقة</span></label>${ok?`<p class="nt">أكّده ${esc(p.name||'')} — ${dt(p.at,true)}</p>`:''}</div>`}
+function sigCard(doc,n1,n2){const can=doc==='c'?editableData():editableDelivery();
+  return `<div class="sgw" id="sigc-${doc}" data-n1="${esc(n1||'')}" data-n2="${esc(n2||'')}">${sigBar(doc,can)}${paperMode(doc)?paperPanel(doc,can):`<div class="g2">${sigPanel(DOCSIG[doc][0],can,n1)}${sigPanel(DOCSIG[doc][1],can,n2)}</div>`}</div>`}
+function redrawSig(doc){const e=$('#sigc-'+doc);if(!e)return;e.outerHTML=sigCard(doc,e.dataset.n1,e.dataset.n2);const n=$('#sigc-'+doc);if(n)initPads(n)}
 function sigPanel(k,can,defName){return `<div class="sigbox" id="sig-${k}" data-def="${esc(defName||'')}">${sigInner(k,can,defName)}</div>`}
 function sigInner(k,can,defName){const s=sigOf(k);
   if(s)return `<b>${SIGK[k]}</b><img class="sg" src="${safeImg(s.image)}" alt=""><div class="nt">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>${can?`<button class="btn sm bad" data-act="delsig" data-k="${k}">حذف التوقيع</button>`:''}`;
@@ -1861,14 +1896,14 @@ function s3(){const d=C.o.data,staff=S.profile.full_name||'',P=PRE();
   ${d.extra_terms.map((c,i)=>`<div class="svc"><div class="hd"><span>${d.terms.length+i+1}.</span><input data-p="data.extra_terms.${i}.t" value="${esc(c.t)}" placeholder="عنوان البند" ${DIS}><button type="button" class="btn sm bad" data-act="delextra" data-i="${i}">حذف</button></div><textarea rows="2" data-p="data.extra_terms.${i}.b" style="margin-top:6px" ${DIS}>${esc(c.b)}</textarea></div>`).join('')}
   <button type="button" class="btn line sm" data-act="addextra">＋ إضافة بند لهذا العقد</button></div>
   <details class="card fold" ${String(d.internal_notes||'').trim()?'open':''}><summary><h3>ملاحظات داخلية <span class="nt">(تظهر في نسخة المحل فقط)</span></h3></summary>${Fi.a('','data.internal_notes',3)}</details>
-  <div class="card"><h3>تواقيع العقد</h3><div class="g2">${sigPanel('contract_customer',editableData(),d.customer.name)}${sigPanel('contract_staff',editableData(),staff)}</div></div>`}
+  <div class="card"><h3>تواقيع العقد</h3>${sigCard('c',d.customer.name,staff)}</div>`}
 const termText=(b,tp)=>esc(b).replace(/\{(\w+)\}/g,(m,k)=>tp&&tp[k]?`<b>${esc(tp[k])}</b>`:'____');
 
 /* الخطوة 5: المراجعة */
 function checks(){const d=C.o.data,sel=d.services.filter(s=>s.sel);
   return[
    {ok:!!d.customer.name.trim(),hard:1,t:'اسم العميل',st:0,f:'data.customer.name'},{ok:!!d.customer.phone.trim(),hard:1,t:'رقم جوال العميل',st:0,f:'data.customer.phone'},{ok:!!d.vehicle.plate.trim(),hard:1,t:'رقم لوحة المركبة',st:0,f:'data.vehicle.plate'},
-   {ok:sel.length>0,hard:1,t:'خدمة واحدة على الأقل',st:2},{ok:!!sigOf('contract_customer'),hard:1,t:'توقيع العميل',st:3,f:'#sig-contract_customer'},{ok:!!sigOf('contract_staff'),hard:1,t:'توقيع الموظف',st:3,f:'#sig-contract_staff'},
+   {ok:sel.length>0,hard:1,t:'خدمة واحدة على الأقل',st:2},...(paperMode('c')?[{ok:paperOk('c'),hard:1,t:'تأكيد التوقيع على الورق',st:3,f:'#sigpaper-c'}]:[{ok:!!sigOf('contract_customer'),hard:1,t:'توقيع العميل',st:3,f:'#sig-contract_customer'},{ok:!!sigOf('contract_staff'),hard:1,t:'توقيع الموظف',st:3,f:'#sig-contract_staff'}]),
    {ok:[...C.inh,...C.photos.filter(p=>p.phase==='before')].length>0,t:'صور الاستلام (يفضّل)',st:1,f:'#ph-before'},priceLock()?{ok:sel.every(s=>nm(s.price)>0),hard:1,t:'كل خدمة مختارة لها سعر في قائمة المالك',st:2}:{ok:sel.every(s=>nm(s.price)>0),t:'سعر لكل خدمة مختارة (تنبيه فقط)',st:2},
    {ok:Object.values(d.tp).every(v=>String(v).trim()),t:'مدد الشروط معبأة (تنبيه فقط)',st:3,f:'#tpc'},
    ...(!isOwner()&&hasLim(draftLim())?[draftOver()?{ok:false,t:'الخصم فوق حدّك — العقد يروح للمالك للاعتماد',st:2,f:'#ofc'}:{ok:true,t:'الخصم ضمن حدّك'}]:[])]}
@@ -2033,6 +2068,16 @@ const ACT_FN={
     const {data,error}=await sb.from('contract_photos').delete().eq('id',b.dataset.id).select('id');if(error)throw error;if(!data||!data.length)throw new Error('row-level security');await reloadAttachments()},
   savesig:b=>saveSig(b.dataset.k),
   clrsig:b=>{const k=b.dataset.k,cv=$(`canvas[data-pad="${k}"]`);if(cv){cv.getContext('2d').clearRect(0,0,cv.width,cv.height);cv._d=false}},
+  sigmode:b=>{const doc=b.dataset.doc==='d'?'d':'c',o=sigObj(doc),pp=b.dataset.v==='paper';
+    if(!(doc==='c'?editableData():editableDelivery()))return;
+    if(pp&&DOCSIG[doc].some(k=>sigOf(k))){toast('احذف التوقيع اللي بالتطبيق أول','bad');return}
+    if((o.sig==='paper')===pp)return;
+    if(pp)o.sig='paper';else{delete o.sig;delete o.sigp}
+    touch();redrawSig(doc)},
+  sigconf:b=>{const doc=b.dataset.doc==='d'?'d':'c',o=sigObj(doc);
+    if(!(doc==='c'?editableData():editableDelivery())||!paperMode(doc)){b.checked=paperOk(doc);return}
+    if(b.checked)o.sigp={at:new Date().toISOString(),by:S.user.id,name:S.profile.full_name||''};else delete o.sigp;
+    touch();redrawSig(doc)},
   delsig:async b=>{if(!await confirmBox('حذف التوقيع','سيُحذف التوقيع ويمكنك إعادة التوقيع.','حذف','bad'))return;
     const s=sigOf(b.dataset.k);const {data,error}=await sb.from('contract_signatures').delete().eq('id',s.id).select('id');if(error)throw error;if(!data||!data.length)throw new Error('row-level security');await reloadAttachments()},
   submit:async()=>{
@@ -2056,14 +2101,14 @@ const ACT_FN={
   archive:async()=>{if(!await confirmBox('أرشفة العقد','سيُنقل العقد للأرشيف (ما زال قابلاً للبحث).','أرشفة'))return;await setStatus('archived')},
   deliver:async()=>{
     C.dirty=true;C.ver++;await saveNow();const dl=C.o.delivery;
-    const miss=[];if(!dl.date)miss.push('تاريخ التسليم');if(!sigOf('delivery_customer'))miss.push('توقيع العميل على الاستلام');if(!sigOf('delivery_staff'))miss.push('توقيع الموظف');
+    const miss=[];if(!dl.date)miss.push('تاريخ التسليم');if(paperMode('d')){if(!paperOk('d'))miss.push('تأكيد التوقيع على ورقة التسليم')}else{if(!sigOf('delivery_customer'))miss.push('توقيع العميل على الاستلام');if(!sigOf('delivery_staff'))miss.push('توقيع الموظف')}
     if(miss.length){toast('أكمل أولاً: '+miss.join('، '),'bad');return}
     const rem=totals(C.o.data).rem,rv=String(dl.recv??'').trim()===''?rem:nm(dl.recv),owe=r2(rem-rv);
     const warn=(C.photos.some(p=>p.phase==='after')?'':'<br><b>تنبيه:</b> لا توجد صور ما بعد التنفيذ.')+(owe>0?`<br><b>تنبيه:</b> باقي على العميل ${money(owe)} ر.س.`:'');
     if(!await confirmBox('تأكيد التسليم النهائي','بعد التأكيد تُقفل بيانات التسليم.'+warn,'تأكيد التسليم','ok'))return;await setStatus('delivered');toast('تم التسليم','ok')},
   newver:async()=>{
     const why=await promptBox('تصحيح خطأ / نسخة جديدة','سبب التصحيح (مطلوب). تبقى النسخة الحالية محفوظة، وتُنشأ نسخة جديدة كمسودة تصحّح فيها الخطأ ثم توقّعها وتعتمدها، فتصير هي النسخة السارية وتظهر القديمة بعلامة «مستبدلة».','إنشاء النسخة',true);if(!why)return;
-    const nd=clone(C.o.data);nd.version_note=why;nd.shop=await shopSnap();
+    const nd=clone(C.o.data);delete nd.sigp;nd.version_note=why;nd.shop=await shopSnap();
     const {data,error}=await sb.from('contracts').insert({parent_contract_id:C.row.id,customer_name:C.row.customer_name,customer_phone:C.row.customer_phone,plate_no:C.row.plate_no,data:nd,created_by:S.user.id}).select('id').single();
     if(error)throw error;location.hash='#/c/'+data.id},
   refterms:async()=>{if(!await confirmBox('تحديث الشروط','ستُستبدل شروط هذا العقد بالقالب الحالي المعتمد من المالك.','تحديث'))return;
@@ -2103,7 +2148,7 @@ function deliveryCard(){
   <label style="margin-top:8px">ملاحظة الدفع عند التسليم (اختياري)</label><input data-p="delivery.pay_note" value="${esc(dl.pay_note||'')}" ${DIS}>
   <p style="margin-top:10px">${esc(DELIVERY_ACK.ar)}</p>
   <h4 style="margin:10px 0 4px">توثيق السيارة عند التسليم (صور للمحل فقط، لا تظهر في نسخة العميل)</h4>${photosPanel('after',editableDelivery())}
-  <div class="g2" style="margin-top:10px">${sigPanel('delivery_customer',editableDelivery(),C.o.data.customer.name)}${sigPanel('delivery_staff',editableDelivery(),S.profile.full_name||'')}</div>
+  <div style="margin-top:10px">${sigCard('d',C.o.data.customer.name,S.profile.full_name||'')}</div>
   <div style="margin-top:10px"><button class="btn ok" data-act="deliver">تأكيد التسليم النهائي</button></div></div>`}
 function versionsCard(){
   if(C.versions.length<2&&!C.parent)return '';
@@ -2173,8 +2218,10 @@ function docHTML(mode,opt){
   h+=`<h4><span>الشروط والأحكام</span><span class="en" dir="ltr">Terms &amp; Conditions</span></h4><ol>${d.terms.map(t=>`<li><b>${esc(t.t)}:</b> ${termText(t.b,d.tp)}</li>`).join('')}${(d.extra_terms||[]).filter(t=>t.t||t.b).map(t=>`<li><b>${esc(t.t)}:</b> ${esc(t.b)}</li>`).join('')}</ol>`;
   const dsc=(d.disclaimers||[]).filter(x=>x.ar||x.en);
   if(dsc.length)h+=`<div class="disc"><div class="dh"><span>إخلاء مسؤولية</span><span class="en" dir="ltr">Disclaimer</span></div>${dsc.map(x=>`<div class="dr"><p>${esc(x.ar)}</p><p class="en" dir="ltr">${esc(x.en)}</p></div>`).join('')}</div>`;
-  const sg=k=>{const s=sigOf(k);return s?`<img src="${safeImg(s.image)}" alt=""><div class="small">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>`:(opt.deliveryOnly?'<div class="small" style="margin-top:34px">الاسم: ......................... التوقيع: .........................</div>':'<div class="small">— لم يُوقَّع —</div>')};
-  h+=`<h4><span>التواقيع</span><span class="en" dir="ltr">Signatures</span></h4><div class="sigs"><div><b>العميل / Customer</b>${sg('contract_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('contract_staff')}</div></div>`;
+  const sgb='<div class="sgb"><div class="sl"><span>الاسم / Name</span><i></i><span>التاريخ / Date</span><i class="d"></i></div><div class="sl s"><span>التوقيع / Signature</span><i></i></div></div>';
+  const sgn=doc=>{const p=sigObj(doc).sigp;return paperMode(doc)&&!cust&&p&&p.at?` <small class="sgc">· يدوي على الورق — أكّده ${esc(p.name||'')} ${dt(p.at,true)}</small>`:''};
+  const sg=k=>{if(paperMode(sigDoc(k)))return sgb;const s=sigOf(k);return s?`<img src="${safeImg(s.image)}" alt=""><div class="small">${esc(s.signer_name)} — ${dt(s.signed_at,true)}</div>`:(opt.deliveryOnly?'<div class="small" style="margin-top:34px">الاسم: ......................... التوقيع: .........................</div>':'<div class="small">— لم يُوقَّع —</div>')};
+  h+=`<h4><span>التواقيع${sgn('c')}</span><span class="en" dir="ltr">Signatures</span></h4><div class="sigs"><div><b>العميل / Customer</b>${sg('contract_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('contract_staff')}</div></div>`;
   // الصور
   const ph=(phase)=>[...(phase==='before'?C.inh:[]),...C.photos.filter(p=>p.phase===phase)];
   [['before','صور الاستلام (قبل التنفيذ)']].forEach(([p,t])=>{const L=cust?[]:ph(p);if(L.length)h+=`<h4>${t}</h4><div class="phg">${L.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}${x.inherited?' (من النسخة السابقة)':''}</figcaption></figure>`).join('')}</div>`});
@@ -2196,7 +2243,7 @@ function docHTML(mode,opt){
     <h4><span>حالة التسليم</span><span class="en" dir="ltr">Delivery Details</span></h4>
     <table>${cust?'':`<tr><td class="l">حالة السيارة عند التسليم <i class="en" dir="ltr">Condition</i></td><td>${esc(dl.state)||'&nbsp;'}</td></tr>`}<tr><td class="l">الخدمات المنفذة <i class="en" dir="ltr">Services performed</i></td><td>${esc(dl.done)||'&nbsp;'}</td></tr><tr><td class="l">ملاحظات <i class="en" dir="ltr">Notes</i></td><td>${esc(dl.notes)||'&nbsp;'}</td></tr>${dl.pay_note?`<tr><td class="l">ملاحظة الدفع <i class="en" dir="ltr">Payment note</i></td><td>${esc(dl.pay_note)}</td></tr>`:''}</table>
     <div class="disc ack"><div class="dh"><span>إقرار الاستلام</span><span class="en" dir="ltr">Acknowledgement of Receipt</span></div><div class="dr"><p>${esc(DELIVERY_ACK.ar)}</p><p class="en" dir="ltr">${esc(DELIVERY_ACK.en)}</p></div></div>
-    <h4><span>التوقيع عند الاستلام</span><span class="en" dir="ltr">Signatures</span></h4>
+    <h4><span>التوقيع عند الاستلام${sgn('d')}</span><span class="en" dir="ltr">Signatures</span></h4>
     <div class="sigs"><div><b>العميل / Customer</b>${sg('delivery_customer')}</div><div><b>الموظف المسؤول / Responsible Employee</b>${sg('delivery_staff')}</div></div>
     ${af.length?`<h4><span>توثيق المركبة عند التسليم (للمحل فقط)</span><span class="en" dir="ltr">Vehicle documentation at delivery (shop only)</span></h4><div class="phg">${af.map(x=>`<figure>${C.urls[x.storage_path]?`<img src="${esc(C.urls[x.storage_path])}" alt="">`:''}<figcaption>${esc(CAT[x.category]||'')}</figcaption></figure>`).join('')}</div>`:''}
     <div class="pfoot">${esc(shop.name_ar||'الحماية العالية لتلميع السيارات')} · ${esc(shop.name_en||'Best Protection')} · ${esc(r.contract_no)} · ورقة التسليم / Delivery Receipt${cust?'':' · نسخة المحل / Shop Copy'}</div></div>`}
@@ -2241,7 +2288,7 @@ document.addEventListener('DOMContentLoaded',boot);
 /* ========== حساباتي (المالك): أرقام المحل من العقود ========== */
 const ACC_ST=['approved','in_progress','delivered','archived'];
 const ACC_P=[['today','اليوم'],['yday','أمس'],['7d','آخر 7 أيام'],['month','هذا الشهر'],['lmonth','الشهر الماضي'],['year','هذه السنة'],['custom','فترة محددة']];
-let AP={k:'month',from:'',to:''};
+let AP={k:'month',from:'',to:''},ACC_DO=false;   // ACC_DO: قسم الخصومات مفتوح؟ (يرجع مخفي كل ما تفتح الصفحة)
 const pad2=n=>String(n).padStart(2,'0');
 function accRange(k){const t=today(),[y,m]=t.split('-').map(Number),last=(yy,mm)=>new Date(Date.UTC(yy,mm,0)).getUTCDate();
   if(k==='today')return [t,t];if(k==='yday'){const d=addDays(t,-1);return [d,d]}if(k==='7d')return [addDays(t,-6),t];
@@ -2270,6 +2317,9 @@ function accRows(all,f,t){return all.filter(r=>r.bd>=f&&r.bd<=t&&!(r.parent_cont
 /* صف «اسم · شريط · رقم» (نفس اللون لكل الصفوف؛ الاسم مكتوب فلا يعتمد على اللون) */
 function meterRows(L,cls){const mx=Math.max(0,...L.map(x=>x.v));if(!(mx>0))return '';
   return `<div class="mlist">${L.map(x=>`<${x.href?`a href="${esc(x.href)}"`:'div'} class="mrow"><span class="mn">${esc(x.n)}${x.s?`<small>${esc(x.s)}</small>`:''}</span><span class="mt"><i class="${cls||''}" style="width:${x.v>0?Math.max(2,Math.round(x.v/mx*100)):0}%"></i></span><b>${fmtM(x.v)} <small>ر.س</small></b></${x.href?'a':'div'}>`).join('')}</div>`}
+/* كل واحد وكم خصم: الاسم والمبلغ بسطر، وتحتهم الشريط والتفاصيل (ما تنقص على الجوال) */
+function discRows(L){const mx=Math.max(0,...L.map(x=>x.v));
+  return `<div class="dlist">${L.map(x=>`<a class="drow" href="${esc(x.href)}"><span class="drt"><b>${esc(x.n)}</b><b class="dv">${fmtM(x.v)} <small>ر.س</small></b></span><span class="mt"><i style="width:${mx>0?Math.max(2,Math.round(x.v/mx*100)):0}%"></i></span><small>${esc(x.s)}</small></a>`).join('')}</div>`}
 function accHTML(all,f,t,names){
   const R=accRows(all,f,t),S=R.filter(r=>ACC_ST.includes(r.status)),PN=R.filter(r=>r.status==='pending_approval'),CN=R.filter(r=>r.status==='cancelled');
   if(!R.length)return '<div class="card muted" style="text-align:center">لا توجد عقود في هذه الفترة.</div>';
@@ -2277,7 +2327,17 @@ function accHTML(all,f,t,names){
   const sales=sum(S,x=>x.T.total),net=sum(S,x=>x.T.net),vat=sum(S,x=>x.T.vat),gross=sum(S,x=>x.T.g),odisc=sum(S,x=>x.T.odisc),man=sum(S,x=>x.T.ldisc+x.T.xdisc),rec=sum(S,x=>x.rec),rem=sum(S,x=>x.rem);
   const tile=(i,l,v,s)=>`<div class="kpi">${ic(i)}<b>${money(v)}</b><span>${l}</span>${s?`<small>${esc(s)}</small>`:''}</div>`;
   let h=`<div class="card acch"><small>إجمالي المبيعات (شامل الضريبة)</small><div class="hero">${money(sales)} <span>ر.س</span></div><span class="nt">${nC(S.length)}${S.length?` · متوسط العقد ${money(r2(sales/S.length))} ر.س`:''}</span></div>
-  <div class="kpis acck">${tile('wallet','المستلم',rec,'مقدّم + عند التسليم')}${tile('cal','المتبقي على العملاء',rem,'')}${tile('gem','الخصومات',r2(odisc+man),`عروض ${fmtM(odisc)} · يدوي ${fmtM(man)}`)}${tile('doc','المبيعات قبل الضريبة',net,'بعد الخصم')}${tile('stack','ضريبة القيمة المضافة',vat,'15%')}${tile('trend','قبل الخصم',gross,'بأسعار الخدمات')}</div>`;
+  <div class="kpis acck">${tile('wallet','المستلم',rec,'مقدّم + عند التسليم')}${tile('cal','المتبقي على العملاء',rem,'')}${tile('doc','المبيعات قبل الضريبة',net,'بعد الخصم')}${tile('stack','ضريبة القيمة المضافة',vat,'15%')}</div>`;
+  // الخصومات: قسم لحاله ومخفي — يبان المبلغ كامل وتحته كل واحد وكم خصم لما تضغط عليه
+  const dsc=r2(odisc+man),DP={};
+  S.forEach(x=>{const m=r2(x.T.ldisc+x.T.xdisc),od=x.T.odisc;if(!(m>0||od>0))return;const o=DP[x.created_by]||(DP[x.created_by]={m:0,o:0,c:0});o.m=r2(o.m+m);o.o=r2(o.o+od);o.c++});
+  const pp=Object.keys(DP).sort((a,b)=>(DP[b].m+DP[b].o)-(DP[a].m+DP[a].o)).map(k=>{const z=DP[k];return {n:names[k]||'—',v:r2(z.m+z.o),s:nC(z.c)+(z.o>0&&z.m>0?` · عروض ${fmtM(z.o)} · يدوي ${fmtM(z.m)}`:z.o>0?' · عروض':' · يدوي'),href:`#/contracts?by=${k}&from=${f}`}});
+  const OF={};S.forEach(x=>{if(x.T.odisc>0){const o=x.d.offer||{},k=String(o.id||o.name||'?'),z=OF[k]||(OF[k]={n:String(o.name||'عرض'),c:0,v:0});z.c++;z.v=r2(z.v+x.T.odisc)}});
+  const of=Object.values(OF).sort((a,b)=>b.v-a.v).map(o=>({n:o.n,s:nC(o.c),v:o.v}));
+  h+=`<div class="card dsc${ACC_DO?' open':''}" id="adsc"><button type="button" class="dsch" id="adt" aria-expanded="${ACC_DO}" aria-controls="adb">${ic('gem')}<span class="dsct">الخصومات</span><span class="dscm" aria-hidden="true">••••• <small>ر.س</small></span><span class="dsce">${ic('eye')}<em>إظهار</em></span><span class="dscx">${ic('eyeoff')}<em>إخفاء</em></span></button>
+  <div id="adb" ${ACC_DO?'':'hidden'}><div class="dscv"><b>${money(dsc)}</b> <span>ر.س</span></div><p class="nt dscs">${gross>0?`من ${money(gross)} ر.س قبل الخصم (${fmtPct(dsc*100/gross)}%)`:'لا توجد مبيعات في هذه الفترة'}${odisc>0&&man>0?` · عروض ${fmtM(odisc)} · يدوي ${fmtM(man)}`:''}</p>
+  ${pp.length?`<h4 class="ah">كل واحد وكم خصم</h4>${discRows(pp)}`:'<p class="nt" style="margin:8px 0 0">لا توجد خصومات في هذه الفترة.</p>'}${of.length?`<h4 class="ah">العروض الجاهزة</h4>${meterRows(of,'g')}`:''}
+  <p class="nt" style="margin:12px 0 0"><a href="#/users">حد الخصم لكل موظف ←</a></p></div></div>`;
   // المبيعات عبر الفترة (عمود لكل يوم، أو لكل شهر إذا الفترة أطول من شهرين)
   const days=Math.round((Date.parse(t)-Date.parse(f))/864e5)+1,byM=days>62,B=[];
   if(byM){let y=+f.slice(0,4),m=+f.slice(5,7);while(`${y}-${pad2(m)}`<=t.slice(0,7)&&B.length<60){const k=`${y}-${pad2(m)}`;B.push({k,l:new Date(Date.UTC(y,m-1,15)).toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{month:'short',timeZone:'UTC'}),full:new Date(Date.UTC(y,m-1,15)).toLocaleDateString('ar-SA-u-nu-latn-ca-gregory',{month:'long',year:'numeric',timeZone:'UTC'}),v:0,c:0});if(++m>12){m=1;y++}}}
@@ -2297,13 +2357,9 @@ function accHTML(all,f,t,names){
   const sv=Object.values(SV).sort((a,b)=>b.v-a.v).map(o=>({n:o.n,s:nC(o.c),v:o.v}));
   if(sv.length)h+=`<div class="card"><h3>الخدمات</h3>${meterRows(sv)}<p class="nt" style="margin:6px 0 0">بعد خصم كل خدمة، وقبل خصم العروض والخصم الإضافي والضريبة.</p></div>`;
   // الموظفين
-  const EM={};S.forEach(x=>{const o=EM[x.created_by]||(EM[x.created_by]={n:0,v:0,m:0,o:0});o.n++;o.v=r2(o.v+x.T.total);o.m=r2(o.m+x.T.ldisc+x.T.xdisc);o.o=r2(o.o+x.T.odisc)});
+  const EM={};S.forEach(x=>{const o=EM[x.created_by]||(EM[x.created_by]={n:0,v:0});o.n++;o.v=r2(o.v+x.T.total)});
   const em=Object.keys(EM).sort((a,b)=>EM[b].v-EM[a].v);
-  if(em.length)h+=`<div class="card"><h3>الموظفين</h3><div class="sc"><table class="t acct"><tr><th>الموظف</th><th>العقود</th><th>المبيعات</th><th>خصم يدوي</th><th>عروض</th></tr>${em.map(k=>`<tr><td><a href="#/contracts?by=${esc(k)}&from=${esc(f)}">${esc(names[k]||'—')}</a></td><td>${EM[k].n}</td><td>${money(EM[k].v)}</td><td>${money(EM[k].m)}</td><td>${money(EM[k].o)}</td></tr>`).join('')}</table></div></div>`;
-  // الخصومات
-  const OF={};S.forEach(x=>{if(x.T.odisc>0){const o=x.d.offer||{},k=String(o.id||o.name||'?'),z=OF[k]||(OF[k]={n:String(o.name||'عرض'),c:0,v:0});z.c++;z.v=r2(z.v+x.T.odisc)}});
-  const of=Object.values(OF).sort((a,b)=>b.v-a.v).map(o=>({n:o.n,s:nC(o.c),v:o.v})),mm=em.filter(k=>EM[k].m>0).sort((a,b)=>EM[b].m-EM[a].m).map(k=>({n:names[k]||'—',v:EM[k].m,href:`#/contracts?by=${k}&from=${f}`}));
-  h+=`<div class="card"><div class="sech"><h3>الخصومات</h3><a class="nt" href="#/users">حد الخصم لكل موظف ←</a></div>${of.length?`<h4 class="ah">العروض الجاهزة</h4>${meterRows(of,'g')}`:''}${mm.length?`<h4 class="ah">الخصم اليدوي حسب الموظف</h4>${meterRows(mm)}`:''}${!of.length&&!mm.length?'<p class="nt" style="margin:0">لا توجد خصومات في هذه الفترة.</p>':''}</div>`;
+  if(em.length)h+=`<div class="card"><h3>الموظفين</h3><div class="sc"><table class="t acct"><tr><th>الموظف</th><th>العقود</th><th>المبيعات</th></tr>${em.map(k=>`<tr><td><a href="#/contracts?by=${esc(k)}&from=${esc(f)}">${esc(names[k]||'—')}</a></td><td>${EM[k].n}</td><td>${money(EM[k].v)}</td></tr>`).join('')}</table></div></div>`;
   // المتبقي على العملاء
   const owed=S.filter(x=>['delivered','archived'].includes(x.status)&&x.rem>0),inShop=S.filter(x=>['approved','in_progress'].includes(x.status)&&x.rem>0);
   const rowsOf=L=>`<div class="rows">${L.slice(0,40).map(x=>`<a class="r" href="#/c/${esc(x.id)}"><div><b>${esc(x.contract_no)}</b><small>${esc(dAy(x.bd))}</small></div><div>${esc(x.customer_name||'— بدون اسم —')}<small dir="ltr">${esc(x.customer_phone||'')}</small></div><div><b>${money(x.rem)}</b> <small>ر.س</small></div><div>${badge(x.status)}</div></a>`).join('')}</div>${L.length>40?`<p class="nt">و${nC(L.length-40)} أخرى — كلها في ملف التصدير.</p>`:''}`;
@@ -2329,7 +2385,7 @@ async function pageAccounts(main){
   <div class="card flt"><div class="chips" id="apr">${ACC_P.map(([k,t])=>`<button type="button" data-k="${k}" class="${AP.k===k?'on':''}">${t}</button>`).join('')}</div>
   <div class="g" id="acr" ${AP.k==='custom'?'':'hidden'} style="margin-top:8px"><div><label>من تاريخ</label>${dateIn('id="af"',AP.from)}</div><div><label>إلى تاريخ</label>${dateIn('id="at"',AP.to)}</div></div>
   <p class="nt" id="apl" style="margin:8px 0 0"></p></div><div id="ares"></div>`;
-  const box=$('#ares');loading(box);
+  const box=$('#ares');loading(box);ACC_DO=false;
   const pr=await sb.from('profiles').select('id,full_name,email');const names={};(pr.data||[]).forEach(p=>names[p.id]=p.full_name||p.email);
   let rows=null,from=null,cur=null;
   const load=async()=>{const [f,t]=accRange(AP.k);cur=[f,t];$('#apl').textContent=`${f===t?dAy(f):`من ${dAy(f)} إلى ${dAy(t)}`} · حسب تاريخ العقد · المعتمدة فقط`;
@@ -2342,7 +2398,7 @@ async function pageAccounts(main){
   $('#acsv').onclick=async()=>{if(!rows){toast('انتظر تحميل الأرقام','bad');return}const [f,t]=cur;const R=accRows(rows,f,t);if(!R.length){toast('لا توجد عقود في هذه الفترة','bad');return}
     await shareFile(`حساباتي-${f}-${t}.csv`,accCSV(rows,f,t,names),'text/csv;charset=utf-8');sb.rpc('log_event',{p_action:'export_accounts',p_details:{from:f,to:t,count:R.length}}).then(()=>{},()=>{})};
   const show=b=>{const o=$('#cro');if(!o||!b)return;$$('.cols .col.on').forEach(x=>x.classList.remove('on'));b.classList.add('on');o.innerHTML=`${esc(b.dataset.f)} — <b>${money(+b.dataset.v)} ر.س</b> · ${nC(+b.dataset.c)}`};
-  box.onclick=e=>show(e.target.closest('.cols .col'));box.onpointerover=e=>{if(e.pointerType==='mouse')show(e.target.closest('.cols .col'))};box.onfocusin=e=>show(e.target.closest('.cols .col'));
+  box.onclick=e=>{const t=e.target.closest('#adt');if(t){ACC_DO=!ACC_DO;const c=$('#adsc');c.classList.toggle('open',ACC_DO);$('#adb').hidden=!ACC_DO;t.setAttribute('aria-expanded',String(ACC_DO));return}show(e.target.closest('.cols .col'))};box.onpointerover=e=>{if(e.pointerType==='mouse')show(e.target.closest('.cols .col'))};box.onfocusin=e=>show(e.target.closest('.cols .col'));
   await load()}
 
 
@@ -2415,9 +2471,17 @@ function pushWhat(){
   return L}
 function openPush(){
   modal(`<div class="pn"><h3>${ic('bell')} الإشعارات</h3><div id="pnb"><p class="muted">جاري التحقق…</p></div>
-  <div><b class="pnh">وش يوصلك</b><ul class="pnl">${pushWhat().map(t=>`<li>${ic('check')}<span>${esc(t)}</span></li>`).join('')}</ul></div>
+  <div><b class="pnh">وش يوصلك</b><ul class="pnl">${pushWhat().map(t=>`<li>${ic('check')}<span>${esc(t)}</span></li>`).join('')}</ul>
+  ${isOwner()?`<label class="sgk pna"><input type="checkbox" id="pna" checked disabled><span><b>نشاط الموظفين</b><small>عقد جديد، خصم أو زيادته، زيادة مبلغ العقد، دفعة مقدمة — يوصلك بعد دقيقة من آخر تعديل</small></span></label>`:''}</div>
   <p class="nt">الإشعار يبين رقم العقد والسيارة واسم الموظف بس — بدون اسم العميل أو جواله، لأنه يطلع على شاشة القفل. ويبقى يوصل لهذا الجهاز حتى لو سجّلت خروج، إلا إذا ضغطت «إيقاف».</p>
-  <div class="row-between"><span></span><button type="button" class="btn sec" id="pnx">إغلاق</button></div></div>`,(m,close)=>{$('#pnx',m).onclick=close;paintPush(m)})}
+  <div class="row-between"><span></span><button type="button" class="btn sec" id="pnx">إغلاق</button></div></div>`,(m,close)=>{$('#pnx',m).onclick=close;paintPush(m);pushActInit(m)})}
+/* المالك: تشغيل/إيقاف إشعارات نشاط الموظفين (محفوظ في الحساب، مو الجهاز) */
+async function pushActInit(m){const cb=$('#pna',m);if(!cb)return;
+  try{const r=await sb.rpc('push_state',{p_endpoint:null});if(!r.error&&r.data&&r.data.activity===false)cb.checked=false}catch(e){}
+  cb.disabled=false;
+  cb.onchange=async()=>{const v=cb.checked;cb.disabled=true;
+    try{const r=await sb.rpc('push_prefs',{p_activity:v});if(r.error)throw r.error;toast(v?'بيوصلك نشاط الموظفين':'وقّفنا إشعارات نشاط الموظفين','ok')}
+    catch(e){cb.checked=!v;toast(errMsg(e),'bad')}finally{cb.disabled=false}}}
 async function paintPush(m){
   const el=$('#pnb',m);if(!el)return;
   const st=(cls,icon,html)=>`<div class="pnst ${cls}">${ic(icon)}<div>${html}</div></div>`;
